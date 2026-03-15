@@ -23,7 +23,7 @@ export default async function handler(req, res) {
 
     const params = new URLSearchParams(req.query);
     params.delete('_endpoint');
-    const apiRes = await fetch(`https://portal-accept2.api.bolagsverket.se/vardefulla-datamangder/v1/foretagsinformation/search?${params}`, {
+    const apiRes = await fetch(`https://gw-accept2.api.bolagsverket.se/vardefulla-datamangder/v1/foretagsinformation/search?${params}`, {
       headers: { 'Authorization': `Bearer ${tokenData.access_token}`, 'Accept': 'application/json' }
     });
     const data = await apiRes.json();
