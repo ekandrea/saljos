@@ -1,6 +1,6 @@
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   if (req.method === 'OPTIONS') return res.status(200).end();
 
@@ -21,10 +21,19 @@ export default async function handler(req, res) {
     const tokenData = await tokenRes.json();
     if (!tokenData.access_token) return res.status(401).json({ error: 'Kunde inte hämta token', details: tokenData });
 
-    const params = new URLSearchParams(req.query);
-    params.delete('_endpoint');
-    const apiRes = await fetch(`https://gw-accept2.api.bolagsverket.se/vardefulla-datamangder/v1/foretagsinformation/search?${params}`, {
-      headers: { 'Authorization': `Bearer ${tokenData.access_token}`, 'Accept': 'application/json' }
+    const { orgnr } = req.query;
+    if (!orgnr) return res.status(400).json({ error: 'orgnr saknas' });
+
+    const apiRes = await fetch('https://gw-accept2.api.bolagsverket.se/vardefulla-datamangder/v1/organisationer', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${tokenData.access_token}`,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        organisationsidentitet: { identitetsbeteckning: orgnr.replace('-', '') }
+      })
     });
     const data = await apiRes.json();
     return res.status(apiRes.status).json(data);
