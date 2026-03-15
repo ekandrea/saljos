@@ -9,7 +9,6 @@ export default async function handler(req, res) {
   if (!clientId || !clientSecret) return res.status(500).json({ error: 'BV_CLIENT_ID eller BV_CLIENT_SECRET saknas.' });
 
   try {
-    // Hämta OAuth2 token
     const tokenRes = await fetch('https://portal-accept2.api.bolagsverket.se/oauth2/token', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -22,7 +21,6 @@ export default async function handler(req, res) {
     const tokenData = await tokenRes.json();
     if (!tokenData.access_token) return res.status(401).json({ error: 'Kunde inte hämta token', details: tokenData });
 
-    // Anropa Bolagsverket API
     const params = new URLSearchParams(req.query);
     params.delete('_endpoint');
     const apiRes = await fetch(`https://portal-accept2.api.bolagsverket.se/vardefulla-datamangder/v1/foretagsinformation/search?${params}`, {
