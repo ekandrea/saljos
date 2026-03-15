@@ -1,20 +1,35 @@
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   if (req.method === 'OPTIONS') return res.status(200).end();
-  const apiKey = process.env.BV_API_KEY;
-  if (!apiKey) return res.status(500).json({ error: 'BV_API_KEY saknas i Vercel environment variables.' });
-  const baseUrl = process.env.BV_BASE_URL || 'https://api.bolagsverket.se/';
-  const params = new URLSearchParams(req.query);
-  const endpoint = params.get('_endpoint') || 'foretagsinformation/v1/search';
-  params.delete('_endpoint');
+
+  const clientId = process.env.BV_CLIENT_ID;
+  const clientSecret = process.env.BV_CLIENT_SECRET;
+  if (!clientId || !clientSecret) return res.status(500).json({ error: 'BV_CLIENT_ID eller BV_CLIENT_SECRET saknas.' });
+
   try {
-    const response = await fetch(`${baseUrl}${endpoint}?${params}`, {
-      headers: { 'Authorization': `ApiKey ${apiKey}`, 'Accept': 'application/json' }
+    // Hämta OAuth2 token
+    const tokenRes = await fetch('https://portal-accept2.api.bolagsverket.se/oauth2/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        grant_type: 'client_credentials',
+        client_id: clientId,
+        client_secret: clientSecret
+      })
     });
-    const data = await response.json();
-    return res.status(response.status).json(data);
+    const tokenData = await tokenRes.json();
+    if (!tokenData.access_token) return res.status(401).json({ error: 'Kunde inte hämta token', details: tokenData });
+
+    // Anropa Bolagsverket API
+    const params = new URLSearchParams(req.query);
+    params.delete('_endpoint');
+    const apiRes = await fetch(`https://portal-accept2.api.bolagsverket.se/vardefulla-datamangder/v1/foretagsinformation?${params}`, {
+      headers: { 'Authorization': `Bearer ${tokenData.access_token}`, 'Accept': 'application/json' }
+    });
+    const data = await apiRes.json();
+    return res.status(apiRes.status).json(data);
   } catch (err) {
     return res.status(502).json({ error: err.message });
   }
