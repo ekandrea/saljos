@@ -711,7 +711,7 @@ function doLogin() {
 function logout() { sessionStorage.clear(); location.reload(); }
 
 async function startApp() {
- loadLocal();(); // Load from cloud first
+ loadLocal(); // Load from cloud first
  updateBadges();
  renderDialer();
  initSNI();
@@ -768,7 +768,7 @@ async function cloudPush() {
 }
 
 async function cloudSync() {
- loadLocal();();
+ loadLocal();
  await cloudPush();
 }
 
