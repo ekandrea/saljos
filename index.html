@@ -1,4 +1,4 @@
-1<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="sv">
 <head>
 <meta charset="UTF-8">
@@ -711,7 +711,7 @@ function doLogin() {
 function logout() { sessionStorage.clear(); location.reload(); }
 
 async function startApp() {
- await cloudPull(); // Load from cloud first
+ loadLocal(); // Load from local storage
  updateBadges();
  renderDialer();
  initSNI();
