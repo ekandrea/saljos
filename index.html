@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+1<!DOCTYPE html>
 <html lang="sv">
 <head>
 <meta charset="UTF-8">
@@ -711,7 +711,7 @@ function doLogin() {
 function logout() { sessionStorage.clear(); location.reload(); }
 
 async function startApp() {
- loadLocal(); // Load from cloud first
+ await cloudPull(); // Load from cloud first
  updateBadges();
  renderDialer();
  initSNI();
@@ -768,7 +768,7 @@ async function cloudPush() {
 }
 
 async function cloudSync() {
- loadLocal();
+ await cloudPull();
  await cloudPush();
 }
 
@@ -1266,6 +1266,7 @@ function renderKK(lead) {
      <a href="https://www.linkedin.com/search/results/companies/?keywords=${encodeURIComponent(lead.company||'')}" target="_blank" class="link-btn">LinkedIn</a>
      <a href="https://www.google.com/search?q=${encodeURIComponent(lead.company||'')}" target="_blank" class="link-btn">Google</a>
      <span class="link-btn" style="cursor:pointer" onclick="ptsFromKK('${esc(normPhone(lead.phone))}')">📡 PTS</span>
+     <span class="link-btn" style="cursor:pointer" onclick="bvLookup('${esc(lead.orgnr)}')">🏛️ BV</span>
     </div>
    </div>
    <div>
@@ -1650,6 +1651,23 @@ function getSampleData() {
   {id:3,company:'Bygg & Betong AB',contact:'Johan Byggare',phone:'46703456789',orgnr:'556345-6789',operator:'Telia',email:'',plan:'',priceOrig:'',priceDiscount:'',priceFinal:'',bindingDate:add(45),industry:'bygg',portingDate:null,nextCallDate:null,status:'ny',note:'',vdName:'',vdPhone:'',vdEmail:'',website:'',offerSent:false,offerOpened:false,history:[],lockedBy:null,lockedAt:null,seller:null,subs:[{phone:'46703456789',user:'Johan Byggare',portDate:'',end:add(45),plan:''},{phone:'46703456790',user:'Anna Byggare',portDate:'',end:add(45),plan:''}]},
   {id:4,company:'Logistik Partner AB',contact:'Marcus Frakt',phone:'46704567890',orgnr:'556456-7890',operator:'Tre',email:'',plan:'',priceOrig:'',priceDiscount:'',priceFinal:'',bindingDate:add(-12),industry:'logistik',portingDate:null,nextCallDate:null,status:'ny',note:'',vdName:'',vdPhone:'',vdEmail:'',website:'',offerSent:false,offerOpened:false,history:[],lockedBy:null,lockedAt:null,seller:null,subs:[{phone:'46704567890',user:'Marcus Frakt',portDate:'',end:add(-12),plan:''}]},
  ];
+}
+
+async function bvLookup(orgnr) {
+ if (!orgnr) { alert('Inget org-nummer på detta lead!'); return; }
+ const clean = orgnr.replace(/\D/g,'');
+ showNotif('Hämtar från Bolagsverket...','🏛️');
+ try {
+  const r = await fetch('/api/bv?orgnr='+encodeURIComponent(clean));
+  const d = await r.json();
+  if (d.error) { alert('Fel: '+d.error); return; }
+  const org = d.organisationer?.[0];
+  if (!org) { alert('Ingen info hittades för '+orgnr); return; }
+  const namn = org.organisationsnamn?.namn || '';
+  const form = org.juridiskForm?.klartext || '';
+  const status = org.status?.klartext || '';
+  alert('🏛️ Bolagsverket\n\nBolag: '+namn+'\nForm: '+form+'\nStatus: '+status);
+ } catch(e) { alert('Fel: '+e.message); }
 }
 
 document.addEventListener('DOMContentLoaded',init);
