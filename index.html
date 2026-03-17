@@ -316,6 +316,58 @@ tr.clickable:hover{background:#fafafc;cursor:pointer}
     <div style="display:flex;gap:12px;flex-wrap:wrap">
      <button class="start-btn start-btn-g" onclick="startDialer()">▶ Starta Dialer</button>
      <button class="start-btn start-btn-b" onclick="claimNextTarget()">⭐ Nästa prio-kund</button>
+     <button class="start-btn" style="background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.15)" onclick="toggleDialerFilter()">⚙️ Filter</button>
+    </div>
+
+    <!-- Dialer filter panel -->
+    <div id="dialer-filter" style="display:none;margin-top:20px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:16px">
+     <div style="font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);font-weight:700;margin-bottom:12px">Filter</div>
+     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+      <div>
+       <label style="font-size:10px;color:rgba(255,255,255,.4);font-weight:600;display:block;margin-bottom:4px">Operatör</label>
+       <select id="df-op" onchange="renderDialer()" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);color:#fff;font-size:12px">
+        <option value="">Alla</option>
+        <option value="Telenor">Telenor</option>
+        <option value="Tre">Tre</option>
+        <option value="Telia">Telia</option>
+        <option value="Tele2">Tele2</option>
+        <option value="Okänd">Okänd</option>
+       </select>
+      </div>
+      <div>
+       <label style="font-size:10px;color:rgba(255,255,255,.4);font-weight:600;display:block;margin-bottom:4px">Bransch</label>
+       <select id="df-ind" onchange="renderDialer()" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);color:#fff;font-size:12px">
+        <option value="">Alla</option>
+        <option value="åkeri">🚛 Åkeri</option>
+        <option value="bygg">🏗️ Bygg</option>
+        <option value="måleri">🎨 Måleri</option>
+        <option value="logistik">📦 Logistik</option>
+        <option value="vvs">🔧 VVS</option>
+        <option value="el">⚡ El</option>
+        <option value="annat">🏢 Övrigt</option>
+       </select>
+      </div>
+      <div>
+       <label style="font-size:10px;color:rgba(255,255,255,.4);font-weight:600;display:block;margin-bottom:4px">Bindning från (dagar)</label>
+       <input type="number" id="df-bind-min" placeholder="t.ex. -999" onchange="renderDialer()" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);color:#fff;font-size:12px">
+      </div>
+      <div>
+       <label style="font-size:10px;color:rgba(255,255,255,.4);font-weight:600;display:block;margin-bottom:4px">Bindning till (dagar)</label>
+       <input type="number" id="df-bind-max" placeholder="t.ex. 90" onchange="renderDialer()" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);color:#fff;font-size:12px">
+      </div>
+      <div>
+       <label style="font-size:10px;color:rgba(255,255,255,.4);font-weight:600;display:block;margin-bottom:4px">Status</label>
+       <select id="df-status" onchange="renderDialer()" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);color:#fff;font-size:12px">
+        <option value="">Alla</option>
+        <option value="ny">Ny</option>
+        <option value="ej_svar">Ej svar</option>
+        <option value="ring_senare">Ring senare</option>
+       </select>
+      </div>
+      <div style="display:flex;align-items:flex-end">
+       <button class="btn btn-sm" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.15);width:100%" onclick="clearDialerFilter()">Rensa filter</button>
+      </div>
+     </div>
     </div>
     <div style="margin-top:28px;display:flex;gap:14px">
      <div style="background:rgba(255,255,255,.05);padding:12px 16px;border-radius:8px">
@@ -895,12 +947,16 @@ function renderProspekt(){
  const ind=document.getElementById('prospekt-ind')?.value||'';
  let filtered=leads.filter(l=>l.status==='prospekt').filter(l=>{
   if(ind&&l.industry!==ind) return false;
-  if(q){const s=`${l.company} ${l.orgnr}`.toLowerCase();if(!s.includes(q)) return false;}
+  if(q){const s=`${l.company} ${l.orgnr} ${getIndLabel(l.industry)}`.toLowerCase();if(!s.includes(q)) return false;}
   return true;
  });
- document.getElementById('prospekt-tb').innerHTML=filtered.map(l=>`<tr style="cursor:pointer" onclick="openQuickView(${l.id})"><td onclick="event.stopPropagation()"><input type="checkbox" class="prospekt-cb" data-id="${l.id}" style="width:auto"></td><td><strong>${esc(l.company)}</strong>${TARGET.includes(l.industry)?' <span class="priority-target">⭐</span>':''}</td><td style="font-size:11px;font-family:monospace">${esc(fmtOrg(l.orgnr)||'—')}</td><td><span class="industry-badge">${getIndLabel(l.industry)}</span></td><td style="font-size:12px">${l.history[0]?.date||'—'}</td><td onclick="event.stopPropagation()"><button class="btn btn-g btn-sm" onclick="aktiveraLead(${l.id})">Aktivera →</button></td></tr>`).join('')||'<tr><td colspan="6" class="empty">Inga prospekt</td></tr>';
- document.getElementById('prospekt-count').textContent=filtered.length+' visas · '+leads.filter(l=>l.status==='prospekt').length+' totalt';
- document.getElementById('prospekt-badge').textContent=leads.filter(l=>l.status==='prospekt').length;
+ const tb=document.getElementById('prospekt-tb');
+ if(!tb) return;
+ tb.innerHTML=filtered.map(l=>`<tr style="cursor:pointer" onclick="openQuickView(${l.id})"><td onclick="event.stopPropagation()"><input type="checkbox" class="prospekt-cb" data-id="${l.id}" style="width:auto"></td><td><strong>${esc(l.company)}</strong>${TARGET.includes(l.industry)?' <span class="priority-target">⭐</span>':''}</td><td style="font-size:11px;font-family:monospace">${esc(fmtOrg(l.orgnr)||'—')}</td><td><span class="industry-badge">${getIndLabel(l.industry)}</span></td><td style="font-size:12px">${l.history[0]?.date||'—'}</td><td onclick="event.stopPropagation()"><button class="btn btn-g btn-sm" onclick="aktiveraLead(${l.id})">Aktivera →</button></td></tr>`).join('')||'<tr><td colspan="6" class="empty">Inga prospekt</td></tr>';
+ const pc=document.getElementById('prospekt-count');
+ if(pc) pc.textContent=filtered.length+' visas · '+leads.filter(l=>l.status==='prospekt').length+' totalt';
+ const pb=document.getElementById('prospekt-badge');
+ if(pb) pb.textContent=leads.filter(l=>l.status==='prospekt').length;
 }
 
 // QUICK VIEW
@@ -1030,6 +1086,11 @@ function go(v){
  if(v==='leads'){if(activeLeadsTab==='aktiva')renderLeads();else renderProspekt();}
  if(v==='dash') renderDash();
  if(v==='bolagsverket'){initSNI();setBVDates();}
+ // Dölj call bar om dialern inte är aktiv
+ if(v!=='dialer'&&!dialerOn){
+  document.getElementById('bcb').style.display='none';
+  document.getElementById('fab-area').style.display='none';
+ }
  document.getElementById('sb').classList.remove('open');
  closeQuickView();
 }
