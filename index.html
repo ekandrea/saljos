@@ -267,6 +267,7 @@ tr.clickable:hover{background:#fafafc;cursor:pointer}
  <div class="ni" onclick="go('callbacks')" id="nav-callbacks">🔔 Återkomster <span class="badge warn" id="b-callbacks">0</span></div>
 
  <div class="sec">Prospektering</div>
+ <div class="ni" onclick="go('prospekt')" id="nav-prospekt">🎯 Prospektpool <span class="badge new" id="b-prospekt">0</span></div>
  <div class="ni" onclick="go('bolagsverket')" id="nav-bolagsverket">🏛️ Bolagsverket <span class="badge new" id="b-bv">API</span></div>
  <div class="ni" onclick="go('pts')" id="nav-pts">📡 PTS Nummersök</div>
 
@@ -299,10 +300,6 @@ tr.clickable:hover{background:#fafafc;cursor:pointer}
      <button class="start-btn start-btn-b" onclick="claimNextTarget()">⭐ Nästa prio-kund</button>
     </div>
     <div style="margin-top:28px;display:flex;gap:14px">
-     <div style="background:rgba(255,255,255,.05);padding:12px 16px;border-radius:8px">
-      <div style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.04em">Låsta leads</div>
-      <div style="font-size:24px;font-weight:800;color:#fff" id="my-locked-count">0</div>
-     </div>
      <div style="background:rgba(255,255,255,.05);padding:12px 16px;border-radius:8px">
       <div style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.04em">Prio-leads</div>
       <div style="font-size:24px;font-weight:800;color:#fff" id="target-count">0</div>
@@ -431,6 +428,35 @@ tr.clickable:hover{background:#fafafc;cursor:pointer}
    <textarea id="pts-batch" placeholder="070 123 45 67&#10;073 987 65 43&#10;076 111 22 33" style="height:90px;resize:vertical;font-family:monospace;font-size:12px"></textarea>
    <button class="btn btn-pts btn-sm" style="margin-top:8px" onclick="ptsBatch()">Slå upp alla</button>
    <div id="pts-batch-res" style="margin-top:14px"></div>
+  </div>
+ </div>
+
+ <!-- PROSPEKTPOOL -->
+ <div class="view" id="v-prospekt">
+  <div class="page-title">🎯 Prospektpool</div>
+  <div class="filter-row">
+   <input id="prospekt-search" placeholder="Sök bolagsnamn, ort..." oninput="renderProspekt()" style="max-width:300px">
+   <select id="prospekt-ind" onchange="renderProspekt()" style="max-width:160px;width:auto">
+    <option value="">Alla branscher</option>
+    <option value="åkeri">🚛 Åkeri</option>
+    <option value="bygg">🏗️ Bygg</option>
+    <option value="måleri">🎨 Måleri</option>
+    <option value="logistik">📦 Logistik</option>
+    <option value="vvs">🔧 VVS</option>
+    <option value="el">⚡ El</option>
+    <option value="annat">🏢 Övrigt</option>
+   </select>
+   <button class="btn btn-p btn-sm" onclick="aktivera20()">⚡ Aktivera 20 st → Dialern</button>
+  </div>
+  <div class="card" style="padding:0;overflow-x:auto">
+   <table><thead><tr>
+    <th><input type="checkbox" id="prospekt-all" onchange="prospektCheckAll(this.checked)" style="width:auto"></th>
+    <th>Bolagsnamn</th><th>Bransch</th><th>Ort</th><th>Registrerat</th><th></th>
+   </tr></thead><tbody id="prospekt-tb"></tbody></table>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:12px">
+   <span id="prospekt-count" style="font-size:12px;color:var(--MUTED)"></span>
+   <button class="btn btn-g btn-sm" onclick="aktiveraValda()">✅ Aktivera valda → Dialern</button>
   </div>
  </div>
 
@@ -661,7 +687,7 @@ const OUTCOMES = {
  'Övrigt':[{t:'Stäng utan utfall',h:0,u:'none',ret:true}],
 };
 
-const SN = {ny:'Ny',ring_senare:'Ring senare',offert:'Offert skickad',order:'Order',
+const SN = {ny:'Ny',prospekt:'Prospekt',ring_senare:'Ring senare',offert:'Offert skickad',order:'Order',
  inte_intresserad:'Inte intresserad',avslutad:'Avslutad',ej_svar:'Ej svar',blacklist:'Spärrad',apg:'APG'};
 
 // ============================================================
@@ -1124,6 +1150,56 @@ function lockCleanup() {
 }
 
 // ============================================================
+// PROSPEKTPOOL
+// ============================================================
+function renderProspekt() {
+ const q = (document.getElementById('prospekt-search')?.value||'').toLowerCase();
+ const ind = document.getElementById('prospekt-ind')?.value||'';
+ let filtered = leads.filter(l => l.status === 'prospekt').filter(l => {
+  if(ind && l.industry !== ind) return false;
+  if(q) { const s = `${l.company} ${l.orgnr}`.toLowerCase(); if(!s.includes(q)) return false; }
+  return true;
+ });
+ const ort = l => { try { return l.note?.match(/\$([^$]+)\$\d{5}/)?.[1]||'—'; } catch { return '—'; } };
+ document.getElementById('prospekt-tb').innerHTML = filtered.map(l => `
+  <tr>
+   <td><input type="checkbox" class="prospekt-cb" data-id="${l.id}" style="width:auto"></td>
+   <td><strong>${esc(l.company)}</strong></td>
+   <td><span class="industry-badge">${getIndLabel(l.industry)}</span></td>
+   <td style="font-size:12px">${esc(l.orgnr||'—')}</td>
+   <td style="font-size:12px">${l.history[0]?.date||'—'}</td>
+   <td><button class="btn btn-g btn-sm" onclick="aktiveraLead(${l.id})">Aktivera →</button></td>
+  </tr>`).join('') || '<tr><td colspan="6" class="empty">Inga prospekt</td></tr>';
+ document.getElementById('prospekt-count').textContent = filtered.length + ' prospekt';
+ document.getElementById('b-prospekt').textContent = leads.filter(l=>l.status==='prospekt').length;
+}
+
+function aktiveraLead(id) {
+ const l = leads.find(l => l.id === id);
+ if(l) { l.status = 'ny'; saveData(); renderProspekt(); updateBadges(); showNotif(l.company+' aktiverat!',''); }
+}
+
+function aktiveraValda() {
+ const ids = [...document.querySelectorAll('.prospekt-cb:checked')].map(cb => parseInt(cb.dataset.id));
+ if(!ids.length) { showNotif('Välj minst ett lead',''); return; }
+ ids.forEach(id => { const l = leads.find(l=>l.id===id); if(l) l.status='ny'; });
+ saveData(); renderProspekt(); updateBadges();
+ showNotif(ids.length+' leads aktiverade → Dialern','✅');
+}
+
+function aktivera20() {
+ const prospekter = leads.filter(l=>l.status==='prospekt').slice(0,20);
+ if(!prospekter.length) { showNotif('Inga prospekt kvar',''); return; }
+ prospekter.forEach(l => l.status='ny');
+ saveData(); renderProspekt(); updateBadges();
+ showNotif(prospekter.length+' leads aktiverade → Dialern','⚡');
+}
+
+function prospektCheckAll(val) {
+ document.querySelectorAll('.prospekt-cb').forEach(cb => cb.checked = val);
+}
+
+// ============================================================
 // SCORING
 // ============================================================
 function scoreLead(l) {
@@ -1495,6 +1571,7 @@ function go(v) {
  document.getElementById('v-'+v)?.classList.add('on');
  document.querySelectorAll('#sb .ni').forEach(e=>e.classList.remove('active'));
  document.getElementById('nav-'+v)?.classList.add('active');
+ if(v==='prospekt') renderProspekt();
  if(v==='dialer') renderDialer();
  if(v==='pipeline') renderPipeline();
  if(v==='foretag') renderLeads();
@@ -1608,7 +1685,7 @@ function doImport() {
   if(!org&&!ph) return;
   const ex=leads.find(l=>l.orgnr===org);
   if(ex){if(!(ex.subs||[]).some(s=>normPhone(s.phone)===normPhone(ph))){ex.subs=ex.subs||[];ex.subs.push({phone:ph,user,portDate:'',end:endDate,plan});m++;}}
-  else{leads.push({id:nextId(),company:user||org,contact:'',phone:ph,orgnr:org,operator:op,email:'',plan,priceOrig:'',priceDiscount:'',priceFinal:'',bindingDate:endDate||null,industry:detectIndustry(user||org),portingDate:null,nextCallDate:null,status:'ny',note:'',vdName:'',vdPhone:'',vdEmail:'',website:'',offerSent:false,offerOpened:false,history:[],lockedBy:null,lockedAt:null,seller:null,subs:[{phone:ph,user,portDate:'',end:endDate,plan}]});n++;}
+  else{leads.push({id:nextId(),company:user||org,contact:'',phone:ph,orgnr:org,operator:op,email:'',plan,priceOrig:'',priceDiscount:'',priceFinal:'',bindingDate:endDate||null,industry:detectIndustry(user||org),portingDate:null,nextCallDate:null,status:op==='Okänd'?'prospekt':'ny',note:'',vdName:'',vdPhone:'',vdEmail:'',website:'',offerSent:false,offerOpened:false,history:[],lockedBy:null,lockedAt:null,seller:null,subs:[{phone:ph,user,portDate:'',end:endDate,plan}]});n++;}
  });
  saveData(); closeImport(); updateBadges();
  alert(`Import klar! ${n} nya · ${m} nummer tillagda`); go('foretag');
