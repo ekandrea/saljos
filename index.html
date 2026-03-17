@@ -1070,9 +1070,10 @@ function go(v){
  if(v==='dash') renderDash();
  if(v==='bolagsverket'){initSNI();setBVDates();}
  // Dölj call bar om dialern inte är aktiv
- if(v!=='dialer'&&!dialerOn){
+ if(v!=='dialer'){
   document.getElementById('bcb').style.display='none';
   document.getElementById('fab-area').style.display='none';
+  if(dialerOn) stopDialer();
  }
  document.getElementById('sb').classList.remove('open');
  closeQuickView();
@@ -1164,6 +1165,7 @@ document.addEventListener('DOMContentLoaded',init);
 </script>
 </body>
 </html>
+
 
 
 
