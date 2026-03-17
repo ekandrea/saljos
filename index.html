@@ -166,7 +166,7 @@ tr.clickable:hover{background:#fafafc;cursor:pointer}
 .pipeline-section h4{font-size:12px;font-weight:700;color:var(--MUTED);text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px;display:flex;align-items:center;gap:8px}
 .pipeline-section h4::before{content:'';display:inline-block;width:3px;height:14px;background:var(--ACC);border-radius:2px}
 .pipeline-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
-.pipeline-card{background:var(--W);border-radius:var(--R);border:1px solid var(--BORDER);padding:16px;cursor:pointer;transition:all .15s}
+.pipeline-card{background:var(--W);border-radius:var(--R);border:1px solid var(--BORDER);padding:16px;cursor:pointer;transition:all .15px}
 .pipeline-card:hover{box-shadow:0 4px 12px rgba(0,0,0,.08);transform:translateY(-2px)}
 
 /* ---- BOLAGSVERKET ---- */
@@ -711,13 +711,17 @@ function doLogin() {
 function logout() { sessionStorage.clear(); location.reload(); }
 
 async function startApp() {
- loadLocal(); // Load from local storage
+ loadLocal(); // Visa lokal data direkt (snabb start)
  updateBadges();
  renderDialer();
  initSNI();
  setBVDates();
  setInterval(lockCleanup, 60000);
- checkSyncStatus();
+ setInterval(()=>saveData(), 30000); // Auto-save var 30:e sekund
+ // Hämta från molnet vid start
+ await cloudPull();
+ updateBadges();
+ renderDialer();
 }
 
 // ============================================================
@@ -738,7 +742,6 @@ async function cloudPull() {
   }
   throw new Error('Inget data i bin');
  } catch(e) {
-  // Fallback to localStorage
   loadLocal();
   if (leads.length) {
    setSyncState('ok','Lokal data ('+leads.length+' leads)');
