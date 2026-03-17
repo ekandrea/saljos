@@ -53,8 +53,10 @@ body{font-family:'Inter',sans-serif;background:var(--BG);color:var(--TEXT);min-h
 #sb .bottom{margin-top:auto;padding:12px;border-top:1px solid #111827}
 
 /* HAMBURGER — alltid synlig */
-#hamburger{position:fixed;top:14px;left:14px;z-index:200;background:var(--P);color:#fff;border:none;border-radius:8px;padding:8px 12px;font-size:18px;cursor:pointer;transition:all .2s;line-height:1}
+#hamburger{position:fixed;top:14px;left:calc(var(--SBW) - 20px);z-index:200;background:var(--P);color:#fff;border:none;border-radius:0 8px 8px 0;padding:8px 10px;font-size:18px;cursor:pointer;transition:all .25s;line-height:1}
 #hamburger:hover{background:#1a1a2e}
+#sb.hidden~* #hamburger,
+.main.expanded #hamburger{left:0;border-radius:0 8px 8px 0}
 
 /* MAIN */
 .main{margin-left:var(--SBW);min-height:100vh;padding:28px 36px;transition:margin-left .25s}
@@ -667,8 +669,18 @@ function toggleSidebar(){
  const sb=document.getElementById('sb');
  const main=document.getElementById('main');
  const bcb=document.getElementById('bcb');
- if(sbVisible){sb.classList.remove('hidden');main.classList.remove('expanded');bcb.classList.remove('expanded');}
- else{sb.classList.add('hidden');main.classList.add('expanded');bcb.classList.add('expanded');}
+ const hb=document.getElementById('hamburger');
+ if(sbVisible){
+  sb.classList.remove('hidden');
+  main.classList.remove('expanded');
+  bcb.classList.remove('expanded');
+  hb.style.left='calc(var(--SBW) - 20px)';
+ } else {
+  sb.classList.add('hidden');
+  main.classList.add('expanded');
+  bcb.classList.add('expanded');
+  hb.style.left='0px';
+ }
 }
 
 function init(){
