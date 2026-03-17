@@ -1330,8 +1330,8 @@ function renderKK(lead) {
      </div>
     </div>
     <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--BORDER);display:flex;flex-wrap:wrap;gap:5px">
-     <a href="https://www.allabolag.se/${(lead.orgnr||'').replace('-','')}" target="_blank" class="link-btn">Allabolag</a>
-     <a href="https://www.merinfo.se/search?q=${encodeURIComponent(lead.orgnr||lead.company||'')}" target="_blank" class="link-btn">Merinfo</a>
+     <a href="https://www.allabolag.se/${normOrg(lead.orgnr)}" target="_blank" class="link-btn">Allabolag</a>
+     <a href="https://www.merinfo.se/search?q=${encodeURIComponent(fmtOrg(lead.orgnr))}" target="_blank" class="link-btn">Merinfo</a>
      <a href="https://www.linkedin.com/search/results/companies/?keywords=${encodeURIComponent(lead.company||'')}" target="_blank" class="link-btn">LinkedIn</a>
      <a href="https://www.google.com/search?q=${encodeURIComponent(lead.company||'')}" target="_blank" class="link-btn">Google</a>
      <span class="link-btn" style="cursor:pointer" onclick="ptsFromKK('${esc(normPhone(lead.phone))}')">📡 PTS</span>
@@ -1720,6 +1720,7 @@ function changePw() {
 // ============================================================
 function normPhone(p){return p?String(p).replace(/[\s\-\(\)\.]/g,''):'';}
 function normOrg(o){return(o||'').replace(/[\s\-]/g,'');}
+function fmtOrg(o){const n=normOrg(o);if(n.length===10)return n.slice(0,6)+'-'+n.slice(6);return o||'';}
 function toTel(p){let n=normPhone(p).replace(/^\+/,'');if(n.startsWith('0'))n='46'+n.slice(1);if(!n.startsWith('46'))n='46'+n;return 'tel:+'+n;}
 function fmtPhone(p){let n=normPhone(p);if(n.startsWith('+46'))n='0'+n.slice(3);if(n.startsWith('46')&&n.length>8)n='0'+n.slice(2);if(n.length===10)return n.slice(0,3)+'-'+n.slice(3,6)+' '+n.slice(6,8)+' '+n.slice(8);return p||'—';}
 function esc(s){if(!s)return '';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
