@@ -697,7 +697,9 @@ let sbVisible=true;
 let activeLeadsTab='aktiva';
 
 // SIDEBAR
-function toggleSidebar(){
+
+function toggleDialerFilter(){const f=document.getElementById('dialer-filter');f.style.display=f.style.display==='none'?'block':'none';}
+function clearDialerFilter(){document.getElementById('df-op').value='';document.getElementById('df-ind').value='';document.getElementById('df-bind-min').value='';document.getElementById('df-bind-max').value='';document.getElementById('df-status').value='';renderDialer();}function toggleSidebar(){
  sbVisible=!sbVisible;
  const sb=document.getElementById('sb');
  const main=document.getElementById('main');
@@ -1162,5 +1164,6 @@ document.addEventListener('DOMContentLoaded',init);
 </script>
 </body>
 </html>
+
 
 
