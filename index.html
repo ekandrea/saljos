@@ -308,8 +308,8 @@ tr.clickable:hover{background:#fafafc;cursor:pointer}
 
  <!-- DIALER -->
  <div class="view on" id="v-dialer">
-  <div id="d-idle">
-   <div class="left">
+  <div id="d-idle" style="display:grid;grid-template-columns:1fr;min-height:calc(100vh - 56px);border-radius:16px;overflow:hidden">
+   <div class="left" style="padding:64px 52px">
     <div class="pre">⚡ Dialer redo</div>
     <h1>Dags att <span>stänga affärer.</span></h1>
     <p>Prioriterade leads baserat på bindningstid.<br>Åkerier, bygg, måleri och logistik visas alltid först.</p>
@@ -318,57 +318,53 @@ tr.clickable:hover{background:#fafafc;cursor:pointer}
      <button class="start-btn start-btn-b" onclick="claimNextTarget()">⭐ Nästa prio-kund</button>
      <button class="start-btn" style="background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.15)" onclick="toggleDialerFilter()">⚙️ Filter</button>
     </div>
-
-    <!-- Dialer filter panel -->
+    <div style="margin-top:20px;display:flex;gap:14px">
+     <div style="background:rgba(255,255,255,.05);padding:12px 16px;border-radius:8px">
+      <div style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.04em">Prio-leads</div>
+      <div style="font-size:24px;font-weight:800;color:#fff" id="target-count">0</div>
+     </div>
+     <div style="background:rgba(255,255,255,.05);padding:12px 16px;border-radius:8px">
+      <div style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.04em">Totalt redo</div>
+      <div style="font-size:24px;font-weight:800;color:#fff" id="total-ready-count">0</div>
+     </div>
+    </div>
+    <!-- Filter panel -->
     <div id="dialer-filter" style="display:none;margin-top:20px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:16px">
      <div style="font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);font-weight:700;margin-bottom:12px">Filter</div>
      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
       <div>
-       <label style="font-size:10px;color:rgba(255,255,255,.4);font-weight:600;display:block;margin-bottom:4px">Operatör</label>
-       <select id="df-op" onchange="renderDialer()" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);color:#fff;font-size:12px">
-        <option value="">Alla</option>
-        <option value="Telenor">Telenor</option>
-        <option value="Tre">Tre</option>
-        <option value="Telia">Telia</option>
-        <option value="Tele2">Tele2</option>
-        <option value="Okänd">Okänd</option>
+       <label style="font-size:10px;color:rgba(255,255,255,.5);font-weight:600;display:block;margin-bottom:4px">Operatör</label>
+       <select id="df-op" style="background:#1a1a2e;border:1px solid rgba(255,255,255,.2);color:#fff;font-size:12px;padding:7px 10px;border-radius:8px;width:100%" onchange="renderDialer()">
+        <option value="">Alla</option><option>Telenor</option><option>Tre</option><option>Telia</option><option>Tele2</option><option>Okänd</option>
        </select>
       </div>
       <div>
-       <label style="font-size:10px;color:rgba(255,255,255,.4);font-weight:600;display:block;margin-bottom:4px">Bransch</label>
-       <select id="df-ind" onchange="renderDialer()" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);color:#fff;font-size:12px">
-        <option value="">Alla</option>
-        <option value="åkeri">🚛 Åkeri</option>
-        <option value="bygg">🏗️ Bygg</option>
-        <option value="måleri">🎨 Måleri</option>
-        <option value="logistik">📦 Logistik</option>
-        <option value="vvs">🔧 VVS</option>
-        <option value="el">⚡ El</option>
-        <option value="annat">🏢 Övrigt</option>
+       <label style="font-size:10px;color:rgba(255,255,255,.5);font-weight:600;display:block;margin-bottom:4px">Bransch</label>
+       <select id="df-ind" style="background:#1a1a2e;border:1px solid rgba(255,255,255,.2);color:#fff;font-size:12px;padding:7px 10px;border-radius:8px;width:100%" onchange="renderDialer()">
+        <option value="">Alla</option><option value="åkeri">🚛 Åkeri</option><option value="bygg">🏗️ Bygg</option><option value="måleri">🎨 Måleri</option><option value="logistik">📦 Logistik</option><option value="vvs">🔧 VVS</option><option value="el">⚡ El</option><option value="annat">🏢 Övrigt</option>
        </select>
       </div>
       <div>
-       <label style="font-size:10px;color:rgba(255,255,255,.4);font-weight:600;display:block;margin-bottom:4px">Bindning från (dagar)</label>
-       <input type="number" id="df-bind-min" placeholder="t.ex. -999" onchange="renderDialer()" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);color:#fff;font-size:12px">
+       <label style="font-size:10px;color:rgba(255,255,255,.5);font-weight:600;display:block;margin-bottom:4px">Bindning från (dagar)</label>
+       <input type="number" id="df-bind-min" placeholder="-999 (utgången)" style="background:#1a1a2e;border:1px solid rgba(255,255,255,.2);color:#fff;font-size:12px;padding:7px 10px;border-radius:8px" onchange="renderDialer()">
       </div>
       <div>
-       <label style="font-size:10px;color:rgba(255,255,255,.4);font-weight:600;display:block;margin-bottom:4px">Bindning till (dagar)</label>
-       <input type="number" id="df-bind-max" placeholder="t.ex. 90" onchange="renderDialer()" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);color:#fff;font-size:12px">
+       <label style="font-size:10px;color:rgba(255,255,255,.5);font-weight:600;display:block;margin-bottom:4px">Bindning till (dagar)</label>
+       <input type="number" id="df-bind-max" placeholder="t.ex. 90" style="background:#1a1a2e;border:1px solid rgba(255,255,255,.2);color:#fff;font-size:12px;padding:7px 10px;border-radius:8px" onchange="renderDialer()">
       </div>
       <div>
-       <label style="font-size:10px;color:rgba(255,255,255,.4);font-weight:600;display:block;margin-bottom:4px">Status</label>
-       <select id="df-status" onchange="renderDialer()" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);color:#fff;font-size:12px">
-        <option value="">Alla</option>
-        <option value="ny">Ny</option>
-        <option value="ej_svar">Ej svar</option>
-        <option value="ring_senare">Ring senare</option>
+       <label style="font-size:10px;color:rgba(255,255,255,.5);font-weight:600;display:block;margin-bottom:4px">Status</label>
+       <select id="df-status" style="background:#1a1a2e;border:1px solid rgba(255,255,255,.2);color:#fff;font-size:12px;padding:7px 10px;border-radius:8px;width:100%" onchange="renderDialer()">
+        <option value="">Alla</option><option value="ny">Ny</option><option value="ej_svar">Ej svar</option><option value="ring_senare">Ring senare</option>
        </select>
       </div>
       <div style="display:flex;align-items:flex-end">
-       <button class="btn btn-sm" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.15);width:100%" onclick="clearDialerFilter()">Rensa filter</button>
+       <button onclick="clearDialerFilter()" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.6);border-radius:8px;padding:7px 12px;font-size:11px;cursor:pointer;font-family:inherit;width:100%">Rensa filter</button>
       </div>
      </div>
     </div>
+   </div>
+  </div>
     <div style="margin-top:28px;display:flex;gap:14px">
      <div style="background:rgba(255,255,255,.05);padding:12px 16px;border-radius:8px">
       <div style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.04em">Prio-leads</div>
@@ -883,7 +879,7 @@ function renderKK(lead){
  document.getElementById('kk-area').innerHTML=`
   <div style="margin-bottom:20px;display:flex;justify-content:space-between;align-items:start">
    <div><h2 style="font-size:22px;font-weight:800;letter-spacing:-.03em;margin-bottom:2px">${esc(lead.company)}</h2><div style="color:var(--MUTED);font-size:12px">${esc(fmtOrg(lead.orgnr)||'—')} · ${getIndLabel(lead.industry)}</div></div>
-   <button class="btn btn-o btn-sm" onclick="unlockLead(${lead.id});go('dialer')">← Tillbaka</button>
+   <button class="btn btn-o btn-sm" onclick="stopDialer()">← Tillbaka</button>
   </div>
   <div style="display:grid;grid-template-columns:310px 1fr;gap:22px;align-items:start">
    <div style="background:var(--W);border:1px solid var(--BORDER);border-radius:10px;padding:24px">
