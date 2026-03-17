@@ -723,21 +723,35 @@ async function startApp() {
 // ============================================================
 async function cloudPull() {
  setSyncState('busy','Hämtar...');
+ // Läs alltid lokal data först som fallback
+ const localRaw = localStorage.getItem('saljos_leads_v2');
+ const localLeads = localRaw ? JSON.parse(localRaw) : [];
  try {
   const res = await fetch('/api/sync');
   if (!res.ok) throw new Error(res.status);
   const data = await res.json();
-  if (data.record && data.record.leads) {
-   leads = data.record.leads;
-   migrateLeads();
-   saveLocal();
-   setSyncState('ok','Synkad ' + new Date().toLocaleTimeString('sv-SE'));
+  if (data.record && data.record.leads && data.record.leads.length > 0) {
+   // Använd molndata BARA om den har fler eller lika många leads som lokalt
+   if (data.record.leads.length >= localLeads.length) {
+    leads = data.record.leads;
+    migrateLeads();
+    saveLocal();
+    setSyncState('ok','Synkad ' + new Date().toLocaleTimeString('sv-SE'));
+   } else {
+    // Lokal data är nyare/större — behåll den och pusha upp till molnet
+    leads = localLeads;
+    migrateLeads();
+    setSyncState('ok','Lokal data behållen ('+leads.length+' leads)');
+    cloudPush(); // synka upp lokal data till molnet
+   }
    return;
   }
   throw new Error('Inget data i bin');
  } catch(e) {
-  loadLocal();
-  if (leads.length) {
+  // Moln ej nåbart — använd lokal data
+  if (localLeads.length) {
+   leads = localLeads;
+   migrateLeads();
    setSyncState('ok','Lokal data ('+leads.length+' leads)');
   } else {
    leads = getSampleData();
