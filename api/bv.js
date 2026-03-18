@@ -49,7 +49,7 @@ export default async function handler(req, res) {
 
     const data = await apiRes.json();
     const org = data.organisationer?.[0];
-    if (!org) return res.status(404).json({ error: 'Bolag ej hittat' });
+    if (!org) return res.status(404).json({ error: 'Bolag ej hittat', rawResponse: data });
 
     const namn = org.organisationsnamn?.organisationsnamnLista?.find(n => n.organisationsnamntyp?.kod === 'FORETAGSNAMN')?.namn || '';
     const adress = org.postadressOrganisation?.postadress;
