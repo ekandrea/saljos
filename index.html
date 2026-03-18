@@ -152,11 +152,11 @@ tr.clickable:hover{background:#fafafc;cursor:pointer}
 
 /* DASHBOARD — ADHD-anpassad */
 .dash-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:28px}
-.dash-kpi{background:var(--W);border-radius:16px;border:1px solid var(--BORDER);padding:24px;text-align:center;position:relative;overflow:hidden;transition:transform .15s}
+.dash-kpi{background:rgba(255,255,255,.06);border-radius:16px;border:1px solid rgba(255,255,255,.08);padding:24px;text-align:center;position:relative;overflow:hidden;transition:transform .15s}
 .dash-kpi:hover{transform:translateY(-2px)}
 .dash-kpi .big{font-size:52px;font-weight:800;letter-spacing:-.04em;line-height:1}
-.dash-kpi .label{font-size:12px;color:var(--MUTED);margin-top:8px;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
-.dash-kpi .sub{font-size:11px;margin-top:4px;font-weight:500}
+.dash-kpi .label{font-size:12px;color:rgba(255,255,255,.5);margin-top:8px;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.dash-kpi .sub{font-size:11px;margin-top:4px;font-weight:500;color:rgba(255,255,255,.4)}
 .dash-kpi.green{border-top:4px solid var(--G);background:linear-gradient(135deg,#f0fdf4,#fff)}
 .dash-kpi.green .big{color:#16a34a}
 .dash-kpi.blue{border-top:4px solid var(--ACC);background:linear-gradient(135deg,#f5f3ff,#fff)}
@@ -170,20 +170,20 @@ tr.clickable:hover{background:#fafafc;cursor:pointer}
 .dash-kpi.teal{border-top:4px solid var(--ME);background:linear-gradient(135deg,#f0fdf4,#fff)}
 .dash-kpi.teal .big{color:#059669}
 
-.dash-maal{background:var(--W);border-radius:16px;border:1px solid var(--BORDER);padding:24px;margin-bottom:16px}
+.dash-maal{background:rgba(255,255,255,.06);border-radius:16px;border:1px solid rgba(255,255,255,.08);padding:24px;margin-bottom:16px;color:#fff}
 .dash-maal h4{font-size:14px;font-weight:700;margin-bottom:16px}
 .maal-row{display:flex;align-items:center;gap:12px;margin-bottom:12px}
 .maal-label{font-size:12px;font-weight:600;min-width:140px}
-.maal-bar-bg{flex:1;height:12px;background:#f1f5f9;border-radius:6px;overflow:hidden}
+.maal-bar-bg{flex:1;height:12px;background:rgba(255,255,255,.1);border-radius:6px;overflow:hidden}
 .maal-bar-fill{height:100%;border-radius:6px;transition:width .6s ease}
 .maal-val{font-size:12px;font-weight:700;min-width:60px;text-align:right}
 
-.dash-activity{background:var(--W);border-radius:16px;border:1px solid var(--BORDER);padding:24px}
+.dash-activity{background:rgba(255,255,255,.06);border-radius:16px;border:1px solid rgba(255,255,255,.08);padding:24px;color:#fff}
 .dash-activity h4{font-size:14px;font-weight:700;margin-bottom:16px}
 .bar-chart .bar-row{display:flex;align-items:center;gap:10px;margin-bottom:6px}
-.bar-chart .bar-label{width:50px;font-size:10px;font-weight:600;color:var(--MUTED);text-align:right}
+.bar-chart .bar-label{width:50px;font-size:10px;font-weight:600;color:rgba(255,255,255,.4);text-align:right}
 .bar-chart .bar{height:18px;border-radius:4px;min-width:2px;transition:width .4s}
-.bar-chart .bar-val{font-size:10px;color:var(--MUTED)}
+.bar-chart .bar-val{font-size:10px;color:rgba(255,255,255,.4)}
 
 /* PIPELINE */
 .pipeline-section{margin-bottom:22px}
@@ -312,17 +312,13 @@ tr.clickable:hover{background:#fafafc;cursor:pointer}
    <div class="left" style="padding:64px 52px">
     <div class="pre">⚡ Dialer redo</div>
     <h1>Dags att <span>stänga affärer.</span></h1>
-    <p>Prioriterade leads baserat på bindningstid.<br>Åkerier, bygg, måleri och logistik visas alltid först.</p>
+    
     <div style="display:flex;gap:12px;flex-wrap:wrap">
      <button class="start-btn start-btn-g" onclick="startDialer()">▶ Starta Dialer</button>
      <button class="start-btn start-btn-b" onclick="claimNextTarget()">⭐ Nästa prio-kund</button>
      <button class="start-btn" style="background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.15)" onclick="toggleDialerFilter()">⚙️ Filter</button>
     </div>
-    <div style="margin-top:20px;display:flex;gap:14px">
-     <div style="background:rgba(255,255,255,.05);padding:12px 16px;border-radius:8px">
-      <div style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.04em">Prio-leads</div>
-      <div style="font-size:24px;font-weight:800;color:#fff" id="target-count">0</div>
-     </div>
+    </div>
      <div style="background:rgba(255,255,255,.05);padding:12px 16px;border-radius:8px">
       <div style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.04em">Totalt redo</div>
       <div style="font-size:24px;font-weight:800;color:#fff" id="total-ready-count">0</div>
@@ -434,8 +430,8 @@ tr.clickable:hover{background:#fafafc;cursor:pointer}
  </div>
 
  <!-- DASHBOARD — ADHD-anpassad -->
- <div class="view" id="v-dash">
-  <div class="page-title">📊 Dashboard</div>
+ <div class="view" id="v-dash" style="background:linear-gradient(160deg,#0c0c14,#0f172a);min-height:100vh;margin:-28px -36px;padding:28px 36px;">
+  <div class="page-title" style="color:#fff">📊 Dashboard</div>
   <div class="dash-grid" id="dash-kpis"></div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
    <div class="dash-maal">
@@ -1201,6 +1197,7 @@ document.addEventListener('DOMContentLoaded',init);
 </script>
 </body>
 </html>
+
 
 
 
