@@ -555,27 +555,7 @@ tr.clickable:hover{background:#fafafc;cursor:pointer}
  </div>
 </div>
 
-<!-- TB MODAL -->
-<div id="tb-modal" class="overlay" style="display:none">
- <div class="modal" style="max-width:420px">
-  <h3>🎉 Ny affär! Logga din provision</h3>
-  <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:20px">
-   <div><label style="font-size:11px;color:var(--MUTED);font-weight:600;display:block;margin-bottom:4px">TB (kr/mån)</label><input type="number" id="tb-amount" placeholder="ex: 450"></div>
-   <div><label style="font-size:11px;color:var(--MUTED);font-weight:600;display:block;margin-bottom:4px">Antal nytecknare</label><input type="number" id="tb-ny-antal" placeholder="ex: 3" min="0"></div>
-   <div><label style="font-size:11px;color:var(--MUTED);font-weight:600;display:block;margin-bottom:4px">Antal förlängningar</label><input type="number" id="tb-forl-antal" placeholder="ex: 2" min="0"></div>
-   <div><label style="font-size:11px;color:var(--MUTED);font-weight:600;display:block;margin-bottom:4px">Typ</label>
-    <div style="display:flex;gap:8px">
-     <button id="tb-ny-btn" onclick="setTBType('ny')" class="btn btn-o" style="flex:1">🆕 Nyteckning</button>
-     <button id="tb-forl-btn" onclick="setTBType('forlangning')" class="btn btn-o" style="flex:1">🔄 Förlängning</button>
-    </div>
-   </div>
-  </div>
-  <div style="display:flex;gap:10px;justify-content:flex-end">
-   <button class="btn btn-o" onclick="closeTBModal()">Hoppa över</button>
-   <button class="btn btn-g" onclick="saveTB()">💰 Spara provision</button>
-  </div>
- </div>
-</div>
+
 <!-- ADD MODAL -->
 <div id="add-modal" class="overlay" style="display:none">
  <div class="modal">
@@ -1171,4 +1151,11 @@ function nextId(){return leads.length?Math.max(...leads.map(l=>l.id))+1:1;}
 function bindCls(d){if(!d)return 'bind-ok';const days=Math.ceil((new Date(d)-new Date())/864e5);if(days<0)return 'bind-expired';if(days<30)return 'bind-soon';if(days<90)return 'bind-medium';return 'bind-ok';}
 function bindLbl(d){if(!d)return '—';const days=Math.ceil((new Date(d)-new Date())/864e5);if(days<0)return 'Utgången ('+Math.abs(days)+'d)';return days+' dagar';}
 function getIndLabel(ind){return{åkeri:'🚛 Åkeri',måleri:'🎨 Måleri',bygg:'🏗️ Bygg',logistik:'📦 Logistik',cykel:'🚲 Cykel',vvs:'🔧 VVS',el:'⚡ El',annat:'🏢 Övrigt'}[ind]||ind||'—';}
-function detectIndustry(n){if(!n)return 'annat';const x=n.toLowerCase();if(x.match(/åkeri|transport|frakt|lastbil|budtjänst/))return 'åkeri';if(x.match(/måleri|målare|färg|puts/))return 'måleri';if(x.match(/bygg|byggn|snickare|betong|schakt|mark/))
+function detectIndustry(n){if(!n)return 'annat';const x=n.toLowerCase();if(x.match(/åkeri|transport|frakt|lastbil|budtjänst/))return 'åkeri';if(x.match(/måleri|målare|färg|puts/))return 'måleri';if(x.match(/bygg|byggn|snickare|betong|schakt|mark/))return 'bygg';if(x.match(/logistik|lager|distribution|spedition/))return 'logistik';if(x.match(/cykel|bike|moped/))return 'cykel';if(x.match(/vvs|rör|plåt|kyl|värme/))return 'vvs';if(x.match(/el |elektriker|elinstallation/))return 'el';return 'annat';}
+
+function getSampleData(){
+ const add=d=>{const r=new Date();r.setDate(r.getDate()+d);return r.toISOString().slice(0,10);};
+ return [
+  {id:1,company:'Åkeri Stockholm AB',contact:'Anders Svensson',phone:'46701234567',orgnr:'556123-4567',operator:'Telenor',email:'',plan:'Företag Obeg',priceOrig:'399',priceDiscount:'',priceFinal:'299',bindingDate:add(-5),industry:'åkeri',portingDate:null,nextCallDate:null,status:'ny',note:'',vdName:'Anders Svensson',vdPhone:'46701234567',vdEmail:'',website:'',offerSent:false,offerOpened:false,history:[],lockedBy:null,lockedAt:null,seller:null,subs:[{phone:'46701234567',user:'Anders Svensson',portDate:'2022-04-15',end:add(-5),plan:'Företag Obeg'}]},
+  {id:2,company:'Måleri Mäster AB',contact:'Lisa Målare',phone:'46702345678',orgnr:'556234-5678',operator:'Telenor',email:'',plan:'Företag 50GB',priceOrig:'299',priceDiscount:'',priceFinal:'199',bindingDate:add(18),industry:'måleri',portingDate:null,nextCallDate:null,status:'ny',note:'',vdName:'',vdPhone:'',vdEmail:'',website:'',offerSent:false,offerOpened:false,history:[],lockedBy:null,lockedAt:null,seller:null,subs:[{phone:'46702345678',user:'Lisa Målare',portDate:'2023-03-20',end:add(18),plan:'Företag 50GB'}]},
+  {id:3,company:'Bygg & Betong AB
