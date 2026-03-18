@@ -886,7 +886,7 @@ function renderKK(lead){
      <a href="https://www.merinfo.se/search?q=${encodeURIComponent(fmtOrg(lead.orgnr))}" target="_blank" class="link-btn">Merinfo</a>
      <a href="https://www.linkedin.com/search/results/companies/?keywords=${encodeURIComponent(lead.company||'')}" target="_blank" class="link-btn">LinkedIn</a>
      <a href="https://www.google.com/search?q=${encodeURIComponent(lead.company||'')}" target="_blank" class="link-btn">Google</a>
-     <span class="link-btn" style="cursor:pointer" href="https://nummer.pts.se/NbrSearch" target="_blank" class="link-btn">📡 PTS</a>
+     <a href="https://nummer.pts.se/NbrSearch" target="_blank" class="link-btn">📡 PTS</a>
     </div>
    </div>
    <div>
@@ -895,7 +895,7 @@ function renderKK(lead){
    </div>
   </div>`;
 }
-function renderSubs(lead){if(!lead.subs||!lead.subs.length) return '<div style="color:var(--MUTED)">Inga abonnemang</div>';return '<div style="display:flex;flex-direction:column;gap:4px">'+lead.subs.map((s,i)=>`<div style="border:1px solid var(--BORDER);border-radius:8px;overflow:hidden"><div onclick="toggleSub(${i})" style="display:flex;align-items:center;justify-content:space-between;padding:11px 15px;cursor:pointer;background:${i%2?'var(--W)':'#fafafc'}"><div style="display:flex;align-items:center;gap:12px"><strong>${esc(s.user||'—')}</strong><a href="${toTel(s.phone)}" class="sub-phone" onclick="event.stopPropagation()">${fmtPhone(s.phone)}</a></div><div style="display:flex;align-items:center;gap:8px"><span class="op op-${(lead.operator||'okänd').toLowerCase()}">${esc(lead.operator||'Okänd')}</span><span class="${bindCls(s.end)}" style="font-size:11px">${bindLbl(s.end)}</span><button class="btn btn-o btn-sm" <button class="btn btn-g btn-sm" onclick="event.stopPropagation();setCallingPhone('${esc(s.phone)}','${esc(s.user)}');makeCall()">Ring</button></div></div><div id="sub-d-${i}" style="display:none;grid-template-columns:1fr 1fr 1fr;gap:12px;padding:11px 15px;background:#f8f8fb;border-top:1px solid var(--BORDER)"><div><div style="font-size:10px;color:var(--MUTED);font-weight:600;margin-bottom:2px">Porterad</div><strong style="font-size:12px">${esc(s.portDate||'—')}</strong></div><div><div style="font-size:10px;color:var(--MUTED);font-weight:600;margin-bottom:2px">Bindning slutar</div><strong style="font-size:12px" class="${bindCls(s.end)}">${esc(s.end||'—')}</strong></div><div><div style="font-size:10px;color:var(--MUTED);font-weight:600;margin-bottom:2px">Plan</div><span style="font-size:12px">${esc(s.plan||'—')}</span></div></div></div>`).join('')+'</div>';}
+function renderSubs(lead){if(!lead.subs||!lead.subs.length) return '<div style="color:var(--MUTED)">Inga abonnemang</div>';return '<div style="display:flex;flex-direction:column;gap:4px">'+lead.subs.map((s,i)=>`<div style="border:1px solid var(--BORDER);border-radius:8px;overflow:hidden"><div onclick="toggleSub(${i})" style="display:flex;align-items:center;justify-content:space-between;padding:11px 15px;cursor:pointer;background:${i%2?'var(--W)':'#fafafc'}"><div style="display:flex;align-items:center;gap:12px"><strong>${esc(s.user||'—')}</strong><a href="${toTel(s.phone)}" class="sub-phone" onclick="event.stopPropagation()">${fmtPhone(s.phone)}</a></div><div style="display:flex;align-items:center;gap:8px"><span class="op op-${(lead.operator||'okänd').toLowerCase()}">${esc(lead.operator||'Okänd')}</span><span class="${bindCls(s.end)}" style="font-size:11px">${bindLbl(s.end)}</span><button class="btn btn-g btn-sm" onclick="event.stopPropagation();setCallingPhone('${esc(s.phone)}','${esc(s.user)}');makeCall()">Ring</button></div></div><div id="sub-d-${i}" style="display:none;grid-template-columns:1fr 1fr 1fr;gap:12px;padding:11px 15px;background:#f8f8fb;border-top:1px solid var(--BORDER)"><div><div style="font-size:10px;color:var(--MUTED);font-weight:600;margin-bottom:2px">Porterad</div><strong style="font-size:12px">${esc(s.portDate||'—')}</strong></div><div><div style="font-size:10px;color:var(--MUTED);font-weight:600;margin-bottom:2px">Bindning slutar</div><strong style="font-size:12px" class="${bindCls(s.end)}">${esc(s.end||'—')}</strong></div><div><div style="font-size:10px;color:var(--MUTED);font-weight:600;margin-bottom:2px">Plan</div><span style="font-size:12px">${esc(s.plan||'—')}</span></div></div></div>`).join('')+'</div>';}
 function toggleSub(i){const el=document.getElementById('sub-d-'+i);el.style.display=el.style.display==='none'?'grid':'none';}
 
 
@@ -1166,5 +1166,6 @@ document.addEventListener('DOMContentLoaded',init);
 </script>
 </body>
 </html>
+
 
 
