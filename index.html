@@ -9,8 +9,6 @@
 :root{--P:#0c0c14;--BG:#f8f8fa;--W:#fff;--R:12px;--G:#22c55e;--RD:#ef4444;--OR:#f59e0b;--AM:#eab308;--ACC:#5b5fc7;--ACC2:#7c7ff2;--SBW:260px;--TEXT:#111;--MUTED:#8b8fa3;--BORDER:#e8e8ee;--ME:#10b981}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Inter',sans-serif;background:var(--BG);color:var(--TEXT);min-height:100vh;font-size:13px;letter-spacing:-.01em;-webkit-font-smoothing:antialiased}
-
-/* LOGIN */
 #login-screen{position:fixed;inset:0;background:linear-gradient(165deg,#0c0c14 0%,#151530 50%,#1e1450 100%);z-index:9999;display:flex;align-items:center;justify-content:center}
 .login-box{background:var(--W);border-radius:20px;padding:48px 44px;width:380px;text-align:center;box-shadow:0 24px 80px rgba(0,0,0,.4)}
 .login-logo{font-size:48px;margin-bottom:6px}
@@ -24,8 +22,6 @@ body{font-family:'Inter',sans-serif;background:var(--BG);color:var(--TEXT);min-h
 .login-btn{width:100%;padding:14px;background:linear-gradient(135deg,#5b5fc7,#7c7ff2);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
 .login-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(91,95,199,.35)}
 .login-err{color:var(--RD);font-size:12px;margin-top:10px;display:none}
-
-/* SIDEBAR */
 #sb{position:fixed;left:0;top:0;bottom:0;width:var(--SBW);background:var(--P);color:#fff;display:flex;flex-direction:column;z-index:100;overflow-y:auto;transition:transform .25s}
 #sb.hidden{transform:translateX(-100%)}
 #sb .logo{padding:22px 20px 14px;display:flex;align-items:center;gap:10px}
@@ -49,23 +45,14 @@ body{font-family:'Inter',sans-serif;background:var(--BG);color:var(--TEXT);min-h
 #sb .ni.active{border-left-color:var(--ACC2);background:rgba(91,95,199,.1);color:#fff}
 #sb .ni .badge{background:var(--ACC);color:#fff;font-size:9px;padding:2px 7px;border-radius:8px;margin-left:auto;font-weight:700}
 #sb .ni .badge.warn{background:var(--OR)}
-#sb .ni .badge.new{background:#1a56db}
 #sb .bottom{margin-top:auto;padding:12px;border-top:1px solid #111827}
-
-/* HAMBURGER — alltid synlig */
 #hamburger{position:fixed;top:14px;left:calc(var(--SBW) - 20px);z-index:200;background:var(--P);color:#fff;border:none;border-radius:0 8px 8px 0;padding:8px 10px;font-size:18px;cursor:pointer;transition:all .25s;line-height:1}
 #hamburger:hover{background:#1a1a2e}
-#sb.hidden~* #hamburger,
-.main.expanded #hamburger{left:0;border-radius:0 8px 8px 0}
-
-/* MAIN */
 .main{margin-left:var(--SBW);min-height:100vh;padding:28px 36px;transition:margin-left .25s}
 .main.expanded{margin-left:0}
 .view{display:none;animation:fi .2s ease}.view.on{display:block}
 @keyframes fi{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 .page-title{font-size:20px;font-weight:800;margin-bottom:22px;letter-spacing:-.03em;padding-left:42px}
-
-/* BADGES */
 .op{display:inline-block;padding:2px 9px;border-radius:7px;font-size:10px;font-weight:700}
 .op-telenor{background:#dbeafe;color:#1e40af}.op-tre{background:#ede9fe;color:#5b21b6}.op-telia{background:#f3e8ff;color:#6d28d9}.op-tele2{background:#e0e7ff;color:#3730a3}.op-okänd{background:#f3f4f6;color:#555}
 .st-badge{display:inline-block;padding:2px 9px;border-radius:7px;font-size:10px;font-weight:600}
@@ -73,8 +60,6 @@ body{font-family:'Inter',sans-serif;background:var(--BG);color:var(--TEXT);min-h
 .priority-target{background:linear-gradient(135deg,#10b981,#059669);color:#fff;padding:1px 7px;border-radius:5px;font-size:9px;font-weight:700}
 .industry-badge{background:#e0e7ff;color:#3730a3;padding:2px 8px;border-radius:6px;font-size:9px;font-weight:600}
 .sub-count{display:inline-block;background:#dbeafe;color:#1e40af;padding:1px 7px;border-radius:6px;font-size:10px;margin-left:6px;font-weight:700}
-
-/* CARDS */
 .card{background:var(--W);border-radius:var(--R);border:1px solid var(--BORDER);padding:20px;margin-bottom:14px}
 .btn{border:none;border-radius:8px;cursor:pointer;font-weight:600;font-family:inherit;padding:9px 18px;font-size:12px;transition:all .15s}
 .btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.1)}
@@ -89,9 +74,6 @@ table{width:100%;border-collapse:collapse}
 th{text-align:left;padding:10px 14px;font-size:10px;color:var(--MUTED);border-bottom:1px solid var(--BORDER);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
 td{padding:11px 14px;border-bottom:1px solid #f4f4f8;font-size:13px}
 tr.clickable:hover{background:#fafafc;cursor:pointer}
-
-/* DIALER */
-#d-idle{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 56px);border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.04)}
 #d-idle .left{background:linear-gradient(165deg,#0c0c14,#151530 50%,#1e1450);color:#fff;padding:64px 52px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
 #d-idle .left::before{content:'';position:absolute;top:-30%;right:-20%;width:500px;height:500px;background:radial-gradient(circle,rgba(91,95,199,.12),transparent 70%);border-radius:50%}
 #d-idle .left>*{position:relative;z-index:1}
@@ -103,16 +85,11 @@ tr.clickable:hover{background:#fafafc;cursor:pointer}
 .start-btn-g{background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;box-shadow:0 4px 20px rgba(34,197,94,.25)}
 .start-btn-b{background:linear-gradient(135deg,#10b981,#059669);color:#fff}
 .start-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.25)}
-#d-idle .right{background:var(--W);padding:36px;overflow-y:auto;max-height:calc(100vh - 56px)}
-#d-idle .right h3{font-size:14px;font-weight:700;margin-bottom:18px;display:flex;align-items:center;gap:8px}
-#d-idle .right h3::before{content:'';display:inline-block;width:3px;height:16px;background:var(--ACC);border-radius:2px}
 .q-item{padding:13px 15px;border-radius:10px;margin-bottom:6px;background:#fafafc;border:1px solid var(--BORDER);transition:all .12s;cursor:pointer;display:flex;align-items:center;justify-content:space-between}
 .q-item:hover{border-color:#c0c0d0;box-shadow:0 2px 8px rgba(0,0,0,.04)}
 .q-item .co{font-weight:700;font-size:13px}.q-item .meta{display:flex;gap:8px;align-items:center}
 .q-item .sc{background:linear-gradient(135deg,var(--ACC),var(--ACC2));color:#fff;padding:2px 9px;border-radius:7px;font-size:10px;font-weight:700}
 #d-active{display:none}#d-active.on{display:block}
-
-/* CALL BAR — utan timer */
 #bcb{position:fixed;bottom:0;left:var(--SBW);right:0;background:var(--W);border-top:1px solid var(--BORDER);padding:14px 0;display:flex;align-items:center;justify-content:center;gap:18px;z-index:50;transition:left .25s}
 #bcb.expanded{left:0}
 #d-active.on{padding-bottom:76px}
@@ -123,15 +100,11 @@ tr.clickable:hover{background:#fafafc;cursor:pointer}
 .cbhang{background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;box-shadow:0 2px 12px rgba(239,68,68,.2)}
 #bcb .divider{width:1px;height:24px;background:var(--BORDER)}
 #bcb .calling-lbl{color:var(--MUTED);font-size:12px;font-weight:500}
-
-/* FAB */
 .fab-container{position:fixed;bottom:26px;right:36px;z-index:80;display:flex;gap:10px}
 .fab-outcome{border:none;border-radius:10px;padding:13px 26px;font-size:13px;font-weight:700;font-family:inherit;background:#4b5563;color:#fff;box-shadow:0 2px 10px rgba(0,0,0,.15);cursor:pointer;transition:all .2s}
 .fab-outcome:hover{background:#374151;transform:translateY(-1px)}
 .fab-skip{background:var(--W);border:1px solid var(--BORDER);color:var(--MUTED);border-radius:10px;padding:13px 18px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
 .fab-skip:hover{border-color:var(--RD);color:var(--RD)}
-
-/* OUTCOME */
 #outcome-overlay{position:fixed;inset:0;z-index:84;display:none}
 .float-panel{position:fixed;bottom:78px;right:36px;width:420px;max-height:70vh;background:var(--W);border-radius:14px;border:1px solid var(--BORDER);box-shadow:0 8px 40px rgba(0,0,0,.12);z-index:85;overflow:hidden;display:flex;flex-direction:column}
 .fp-header{padding:16px 20px;border-bottom:1px solid var(--BORDER);display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:14px}
@@ -144,32 +117,21 @@ tr.clickable:hover{background:#fafafc;cursor:pointer}
 .oc-btn.green:hover{border-color:var(--G);background:#ecfdf5;color:#065f46}
 .oc-btn.red:hover{border-color:var(--RD);background:#fef2f2;color:#991b1b}
 .next-btn{width:100%;margin-top:12px;background:linear-gradient(135deg,var(--ACC),var(--ACC2));color:#fff;border:none;border-radius:10px;padding:13px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit}
-
-/* FILTERS */
 .filter-row{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;align-items:center}
 .ftab{padding:5px 13px;border-radius:7px;border:1px solid var(--BORDER);background:var(--W);cursor:pointer;font-size:11px;font-weight:600;font-family:inherit;transition:all .12s;color:var(--MUTED)}
 .ftab.active{background:var(--ACC);color:#fff;border-color:var(--ACC)}.ftab:hover{border-color:var(--ACC)}
-
-/* DASHBOARD — ADHD-anpassad */
 .dash-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:28px}
 .dash-kpi{background:var(--W);border-radius:16px;border:1px solid var(--BORDER);padding:24px;text-align:center;position:relative;overflow:hidden;transition:transform .15s}
 .dash-kpi:hover{transform:translateY(-2px)}
 .dash-kpi .big{font-size:52px;font-weight:800;letter-spacing:-.04em;line-height:1}
 .dash-kpi .label{font-size:12px;color:var(--MUTED);margin-top:8px;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
 .dash-kpi .sub{font-size:11px;margin-top:4px;font-weight:500}
-.dash-kpi.green{border-top:4px solid var(--G);background:linear-gradient(135deg,#f0fdf4,#fff)}
-.dash-kpi.green .big{color:#16a34a}
-.dash-kpi.blue{border-top:4px solid var(--ACC);background:linear-gradient(135deg,#f5f3ff,#fff)}
-.dash-kpi.blue .big{color:var(--ACC)}
-.dash-kpi.orange{border-top:4px solid var(--OR);background:linear-gradient(135deg,#fffbeb,#fff)}
-.dash-kpi.orange .big{color:#d97706}
-.dash-kpi.red{border-top:4px solid var(--RD);background:linear-gradient(135deg,#fef2f2,#fff)}
-.dash-kpi.red .big{color:#dc2626}
-.dash-kpi.purple{border-top:4px solid #8b5cf6;background:linear-gradient(135deg,#f5f3ff,#fff)}
-.dash-kpi.purple .big{color:#7c3aed}
-.dash-kpi.teal{border-top:4px solid var(--ME);background:linear-gradient(135deg,#f0fdf4,#fff)}
-.dash-kpi.teal .big{color:#059669}
-
+.dash-kpi.green{border-top:4px solid var(--G);background:linear-gradient(135deg,#f0fdf4,#fff)}.dash-kpi.green .big{color:#16a34a}
+.dash-kpi.blue{border-top:4px solid var(--ACC);background:linear-gradient(135deg,#f5f3ff,#fff)}.dash-kpi.blue .big{color:var(--ACC)}
+.dash-kpi.orange{border-top:4px solid var(--OR);background:linear-gradient(135deg,#fffbeb,#fff)}.dash-kpi.orange .big{color:#d97706}
+.dash-kpi.red{border-top:4px solid var(--RD);background:linear-gradient(135deg,#fef2f2,#fff)}.dash-kpi.red .big{color:#dc2626}
+.dash-kpi.purple{border-top:4px solid #8b5cf6;background:linear-gradient(135deg,#f5f3ff,#fff)}.dash-kpi.purple .big{color:#7c3aed}
+.dash-kpi.teal{border-top:4px solid var(--ME);background:linear-gradient(135deg,#f0fdf4,#fff)}.dash-kpi.teal .big{color:#059669}
 .dash-maal{background:var(--W);border-radius:16px;border:1px solid var(--BORDER);padding:24px;margin-bottom:16px}
 .dash-maal h4{font-size:14px;font-weight:700;margin-bottom:16px}
 .maal-row{display:flex;align-items:center;gap:12px;margin-bottom:12px}
@@ -177,28 +139,21 @@ tr.clickable:hover{background:#fafafc;cursor:pointer}
 .maal-bar-bg{flex:1;height:12px;background:#f1f5f9;border-radius:6px;overflow:hidden}
 .maal-bar-fill{height:100%;border-radius:6px;transition:width .6s ease}
 .maal-val{font-size:12px;font-weight:700;min-width:60px;text-align:right}
-
 .dash-activity{background:var(--W);border-radius:16px;border:1px solid var(--BORDER);padding:24px}
 .dash-activity h4{font-size:14px;font-weight:700;margin-bottom:16px}
 .bar-chart .bar-row{display:flex;align-items:center;gap:10px;margin-bottom:6px}
 .bar-chart .bar-label{width:50px;font-size:10px;font-weight:600;color:var(--MUTED);text-align:right}
 .bar-chart .bar{height:18px;border-radius:4px;min-width:2px;transition:width .4s}
 .bar-chart .bar-val{font-size:10px;color:var(--MUTED)}
-
-/* PIPELINE */
 .pipeline-section{margin-bottom:22px}
 .pipeline-section h4{font-size:12px;font-weight:700;color:var(--MUTED);text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px;display:flex;align-items:center;gap:8px}
 .pipeline-section h4::before{content:'';display:inline-block;width:3px;height:14px;background:var(--ACC);border-radius:2px}
 .pipeline-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
 .pipeline-card{background:var(--W);border-radius:var(--R);border:1px solid var(--BORDER);padding:16px;cursor:pointer;transition:all .15s}
 .pipeline-card:hover{box-shadow:0 4px 12px rgba(0,0,0,.08);transform:translateY(-2px)}
-
-/* LEADS (kombinerad vy) */
 .leads-tabs{display:flex;gap:2px;margin-bottom:16px;background:#f1f5f9;border-radius:10px;padding:3px}
 .leads-tab{flex:1;padding:8px;text-align:center;border-radius:8px;cursor:pointer;font-size:12px;font-weight:600;color:var(--MUTED);transition:all .15s;border:none;background:none;font-family:inherit}
 .leads-tab.active{background:var(--W);color:var(--TEXT);box-shadow:0 1px 4px rgba(0,0,0,.08)}
-
-/* QUICK VIEW */
 #qv-overlay{position:fixed;inset:0;z-index:199;display:none}
 .quick-view{position:fixed;top:50%;right:36px;transform:translateY(-50%);width:360px;background:var(--W);border-radius:14px;border:1px solid var(--BORDER);box-shadow:0 8px 40px rgba(0,0,0,.15);z-index:200;display:none;flex-direction:column;overflow:hidden}
 .quick-view.on{display:flex}
@@ -211,8 +166,6 @@ tr.clickable:hover{background:#fafafc;cursor:pointer}
 .qv-row .val{font-weight:700}
 .qv-links{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0}
 .qv-footer{padding:14px 20px;border-top:1px solid var(--BORDER);display:flex;gap:8px}
-
-/* SNI */
 .sni-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px}
 .sni-chip{padding:10px 14px;border:2px solid var(--BORDER);border-radius:10px;cursor:pointer;font-size:12px;font-weight:600;transition:all .15s;background:var(--W);display:flex;align-items:center;gap:8px}
 .sni-chip:hover{border-color:var(--ACC)}.sni-chip.on{border-color:var(--ACC);background:#f5f3ff;color:var(--ACC)}
@@ -222,8 +175,6 @@ tr.clickable:hover{background:#fafafc;cursor:pointer}
 .bv-checkbox{width:16px;height:16px;cursor:pointer}
 .pts-card{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1px solid #bbf7d0;border-radius:14px;padding:24px;margin-top:16px}
 .pts-op-badge{display:inline-block;padding:5px 16px;border-radius:20px;font-size:13px;font-weight:700;margin-top:8px}
-
-/* SETTINGS */
 .settings-section{background:var(--W);border:1px solid var(--BORDER);border-radius:var(--R);padding:24px;margin-bottom:18px}
 .settings-section h4{font-size:14px;font-weight:800;margin-bottom:16px;letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
 .setting-row{display:flex;align-items:center;gap:12px;margin-bottom:12px}
@@ -231,8 +182,6 @@ tr.clickable:hover{background:#fafafc;cursor:pointer}
 .status-ok{background:#d1fae5;color:#065f46;border:1px solid #86efac;border-radius:8px;padding:10px 14px;font-size:12px}
 .status-err{background:#fee2e2;color:#991b1b;border:1px solid #fca5a5;border-radius:8px;padding:10px 14px;font-size:12px}
 .status-info{background:#dbeafe;color:#1e40af;border:1px solid #93c5fd;border-radius:8px;padding:10px 14px;font-size:12px}
-
-/* MISC */
 .bind-expired{color:var(--RD);font-weight:700}.bind-soon{color:var(--OR);font-weight:700}.bind-medium{color:var(--AM);font-weight:600}.bind-ok{color:var(--MUTED)}
 .link-btn{display:inline-flex;align-items:center;font-size:11px;padding:5px 11px;border-radius:6px;background:#f4f4f8;color:var(--TEXT);text-decoration:none;font-weight:600;border:1px solid transparent;transition:all .12s}
 .link-btn:hover{background:#eeeef4;border-color:var(--BORDER)}
@@ -247,17 +196,10 @@ tr.clickable:hover{background:#fafafc;cursor:pointer}
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:999;display:flex;align-items:center;justify-content:center}
 .modal{background:var(--W);border-radius:14px;padding:32px;max-width:640px;width:95%;max-height:85vh;overflow-y:auto}
 .modal h3{margin-bottom:18px;font-size:17px;font-weight:800;letter-spacing:-.02em}
-
-@media(max-width:768px){
- #sb{transform:translateX(-100%)}.main{margin-left:0!important}
- #bcb{left:0!important}.dash-grid{grid-template-columns:1fr 1fr}
- #d-idle{grid-template-columns:1fr}.float-panel{width:90%;right:5%}
- .quick-view{width:90%;right:5%;top:auto;bottom:80px;transform:none}
-}
+@media(max-width:768px){#sb{transform:translateX(-100%)}.main{margin-left:0!important}#bcb{left:0!important}.dash-grid{grid-template-columns:1fr 1fr}#d-idle{grid-template-columns:1fr}.float-panel{width:90%;right:5%}.quick-view{width:90%;right:5%;top:auto;bottom:80px;transform:none}}
 </style>
 </head>
 <body>
-
 <div id="login-screen">
  <div class="login-box">
   <div class="login-logo">⚡</div>
@@ -269,32 +211,19 @@ tr.clickable:hover{background:#fafafc;cursor:pointer}
   <div class="login-err" id="login-err">Fel lösenord — försök igen</div>
  </div>
 </div>
-
 <button id="hamburger" onclick="toggleSidebar()">☰</button>
-
 <div id="sb">
  <div class="logo"><span style="font-size:22px">⚡</span><div class="t">Säljös</div></div>
- <div class="seller-pill">
-  <div class="av">A</div>
-  <div><div class="nm">Andy</div><div class="rl">Sales rep</div></div>
- </div>
- <div class="sync-bar">
-  <div class="sync-dot" id="sync-dot"></div>
-  <span class="sync-text" id="sync-text">Laddar...</span>
-  <button class="sync-btn" onclick="cloudSync()">Synka ↑↓</button>
- </div>
-
+ <div class="seller-pill"><div class="av">A</div><div><div class="nm">Andy</div><div class="rl">Sales rep</div></div></div>
+ <div class="sync-bar"><div class="sync-dot" id="sync-dot"></div><span class="sync-text" id="sync-text">Laddar...</span><button class="sync-btn" onclick="cloudSync()">Synka ↑↓</button></div>
  <div class="sec">Huvudmeny</div>
  <div class="ni active" onclick="go('dialer')" id="nav-dialer">⚡ Dialer <span class="badge" id="b-dialer">0</span></div>
  <div class="ni" onclick="go('pipeline')" id="nav-pipeline">🤝 Pipeline <span class="badge warn" id="b-pipeline">0</span></div>
  <div class="ni" onclick="go('leads')" id="nav-leads">🌊 Leads <span class="badge" id="b-leads">0</span></div>
  <div class="ni" onclick="go('dash')" id="nav-dash">📊 Dashboard</div>
-
  <div class="sec">Verktyg</div>
  <div class="ni" onclick="go('sok')" id="nav-sok">🔍 Sök</div>
  <div class="ni" onclick="go('bolagsverket')" id="nav-bolagsverket">🏛️ Bolagsverket</div>
- 
-
  <div class="bottom">
   <div class="ni" onclick="openAddModal()">➕ Nytt lead</div>
   <div class="ni" onclick="openImport()">📥 Importera</div>
@@ -303,10 +232,7 @@ tr.clickable:hover{background:#fafafc;cursor:pointer}
   <div class="ni" onclick="logout()" style="color:#ef4444">🚪 Logga ut</div>
  </div>
 </div>
-
 <div class="main" id="main">
-
- <!-- DIALER -->
  <div class="view on" id="v-dialer">
   <div id="d-idle" style="display:grid;grid-template-columns:1fr;min-height:calc(100vh - 56px);border-radius:16px;overflow:hidden">
    <div class="left" style="padding:64px 52px">
@@ -319,48 +245,18 @@ tr.clickable:hover{background:#fafafc;cursor:pointer}
      <button class="start-btn" style="background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.15)" onclick="toggleDialerFilter()">⚙️ Filter</button>
     </div>
     <div style="margin-top:20px;display:flex;gap:14px">
-     <div style="background:rgba(255,255,255,.05);padding:12px 16px;border-radius:8px">
-      <div style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.04em">Prio-leads</div>
-      <div style="font-size:24px;font-weight:800;color:#fff" id="target-count">0</div>
-     </div>
-     <div style="background:rgba(255,255,255,.05);padding:12px 16px;border-radius:8px">
-      <div style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.04em">Totalt redo</div>
-      <div style="font-size:24px;font-weight:800;color:#fff" id="total-ready-count">0</div>
-     </div>
+     <div style="background:rgba(255,255,255,.05);padding:12px 16px;border-radius:8px"><div style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.04em">Prio-leads</div><div style="font-size:24px;font-weight:800;color:#fff" id="target-count">0</div></div>
+     <div style="background:rgba(255,255,255,.05);padding:12px 16px;border-radius:8px"><div style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.04em">Totalt redo</div><div style="font-size:24px;font-weight:800;color:#fff" id="total-ready-count">0</div></div>
     </div>
-    <!-- Filter panel -->
     <div id="dialer-filter" style="display:none;margin-top:20px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:16px">
      <div style="font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);font-weight:700;margin-bottom:12px">Filter</div>
      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
-      <div>
-       <label style="font-size:10px;color:rgba(255,255,255,.5);font-weight:600;display:block;margin-bottom:4px">Operatör</label>
-       <select id="df-op" style="background:#1a1a2e;border:1px solid rgba(255,255,255,.2);color:#fff;font-size:12px;padding:7px 10px;border-radius:8px;width:100%" onchange="renderDialer()">
-        <option value="">Alla</option><option>Telenor</option><option>Tre</option><option>Telia</option><option>Tele2</option><option>Okänd</option>
-       </select>
-      </div>
-      <div>
-       <label style="font-size:10px;color:rgba(255,255,255,.5);font-weight:600;display:block;margin-bottom:4px">Bransch</label>
-       <select id="df-ind" style="background:#1a1a2e;border:1px solid rgba(255,255,255,.2);color:#fff;font-size:12px;padding:7px 10px;border-radius:8px;width:100%" onchange="renderDialer()">
-        <option value="">Alla</option><option value="åkeri">🚛 Åkeri</option><option value="bygg">🏗️ Bygg</option><option value="måleri">🎨 Måleri</option><option value="logistik">📦 Logistik</option><option value="vvs">🔧 VVS</option><option value="el">⚡ El</option><option value="annat">🏢 Övrigt</option>
-       </select>
-      </div>
-      <div>
-       <label style="font-size:10px;color:rgba(255,255,255,.5);font-weight:600;display:block;margin-bottom:4px">Bindning från (dagar)</label>
-       <input type="number" id="df-bind-min" placeholder="-999 (utgången)" style="background:#1a1a2e;border:1px solid rgba(255,255,255,.2);color:#fff;font-size:12px;padding:7px 10px;border-radius:8px" onchange="renderDialer()">
-      </div>
-      <div>
-       <label style="font-size:10px;color:rgba(255,255,255,.5);font-weight:600;display:block;margin-bottom:4px">Bindning till (dagar)</label>
-       <input type="number" id="df-bind-max" placeholder="t.ex. 90" style="background:#1a1a2e;border:1px solid rgba(255,255,255,.2);color:#fff;font-size:12px;padding:7px 10px;border-radius:8px" onchange="renderDialer()">
-      </div>
-      <div>
-       <label style="font-size:10px;color:rgba(255,255,255,.5);font-weight:600;display:block;margin-bottom:4px">Status</label>
-       <select id="df-status" style="background:#1a1a2e;border:1px solid rgba(255,255,255,.2);color:#fff;font-size:12px;padding:7px 10px;border-radius:8px;width:100%" onchange="renderDialer()">
-        <option value="">Alla</option><option value="ny">Ny</option><option value="ej_svar">Ej svar</option><option value="ring_senare">Ring senare</option>
-       </select>
-      </div>
-      <div style="display:flex;align-items:flex-end">
-       <button onclick="clearDialerFilter()" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.6);border-radius:8px;padding:7px 12px;font-size:11px;cursor:pointer;font-family:inherit;width:100%">Rensa filter</button>
-      </div>
+      <div><label style="font-size:10px;color:rgba(255,255,255,.5);font-weight:600;display:block;margin-bottom:4px">Operatör</label><select id="df-op" style="background:#1a1a2e;border:1px solid rgba(255,255,255,.2);color:#fff;font-size:12px;padding:7px 10px;border-radius:8px;width:100%" onchange="renderDialer()"><option value="">Alla</option><option>Telenor</option><option>Tre</option><option>Telia</option><option>Tele2</option><option>Okänd</option></select></div>
+      <div><label style="font-size:10px;color:rgba(255,255,255,.5);font-weight:600;display:block;margin-bottom:4px">Bransch</label><select id="df-ind" style="background:#1a1a2e;border:1px solid rgba(255,255,255,.2);color:#fff;font-size:12px;padding:7px 10px;border-radius:8px;width:100%" onchange="renderDialer()"><option value="">Alla</option><option value="åkeri">🚛 Åkeri</option><option value="bygg">🏗️ Bygg</option><option value="måleri">🎨 Måleri</option><option value="logistik">📦 Logistik</option><option value="vvs">🔧 VVS</option><option value="el">⚡ El</option><option value="annat">🏢 Övrigt</option></select></div>
+      <div><label style="font-size:10px;color:rgba(255,255,255,.5);font-weight:600;display:block;margin-bottom:4px">Bindning från (dagar)</label><input type="number" id="df-bind-min" placeholder="-999" style="background:#1a1a2e;border:1px solid rgba(255,255,255,.2);color:#fff;font-size:12px;padding:7px 10px;border-radius:8px" onchange="renderDialer()"></div>
+      <div><label style="font-size:10px;color:rgba(255,255,255,.5);font-weight:600;display:block;margin-bottom:4px">Bindning till (dagar)</label><input type="number" id="df-bind-max" placeholder="t.ex. 90" style="background:#1a1a2e;border:1px solid rgba(255,255,255,.2);color:#fff;font-size:12px;padding:7px 10px;border-radius:8px" onchange="renderDialer()"></div>
+      <div><label style="font-size:10px;color:rgba(255,255,255,.5);font-weight:600;display:block;margin-bottom:4px">Status</label><select id="df-status" style="background:#1a1a2e;border:1px solid rgba(255,255,255,.2);color:#fff;font-size:12px;padding:7px 10px;border-radius:8px;width:100%" onchange="renderDialer()"><option value="">Alla</option><option value="ny">Ny</option><option value="ej_svar">Ej svar</option><option value="ring_senare">Ring senare</option></select></div>
+      <div style="display:flex;align-items:flex-end"><button onclick="clearDialerFilter()" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.6);border-radius:8px;padding:7px 12px;font-size:11px;cursor:pointer;font-family:inherit;width:100%">Rensa filter</button></div>
      </div>
     </div>
    </div>
@@ -368,128 +264,76 @@ tr.clickable:hover{background:#fafafc;cursor:pointer}
   <div id="q-list" style="display:none;"></div>
   <div id="d-active"><div id="kk-area"></div></div>
  </div>
-
- <!-- PIPELINE -->
  <div class="view" id="v-pipeline">
   <div class="page-title">🤝 Pipeline</div>
   <div class="pipeline-section"><h4>🔴 Återkomster idag</h4><div class="pipeline-grid" id="my-callbacks"></div></div>
   <div class="pipeline-section"><h4>💰 Offerter ute</h4><div class="pipeline-grid" id="my-offers"></div></div>
   <div class="pipeline-section"><h4>🔥 Aktiva leads</h4><div class="pipeline-grid" id="my-locked-leads"></div></div>
  </div>
-
- <!-- LEADS — kombinerad vy -->
  <div class="view" id="v-leads">
   <div class="page-title">🌊 Leads</div>
   <div class="leads-tabs">
    <button class="leads-tab active" id="tab-aktiva" onclick="switchLeadsTab('aktiva')">📋 Aktiva leads</button>
    <button class="leads-tab" id="tab-prospekt" onclick="switchLeadsTab('prospekt')">🎯 Prospektpool <span id="prospekt-badge" style="background:var(--ACC);color:#fff;font-size:9px;padding:1px 6px;border-radius:6px;margin-left:4px">0</span></button>
   </div>
-
-  <!-- Aktiva leads -->
   <div id="leads-aktiva">
    <div class="filter-row">
     <input id="search-inp" placeholder="Sök bolagsnamn, org-nr, telefon..." oninput="filterLeads()" style="max-width:260px">
-    <input type="date" id="reg-from" onchange="filterLeads()" title="Bindning från" style="max-width:150px;width:auto">
-    <input type="date" id="reg-to" onchange="filterLeads()" title="Bindning till" style="max-width:150px;width:auto">
+    <input type="date" id="reg-from" onchange="filterLeads()" style="max-width:150px;width:auto">
+    <input type="date" id="reg-to" onchange="filterLeads()" style="max-width:150px;width:auto">
     <button class="btn btn-p btn-sm" onclick="toggleTarget()">⭐ Prio</button>
    </div>
    <div class="filter-row" id="status-filters"></div>
    <div class="filter-row" id="op-filters"></div>
    <div class="card" style="padding:0;overflow-x:auto">
-    <table><thead><tr>
-     <th>Bolagsnamn</th><th>Org-nr</th><th>Telefon</th><th>Operatör</th>
-     <th>Abonnemang</th><th>Bindningstid</th><th>Status</th><th>Poäng</th>
-    </tr></thead><tbody id="leads-tb"></tbody></table>
+    <table><thead><tr><th>Bolagsnamn</th><th>Org-nr</th><th>Telefon</th><th>Operatör</th><th>Abonnemang</th><th>Bindningstid</th><th>Status</th><th>Poäng</th></tr></thead><tbody id="leads-tb"></tbody></table>
    </div>
    <div style="display:flex;justify-content:center;gap:12px;padding:12px" id="pag-row"></div>
   </div>
-
-  <!-- Prospektpool -->
   <div id="leads-prospekt" style="display:none">
    <div class="filter-row">
     <input id="prospekt-search" placeholder="Sök bolagsnamn, org-nr..." oninput="renderProspekt()" style="max-width:260px">
-    <select id="prospekt-ind" onchange="renderProspekt()" style="max-width:160px;width:auto">
-     <option value="">Alla branscher</option>
-     <option value="åkeri">🚛 Åkeri</option>
-     <option value="bygg">🏗️ Bygg</option>
-     <option value="måleri">🎨 Måleri</option>
-     <option value="logistik">📦 Logistik</option>
-     <option value="vvs">🔧 VVS</option>
-     <option value="el">⚡ El</option>
-     <option value="annat">🏢 Övrigt</option>
-    </select>
+    <select id="prospekt-ind" onchange="renderProspekt()" style="max-width:160px;width:auto"><option value="">Alla branscher</option><option value="åkeri">🚛 Åkeri</option><option value="bygg">🏗️ Bygg</option><option value="måleri">🎨 Måleri</option><option value="logistik">📦 Logistik</option><option value="vvs">🔧 VVS</option><option value="el">⚡ El</option><option value="annat">🏢 Övrigt</option></select>
     <button class="btn btn-p btn-sm" onclick="aktivera20()">⚡ Aktivera 20 st → Dialer</button>
    </div>
    <div class="card" style="padding:0;overflow-x:auto">
-    <table><thead><tr>
-     <th><input type="checkbox" id="prospekt-all" onchange="prospektCheckAll(this.checked)" style="width:auto"></th>
-     <th>Bolagsnamn</th><th>Org-nr</th><th>Bransch</th><th>Registrerat</th><th></th>
-    </tr></thead><tbody id="prospekt-tb"></tbody></table>
+    <table><thead><tr><th><input type="checkbox" id="prospekt-all" onchange="prospektCheckAll(this.checked)" style="width:auto"></th><th>Bolagsnamn</th><th>Org-nr</th><th>Bransch</th><th>Registrerat</th><th></th></tr></thead><tbody id="prospekt-tb"></tbody></table>
    </div>
-   <div style="display:flex;justify-content:space-between;align-items:center;padding:12px">
-    <span id="prospekt-count" style="font-size:12px;color:var(--MUTED)"></span>
-    <button class="btn btn-g btn-sm" onclick="aktiveraValda()">✅ Aktivera valda → Dialer</button>
-   </div>
+   <div style="display:flex;justify-content:space-between;align-items:center;padding:12px"><span id="prospekt-count" style="font-size:12px;color:var(--MUTED)"></span><button class="btn btn-g btn-sm" onclick="aktiveraValda()">✅ Aktivera valda → Dialer</button></div>
   </div>
  </div>
-
- <!-- DASHBOARD — ADHD-anpassad -->
  <div class="view" id="v-dash">
   <div class="page-title">📊 Dashboard</div>
   <div class="dash-grid" id="dash-kpis"></div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-   <div class="dash-maal">
-    <h4>🎯 Dagens mål</h4>
-    <div id="dash-maal"></div>
-   </div>
-   <div class="dash-activity">
-    <h4>📈 Aktivitet — 14 dagar</h4>
-    <div class="bar-chart" id="dash-chart"></div>
-   </div>
+   <div class="dash-maal"><h4>🎯 Dagens mål</h4><div id="dash-maal"></div></div>
+   <div class="dash-activity"><h4>📈 Aktivitet — 14 dagar</h4><div class="bar-chart" id="dash-chart"></div></div>
   </div>
  </div>
-
- <!-- SÖK -->
  <div class="view" id="v-sok">
   <div class="page-title">🔍 Sök</div>
   <input id="sok-inp" placeholder="Sök på bolagsnamn, org-nr eller telefon..." oninput="doSearch(this.value)" style="font-size:15px;padding:14px 20px;margin-bottom:20px">
   <div id="sok-res"></div>
  </div>
-
- <!-- BOLAGSVERKET -->
  <div class="view" id="v-bolagsverket">
   <div class="page-title">🏛️ Bolagsverket</div>
   <div class="card" style="background:linear-gradient(135deg,#eff6ff,#dbeafe);border-color:#bfdbfe;margin-bottom:20px">
    <div style="display:flex;align-items:center;gap:14px">
     <div style="font-size:32px">🏛️</div>
-    <div>
-     <div style="font-weight:800;font-size:14px;color:#1e40af">Direkt kopplad till Bolagsverket via server-API</div>
-     <div style="font-size:12px;color:#3b82f6;margin-top:3px">Sök nyregistrerade bolag → importera till Prospektpool</div>
-    </div>
+    <div><div style="font-weight:800;font-size:14px;color:#1e40af">Direkt kopplad till Bolagsverket via server-API</div><div style="font-size:12px;color:#3b82f6;margin-top:3px">Sök nyregistrerade bolag → importera till Prospektpool</div></div>
     <div id="bv-api-indicator" style="margin-left:auto;font-size:11px;padding:6px 12px;border-radius:8px;background:#dbeafe;color:#1e40af;font-weight:600">Kontrollerar...</div>
    </div>
   </div>
-  <div class="settings-section">
-   <h4>🏷️ Välj branscher (SNI-koder)</h4>
-   <div class="sni-grid" id="sni-grid"></div>
-  </div>
+  <div class="settings-section"><h4>🏷️ Välj branscher (SNI-koder)</h4><div class="sni-grid" id="sni-grid"></div></div>
   <div class="settings-section">
    <h4>🔍 Sökfilter</h4>
    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px">
     <div><label style="font-size:11px;color:var(--MUTED);font-weight:600;display:block;margin-bottom:4px">Registrerat från</label><input type="date" id="bv-from"></div>
     <div><label style="font-size:11px;color:var(--MUTED);font-weight:600;display:block;margin-bottom:4px">Registrerat till</label><input type="date" id="bv-to"></div>
-    <div><label style="font-size:11px;color:var(--MUTED);font-weight:600;display:block;margin-bottom:4px">Län</label>
-     <select id="bv-county"><option value="">Alla län</option><option value="M">Skåne</option><option value="O">Västra Götaland</option><option value="AB">Stockholms län</option><option value="C">Uppsala</option><option value="D">Södermanland</option><option value="E">Östergötland</option><option value="F">Jönköping</option><option value="N">Halland</option><option value="T">Örebro</option><option value="U">Västmanland</option><option value="W">Dalarna</option><option value="X">Gävleborg</option><option value="AC">Västerbotten</option><option value="BD">Norrbotten</option></select>
-    </div>
-    <div><label style="font-size:11px;color:var(--MUTED);font-weight:600;display:block;margin-bottom:4px">Bolagsform</label>
-     <select id="bv-form"><option value="">Alla</option><option value="AB">Aktiebolag</option><option value="HB">Handelsbolag</option><option value="EF">Enskild firma</option></select>
-    </div>
-    <div><label style="font-size:11px;color:var(--MUTED);font-weight:600;display:block;margin-bottom:4px">Max resultat</label>
-     <select id="bv-limit"><option value="25">25</option><option value="50" selected>50</option><option value="100">100</option><option value="200">200</option></select>
-    </div>
-    <div><label style="font-size:11px;color:var(--MUTED);font-weight:600;display:block;margin-bottom:4px">Tilldela operatör</label>
-     <select id="bv-op"><option>Okänd</option><option>Telenor</option><option>Tre</option><option>Telia</option><option>Tele2</option></select>
-    </div>
+    <div><label style="font-size:11px;color:var(--MUTED);font-weight:600;display:block;margin-bottom:4px">Län</label><select id="bv-county"><option value="">Alla län</option><option value="M">Skåne</option><option value="O">Västra Götaland</option><option value="AB">Stockholms län</option><option value="C">Uppsala</option><option value="D">Södermanland</option><option value="E">Östergötland</option><option value="F">Jönköping</option><option value="N">Halland</option><option value="T">Örebro</option><option value="U">Västmanland</option><option value="W">Dalarna</option><option value="X">Gävleborg</option><option value="AC">Västerbotten</option><option value="BD">Norrbotten</option></select></div>
+    <div><label style="font-size:11px;color:var(--MUTED);font-weight:600;display:block;margin-bottom:4px">Bolagsform</label><select id="bv-form"><option value="">Alla</option><option value="AB">Aktiebolag</option><option value="HB">Handelsbolag</option><option value="EF">Enskild firma</option></select></div>
+    <div><label style="font-size:11px;color:var(--MUTED);font-weight:600;display:block;margin-bottom:4px">Max resultat</label><select id="bv-limit"><option value="25">25</option><option value="50" selected>50</option><option value="100">100</option><option value="200">200</option></select></div>
+    <div><label style="font-size:11px;color:var(--MUTED);font-weight:600;display:block;margin-bottom:4px">Tilldela operatör</label><select id="bv-op"><option>Okänd</option><option>Telenor</option><option>Tre</option><option>Telia</option><option>Tele2</option></select></div>
    </div>
    <div style="display:flex;gap:10px;align-items:center">
     <button class="btn btn-bv" onclick="searchBV()" id="bv-btn">🔍 Sök i Bolagsverket</button>
@@ -500,63 +344,15 @@ tr.clickable:hover{background:#fafafc;cursor:pointer}
   </div>
   <div id="bv-results"></div>
  </div>
-
- <!-- PTS -->
- <div class="view" id="v-pts">
-  <div class="page-title">📡 PTS Nummersök</div>
-  <div class="settings-section">
-   <h4>🔍 Nummeruppslagning</h4>
-   <div style="display:flex;gap:10px;margin-bottom:16px">
-    <input id="pts-num" placeholder="Ex: 070-123 45 67" style="max-width:340px" onkeydown="if(event.key==='Enter')ptsLookup()">
-    <button class="btn btn-pts" onclick="ptsLookup()">Slå upp</button>
-    <a href="https://nummer.pts.se/NbrSearch" target="_blank" class="btn btn-o">🌐 PTS portal</a>
-   </div>
-   <div id="pts-result"></div>
-  </div>
-  <div class="settings-section">
-   <h4>📋 Batch-upplysning</h4>
-   <textarea id="pts-batch" placeholder="070 123 45 67&#10;073 987 65 43" style="height:90px;resize:vertical;font-family:monospace;font-size:12px"></textarea>
-   <button class="btn btn-pts btn-sm" style="margin-top:8px" onclick="ptsBatch()">Slå upp alla</button>
-   <div id="pts-batch-res" style="margin-top:14px"></div>
-  </div>
- </div>
-
- <!-- INSTÄLLNINGAR -->
  <div class="view" id="v-settings">
   <div class="page-title">⚙️ Inställningar</div>
-  <div class="settings-section">
-   <h4>🎯 Dagligt samtalsmål</h4>
-   <div style="display:flex;align-items:center;gap:12px">
-    <input type="number" id="daily-goal" value="50" min="1" max="500" style="max-width:100px" oninput="localStorage.setItem('saljos_goal',this.value);renderDash()">
-    <span style="font-size:12px;color:var(--MUTED)">samtal per dag</span>
-   </div>
-  </div>
-  <div class="settings-section">
-   <h4>🔌 API-status</h4>
-   <button class="btn btn-o btn-sm" onclick="checkAllApis()" style="margin-bottom:12px">🔄 Kontrollera alla</button>
-   <div id="api-status-grid" style="display:flex;flex-direction:column;gap:8px"><div class="status-info">Klicka "Kontrollera alla".</div></div>
-  </div>
-  <div class="settings-section">
-   <h4>💾 Datahantering</h4>
-   <div style="display:flex;gap:10px;flex-wrap:wrap">
-    <button class="btn btn-p" onclick="cloudSync()">☁️ Synka nu</button>
-    <button class="btn btn-o" onclick="exportData()">⬇️ Exportera backup</button>
-    <button class="btn btn-o" onclick="importDataFile()">⬆️ Återställ från backup</button>
-    <button class="btn btn-r" onclick="clearAllData()" style="margin-left:auto">🗑️ Rensa lokal data</button>
-   </div>
-  </div>
-  <div class="settings-section">
-   <h4>🔐 Ändra lösenord</h4>
-   <div class="setting-row"><label>Nuvarande lösenord</label><input type="password" id="s-pw-old"></div>
-   <div class="setting-row"><label>Nytt lösenord</label><input type="password" id="s-pw-new" placeholder="Minst 6 tecken"></div>
-   <button class="btn btn-p btn-sm" style="margin-top:8px" onclick="changePw()">Ändra</button>
-   <div id="pw-status" style="margin-top:8px;font-size:12px"></div>
-  </div>
+  <div class="settings-section"><h4>🎯 Dagligt samtalsmål</h4><div style="display:flex;align-items:center;gap:12px"><input type="number" id="daily-goal" value="50" min="1" max="500" style="max-width:100px" oninput="localStorage.setItem('saljos_goal',this.value);renderDash()"><span style="font-size:12px;color:var(--MUTED)">samtal per dag</span></div></div>
+  <div class="settings-section"><h4>🔌 API-status</h4><button class="btn btn-o btn-sm" onclick="checkAllApis()" style="margin-bottom:12px">🔄 Kontrollera alla</button><div id="api-status-grid" style="display:flex;flex-direction:column;gap:8px"><div class="status-info">Klicka "Kontrollera alla".</div></div></div>
+  <div class="settings-section"><h4>💾 Datahantering</h4><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-p" onclick="cloudSync()">☁️ Synka nu</button><button class="btn btn-o" onclick="exportData()">⬇️ Exportera backup</button><button class="btn btn-o" onclick="importDataFile()">⬆️ Återställ från backup</button><button class="btn btn-r" onclick="clearAllData()" style="margin-left:auto">🗑️ Rensa lokal data</button></div></div>
+  <div class="settings-section"><h4>🔐 Ändra lösenord</h4><div class="setting-row"><label>Nuvarande lösenord</label><input type="password" id="s-pw-old"></div><div class="setting-row"><label>Nytt lösenord</label><input type="password" id="s-pw-new" placeholder="Minst 6 tecken"></div><button class="btn btn-p btn-sm" style="margin-top:8px" onclick="changePw()">Ändra</button><div id="pw-status" style="margin-top:8px;font-size:12px"></div></div>
  </div>
 </div>
 
-
-<!-- ADD MODAL -->
 <div id="add-modal" class="overlay" style="display:none">
  <div class="modal">
   <h3>Lägg till nytt lead</h3>
@@ -571,63 +367,36 @@ tr.clickable:hover{background:#fafafc;cursor:pointer}
    <div><label style="font-size:11px;color:var(--MUTED);font-weight:600">Pris (kr/mån)</label><input id="al-pr"></div>
    <div><label style="font-size:11px;color:var(--MUTED);font-weight:600">Bindningstid slutar</label><input id="al-bind" type="date"></div>
    <div><label style="font-size:11px;color:var(--MUTED);font-weight:600">Webbplats</label><input id="al-web"></div>
-   <div style="grid-column:1/-1"><label style="font-size:11px;color:var(--MUTED);font-weight:600">Bransch</label>
-    <select id="al-industry"><option value="">-- Auto-detektera --</option><option value="åkeri">🚛 Åkeri/Transport</option><option value="måleri">🎨 Måleri</option><option value="bygg">🏗️ Bygg</option><option value="logistik">📦 Logistik</option><option value="vvs">🔧 VVS</option><option value="el">⚡ El</option><option value="annat">🏢 Övrigt</option></select>
-   </div>
+   <div style="grid-column:1/-1"><label style="font-size:11px;color:var(--MUTED);font-weight:600">Bransch</label><select id="al-industry"><option value="">-- Auto-detektera --</option><option value="åkeri">🚛 Åkeri/Transport</option><option value="måleri">🎨 Måleri</option><option value="bygg">🏗️ Bygg</option><option value="logistik">📦 Logistik</option><option value="vvs">🔧 VVS</option><option value="el">⚡ El</option><option value="annat">🏢 Övrigt</option></select></div>
   </div>
-  <div style="display:flex;gap:10px;justify-content:flex-end">
-   <button class="btn btn-o" onclick="closeAddModal()">Avbryt</button>
-   <button class="btn btn-p" onclick="addLead()">Spara lead</button>
-  </div>
+  <div style="display:flex;gap:10px;justify-content:flex-end"><button class="btn btn-o" onclick="closeAddModal()">Avbryt</button><button class="btn btn-p" onclick="addLead()">Spara lead</button></div>
  </div>
 </div>
 
-<!-- IMPORT MODAL -->
 <div id="import-modal" class="overlay" style="display:none">
  <div class="modal">
   <h3>Importera leads</h3>
-  <div style="margin-bottom:14px">
-   <label style="font-size:11px;color:var(--MUTED);font-weight:600;display:block;margin-bottom:4px">Operatör</label>
-   <select id="imp-op" style="max-width:200px"><option>Okänd</option><option>Telenor</option><option>Tre</option><option>Telia</option><option>Tele2</option></select>
-  </div>
-  <div style="margin-bottom:14px">
-   <label style="font-size:11px;color:var(--MUTED);font-weight:600;display:block;margin-bottom:4px">Klistra in (tab-separerad)</label>
-   <textarea id="imp-paste" placeholder="Orgnr TAB Telefon TAB Namn TAB Startdatum TAB Slutdatum TAB Plan" style="height:120px;font-size:12px;resize:vertical;font-family:monospace"></textarea>
-  </div>
-  <div style="display:flex;gap:10px;justify-content:flex-end">
-   <button class="btn btn-o" onclick="closeImport()">Avbryt</button>
-   <button class="btn btn-p" onclick="doImport()">Importera</button>
-  </div>
+  <div style="margin-bottom:14px"><label style="font-size:11px;color:var(--MUTED);font-weight:600;display:block;margin-bottom:4px">Operatör</label><select id="imp-op" style="max-width:200px"><option>Okänd</option><option>Telenor</option><option>Tre</option><option>Telia</option><option>Tele2</option></select></div>
+  <div style="margin-bottom:14px"><label style="font-size:11px;color:var(--MUTED);font-weight:600;display:block;margin-bottom:4px">Klistra in (tab-separerad)</label><textarea id="imp-paste" placeholder="Orgnr TAB Telefon TAB Namn TAB Startdatum TAB Slutdatum TAB Plan" style="height:120px;font-size:12px;resize:vertical;font-family:monospace"></textarea></div>
+  <div style="display:flex;gap:10px;justify-content:flex-end"><button class="btn btn-o" onclick="closeImport()">Avbryt</button><button class="btn btn-p" onclick="doImport()">Importera</button></div>
  </div>
 </div>
 
-<!-- FAB -->
 <div id="fab-area" style="display:none">
  <div class="fab-container">
   <button class="fab-skip" onclick="skipLead()">⏭️ Hoppa över</button>
   <button class="fab-outcome" onclick="toggleOutcomePanel()">📋 Utfall</button>
  </div>
 </div>
-
 <div id="outcome-overlay" onclick="closeOutcomePanel()"></div>
-
-<!-- OUTCOME PANEL -->
 <div id="panel-outcome" class="float-panel" style="display:none">
  <div class="fp-header">Välj utfall <button onclick="closeOutcomePanel()">✕</button></div>
  <div class="fp-body">
   <div id="outcome-btns"></div>
-  <div style="margin-top:12px">
-   <div style="font-size:10px;font-weight:700;color:var(--MUTED);text-transform:uppercase;margin-bottom:5px">Anteckningar</div>
-   <textarea id="note-ta" style="height:75px;resize:vertical;font-size:12px" oninput="saveNote()"></textarea>
-  </div>
-  <div style="margin-top:12px">
-   <div style="font-size:10px;font-weight:700;color:var(--MUTED);text-transform:uppercase;margin-bottom:5px">Historik</div>
-   <div id="hist-list"></div>
-  </div>
+  <div style="margin-top:12px"><div style="font-size:10px;font-weight:700;color:var(--MUTED);text-transform:uppercase;margin-bottom:5px">Anteckningar</div><textarea id="note-ta" style="height:75px;resize:vertical;font-size:12px" oninput="saveNote()"></textarea></div>
+  <div style="margin-top:12px"><div style="font-size:10px;font-weight:700;color:var(--MUTED);text-transform:uppercase;margin-bottom:5px">Historik</div><div id="hist-list"></div></div>
  </div>
 </div>
-
-<!-- CALL BAR — utan timer -->
 <div id="bcb" style="display:none">
  <button class="call-btn cbmute" onclick="toggleMute()" id="mute-btn">🎤</button>
  <button class="call-btn cbhang" onclick="hangUp()">📞</button>
@@ -635,33 +404,17 @@ tr.clickable:hover{background:#fafafc;cursor:pointer}
  <span id="calling-lbl" class="calling-lbl"></span>
  <button class="call-btn cbring" onclick="makeCall()" style="margin-left:8px">📞</button>
 </div>
-
 <div id="qv-overlay" onclick="closeQuickView()"></div>
-
-<!-- QUICK VIEW -->
 <div id="quick-view" class="quick-view">
- <div class="qv-header">
-  <div><h4 id="qv-name">—</h4><div id="qv-org" style="font-size:11px;color:#7c3aed;margin-top:2px">—</div></div>
-  <button onclick="closeQuickView()">✕</button>
- </div>
+ <div class="qv-header"><div><h4 id="qv-name">—</h4><div id="qv-org" style="font-size:11px;color:#7c3aed;margin-top:2px">—</div></div><button onclick="closeQuickView()">✕</button></div>
  <div class="qv-body">
   <div class="qv-row"><span class="label">Bransch</span><span class="val" id="qv-ind">—</span></div>
   <div class="qv-row"><span class="label">Telefon</span><span class="val" id="qv-phone">—</span></div>
   <div class="qv-links" id="qv-links"></div>
-  <div>
-   <label style="font-size:10px;color:var(--MUTED);font-weight:700;text-transform:uppercase;display:block;margin-bottom:4px">Lägg till telefon</label>
-   <div style="display:flex;gap:6px">
-    <input id="qv-phone-input" placeholder="07X-XXX XX XX" style="font-size:12px">
-    <button class="btn btn-g btn-sm" onclick="saveQVPhone()">Spara</button>
-   </div>
-  </div>
+  <div><label style="font-size:10px;color:var(--MUTED);font-weight:700;text-transform:uppercase;display:block;margin-bottom:4px">Lägg till telefon</label><div style="display:flex;gap:6px"><input id="qv-phone-input" placeholder="07X-XXX XX XX" style="font-size:12px"><button class="btn btn-g btn-sm" onclick="saveQVPhone()">Spara</button></div></div>
  </div>
- <div class="qv-footer">
-  <button class="btn btn-p" style="flex:1" onclick="aktiveraFromQV()">⚡ Aktivera → Dialer</button>
-  <button class="btn btn-r btn-sm" onclick="removeProspekt()">🗑️</button>
- </div>
+ <div class="qv-footer"><button class="btn btn-p" style="flex:1" onclick="aktiveraFromQV()">⚡ Aktivera → Dialer</button><button class="btn btn-r btn-sm" onclick="removeProspekt()">🗑️</button></div>
 </div>
-
 <div id="notif-area"></div>
 
 <script>
@@ -697,33 +450,16 @@ let qvLeadId=null;
 let sbVisible=true;
 let activeLeadsTab='aktiva';
 
-// SIDEBAR
-
 function toggleDialerFilter(){const f=document.getElementById('dialer-filter');f.style.display=f.style.display==='none'?'block':'none';}
-function clearDialerFilter(){document.getElementById('df-op').value='';document.getElementById('df-ind').value='';document.getElementById('df-bind-min').value='';document.getElementById('df-bind-max').value='';document.getElementById('df-status').value='';renderDialer();}function toggleSidebar(){
+function clearDialerFilter(){document.getElementById('df-op').value='';document.getElementById('df-ind').value='';document.getElementById('df-bind-min').value='';document.getElementById('df-bind-max').value='';document.getElementById('df-status').value='';renderDialer();}
+function toggleSidebar(){
  sbVisible=!sbVisible;
- const sb=document.getElementById('sb');
- const main=document.getElementById('main');
- const bcb=document.getElementById('bcb');
- const hb=document.getElementById('hamburger');
- if(sbVisible){
-  sb.classList.remove('hidden');
-  main.classList.remove('expanded');
-  bcb.classList.remove('expanded');
-  hb.style.left='calc(var(--SBW) - 20px)';
- } else {
-  sb.classList.add('hidden');
-  main.classList.add('expanded');
-  bcb.classList.add('expanded');
-  hb.style.left='0px';
- }
+ const sb=document.getElementById('sb'),main=document.getElementById('main'),bcb=document.getElementById('bcb'),hb=document.getElementById('hamburger');
+ if(sbVisible){sb.classList.remove('hidden');main.classList.remove('expanded');bcb.classList.remove('expanded');hb.style.left='calc(var(--SBW) - 20px)';}
+ else{sb.classList.add('hidden');main.classList.add('expanded');bcb.classList.add('expanded');hb.style.left='0px';}
 }
-
 function init(){
- if(sessionStorage.getItem('saljos_auth')==='1'){
-  document.getElementById('login-screen').style.display='none';
-  startApp();
- }
+ if(sessionStorage.getItem('saljos_auth')==='1'){document.getElementById('login-screen').style.display='none';startApp();}
 }
 function doLogin(){
  const pw=document.getElementById('login-pw').value;
@@ -732,26 +468,21 @@ function doLogin(){
  else{document.getElementById('login-err').style.display='block';document.getElementById('login-pw').value='';}
 }
 function logout(){sessionStorage.clear();location.reload();}
-
 async function startApp(){
  loadLocal();updateBadges();renderDialer();initSNI();setBVDates();
  const savedGoal=localStorage.getItem('saljos_goal');
- if(savedGoal) document.getElementById('daily-goal').value=savedGoal;
+ if(savedGoal)document.getElementById('daily-goal').value=savedGoal;
  setInterval(lockCleanup,60000);
  setInterval(()=>saveData(),30000);
- document.addEventListener('keydown',e=>{
-  if(e.key==='Escape'){if(panelOpen) closeOutcomePanel();if(qvLeadId) closeQuickView();}
- });
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(panelOpen)closeOutcomePanel();if(qvLeadId)closeQuickView();}});
  await cloudPull();updateBadges();renderDialer();
 }
-
-// CLOUD
 async function cloudPull(){
  setSyncState('busy','Hämtar...');
  const localRaw=localStorage.getItem('saljos_leads_v2');
  const localLeads=localRaw?JSON.parse(localRaw):[];
  try{
-  const res=await fetch('/api/sync');if(!res.ok) throw new Error(res.status);
+  const res=await fetch('/api/sync');if(!res.ok)throw new Error(res.status);
   const data=await res.json();
   if(data.record&&data.record.leads&&data.record.leads.length>0){
    if(data.record.leads.length>=localLeads.length){leads=data.record.leads;migrateLeads();saveLocal();setSyncState('ok','Synkad '+new Date().toLocaleTimeString('sv-SE'));}
@@ -759,23 +490,22 @@ async function cloudPull(){
    return;
   }
   throw new Error('Inget data');
- } catch(e){
+ }catch(e){
   if(localLeads.length){leads=localLeads;migrateLeads();setSyncState('ok','Lokal data ('+leads.length+')');}
   else{leads=getSampleData();saveLocal();setSyncState('err','Ej konfigurerad');}
  }
 }
 async function cloudPush(){
  setSyncState('busy','Sparar...');
- try{const res=await fetch('/api/sync',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({leads,updatedAt:new Date().toISOString()})});if(!res.ok) throw new Error();saveLocal();setSyncState('ok','Synkad '+new Date().toLocaleTimeString('sv-SE'));}
+ try{const res=await fetch('/api/sync',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({leads,updatedAt:new Date().toISOString()})});if(!res.ok)throw new Error();saveLocal();setSyncState('ok','Synkad '+new Date().toLocaleTimeString('sv-SE'));}
  catch(e){saveLocal();setSyncState('err','Moln ej nåbart');}
 }
 async function cloudSync(){await cloudPull();await cloudPush();}
-function setSyncState(s,t){const d=document.getElementById('sync-dot'),tx=document.getElementById('sync-text');if(!d) return;d.className='sync-dot '+s;if(tx) tx.textContent=t;}
+function setSyncState(s,t){const d=document.getElementById('sync-dot'),tx=document.getElementById('sync-text');if(!d)return;d.className='sync-dot '+s;if(tx)tx.textContent=t;}
 function loadLocal(){try{const d=localStorage.getItem('saljos_leads_v2');if(d){leads=JSON.parse(d);migrateLeads();}}catch(e){}}
 function saveLocal(){try{localStorage.setItem('saljos_leads_v2',JSON.stringify(leads));}catch(e){}}
 function saveData(){saveLocal();cloudPush();}
 function migrateLeads(){leads.forEach(l=>{if(!l.lockedBy)l.lockedBy=null;if(!l.lockedAt)l.lockedAt=null;if(!l.industry)l.industry=detectIndustry(l.company);if(!l.history)l.history=[];if(!l.subs)l.subs=[];if(!l.seller)l.seller=null;if(!l.status)l.status='ny';});}
-
 async function checkAllApis(){
  const grid=document.getElementById('api-status-grid');grid.innerHTML='<div><span class="spinner"></span> Kontrollerar...</div>';
  const checks=[{name:'☁️ Supabase Sync',url:'/api/sync'},{name:'🏛️ Bolagsverket',url:'/api/bv?_endpoint=&maxAntal=1'},{name:'📡 PTS',url:'/api/pts?number=0701234567'}];
@@ -783,18 +513,15 @@ async function checkAllApis(){
  for(const c of checks){try{const r=await fetch(c.url,{signal:AbortSignal.timeout(6000)});if(r.ok||r.status===400)html+=`<div class="status-ok">✅ ${c.name} — Aktiv</div>`;else if(r.status===500){const d=await r.json().catch(()=>({}));html+=`<div class="status-err">❌ ${c.name} — ${d.error||'Env var saknas'}</div>`;}else html+=`<div style="background:#fef9c3;color:#854d0e;border:1px solid #fde68a;border-radius:8px;padding:10px 14px;font-size:12px">⚠️ ${c.name} — HTTP ${r.status}</div>`;}catch(e){html+=`<div class="status-err">❌ ${c.name} — Inte nåbar</div>`;}}
  grid.innerHTML=html;
 }
-
-// BOLAGSVERKET
 function initSNI(){
- const grid=document.getElementById('sni-grid');if(!grid) return;
+ const grid=document.getElementById('sni-grid');if(!grid)return;
  grid.innerHTML=SNI.map(s=>`<div class="sni-chip ${TARGET.includes(s.ind)?'on':''}" id="sni-${s.code}" onclick="toggleSNI('${s.code}','${s.ind}')"><div class="chk" id="chk-${s.code}">${TARGET.includes(s.ind)?'✓':''}</div><div><div style="font-size:12px;font-weight:600">${s.label}</div><div style="font-size:10px;color:var(--MUTED)">SNI ${s.code}</div></div></div>`).join('');
  SNI.filter(s=>TARGET.includes(s.ind)).forEach(s=>selSNI.add(s.code));
  checkBVStatus();
 }
-async function checkBVStatus(){const ind=document.getElementById('bv-api-indicator');if(!ind) return;try{const r=await fetch('/api/bv?_endpoint=&maxAntal=1');if(r.status===500){ind.textContent='❌ BV_API_KEY saknas';ind.style.background='#fee2e2';ind.style.color='#991b1b';}else{ind.textContent='✅ API konfigurerad';ind.style.background='#d1fae5';ind.style.color='#065f46';}}catch{ind.textContent='⚠️ Ej tillgänglig';}}
+async function checkBVStatus(){const ind=document.getElementById('bv-api-indicator');if(!ind)return;try{const r=await fetch('/api/bv?_endpoint=&maxAntal=1');if(r.status===500){ind.textContent='❌ BV_API_KEY saknas';ind.style.background='#fee2e2';ind.style.color='#991b1b';}else{ind.textContent='✅ API konfigurerad';ind.style.background='#d1fae5';ind.style.color='#065f46';}}catch{ind.textContent='⚠️ Ej tillgänglig';}}
 function toggleSNI(code){if(selSNI.has(code)){selSNI.delete(code);document.getElementById('sni-'+code)?.classList.remove('on');document.getElementById('chk-'+code).textContent='';}else{selSNI.add(code);document.getElementById('sni-'+code)?.classList.add('on');document.getElementById('chk-'+code).textContent='✓';}}
 function setBVDates(){setTimeout(()=>{const now=new Date(),ago=new Date(now);ago.setMonth(ago.getMonth()-1);const f=document.getElementById('bv-from'),t=document.getElementById('bv-to');if(f)f.value=ago.toISOString().slice(0,10);if(t)t.value=now.toISOString().slice(0,10);},100);}
-
 async function searchBV(){
  if(!selSNI.size){showNotif('Välj minst en bransch','');return;}
  const btn=document.getElementById('bv-btn'),statusEl=document.getElementById('bv-status'),resultsEl=document.getElementById('bv-results');
@@ -804,47 +531,38 @@ async function searchBV(){
  if(from)params.append('registreringsdatumFran',from);if(to)params.append('registreringsdatumTill',to);if(county)params.append('lan',county);if(form)params.append('bolagsform',form);params.append('maxAntal',limit);
  try{
   const res=await fetch('/api/bv?'+params.toString());const data=await res.json();
-  if(!res.ok){resultsEl.innerHTML=`<div class="card" style="background:#fff7ed;padding:24px;text-align:center"><div style="font-size:32px">🔑</div><div style="font-weight:800;margin:8px 0">BV_API_KEY saknas</div><button class="btn btn-p" onclick="go('settings')">⚙️ Inställningar</button></div>`;return;}
-  bvResults=parseBV(data);renderBV();statusEl.innerHTML=`<span style="color:var(--G);font-weight:600">✅ ${bvResults.length} bolag</span>`;document.getElementById('bv-import-btn').style.display='inline-block';
- }catch(e){resultsEl.innerHTML=`<div class="card" style="color:var(--RD);padding:20px">Fel: ${esc(e.message)}</div>`;}
+  if(!res.ok){resultsEl.innerHTML='<div class="card" style="background:#fff7ed;padding:24px;text-align:center"><div style="font-size:32px">🔑</div><div style="font-weight:800;margin:8px 0">BV_API_KEY saknas</div><button class="btn btn-p" onclick="go(\'settings\')">⚙️ Inställningar</button></div>';return;}
+  bvResults=parseBV(data);renderBV();statusEl.innerHTML='<span style="color:var(--G);font-weight:600">✅ '+bvResults.length+' bolag</span>';document.getElementById('bv-import-btn').style.display='inline-block';
+ }catch(e){resultsEl.innerHTML='<div class="card" style="color:var(--RD);padding:20px">Fel: '+esc(e.message)+'</div>';}
  finally{btn.disabled=false;btn.innerHTML='🔍 Sök i Bolagsverket';}
 }
 function parseBV(data){let items=[];if(Array.isArray(data))items=data;else if(data.foretagsinformation)items=data.foretagsinformation;else if(data.foretagsinformationer)items=data.foretagsinformationer;else if(data.result)items=data.result;else if(data.hits)items=data.hits;return items.map((c,i)=>({_idx:i,orgnr:c.organisationsnummer||c.orgnr||'',company:c.foretagsnamn||c.namn||c.name||'',phone:c.telefon||'',address:c.postort||c.ort||'',regDate:c.registreringsdatum||'',form:c.bolagsform||'AB',industry:detectIndustry(c.foretagsnamn||c.namn||'')})).filter(c=>c.company||c.orgnr);}
-function renderBV(){const container=document.getElementById('bv-results');const existOrgs=new Set(leads.map(l=>normOrg(l.orgnr)));container.innerHTML=`<div class="settings-section"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><h4 style="margin-bottom:0">Resultat — ${bvResults.length} bolag</h4><div style="display:flex;gap:8px"><button class="btn btn-o btn-sm" onclick="bvCheckAll(true)">Välj alla</button><button class="btn btn-g btn-sm" onclick="importSelectedBV()">⬇️ Importera</button></div></div><div class="bv-result-table"><table><thead><tr><th><input type="checkbox" onchange="bvCheckAll(this.checked)" style="width:auto"></th><th>Bolagsnamn</th><th>Org-nr</th><th>Bransch</th><th>Ort</th><th></th></tr></thead><tbody>`+bvResults.map(r=>{const dup=existOrgs.has(normOrg(r.orgnr));return`<tr style="${dup?'opacity:.45':''}"><td><input type="checkbox" id="bv-cb-${r._idx}" class="bv-checkbox" ${!dup?'checked':''} ${dup?'disabled':''}></td><td><strong>${esc(r.company)}</strong>${TARGET.includes(r.industry)?' <span class="priority-target">⭐</span>':''}</td><td style="font-size:11px;font-family:monospace">${esc(r.orgnr)}</td><td><span class="industry-badge">${getIndLabel(r.industry)}</span></td><td style="font-size:12px">${esc(r.address)}</td><td><span class="st-badge ${dup?'st-avslutad':'st-ny'}">${dup?'Finns':'Ny'}</span></td></tr>`;}).join('')+'</tbody></table></div></div>';}
+function renderBV(){const container=document.getElementById('bv-results');const existOrgs=new Set(leads.map(l=>normOrg(l.orgnr)));container.innerHTML='<div class="settings-section"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><h4 style="margin-bottom:0">Resultat — '+bvResults.length+' bolag</h4><div style="display:flex;gap:8px"><button class="btn btn-o btn-sm" onclick="bvCheckAll(true)">Välj alla</button><button class="btn btn-g btn-sm" onclick="importSelectedBV()">⬇️ Importera</button></div></div><div class="bv-result-table"><table><thead><tr><th><input type="checkbox" onchange="bvCheckAll(this.checked)" style="width:auto"></th><th>Bolagsnamn</th><th>Org-nr</th><th>Bransch</th><th>Ort</th><th></th></tr></thead><tbody>'+bvResults.map(r=>{const dup=existOrgs.has(normOrg(r.orgnr));return'<tr style="'+(dup?'opacity:.45':'')+'"><td><input type="checkbox" id="bv-cb-'+r._idx+'" class="bv-checkbox" '+(!dup?'checked':'')+' '+(dup?'disabled':'')+'></td><td><strong>'+esc(r.company)+'</strong>'+(TARGET.includes(r.industry)?' <span class="priority-target">⭐</span>':'')+'</td><td style="font-size:11px;font-family:monospace">'+esc(r.orgnr)+'</td><td><span class="industry-badge">'+getIndLabel(r.industry)+'</span></td><td style="font-size:12px">'+esc(r.address)+'</td><td><span class="st-badge '+(dup?'st-avslutad':'st-ny')+'">'+(dup?'Finns':'Ny')+'</span></td></tr>';}).join('')+'</tbody></table></div></div>';}
 function bvCheckAll(val){document.querySelectorAll('.bv-checkbox:not(:disabled)').forEach(c=>c.checked=val);}
-function importSelectedBV(){const op=document.getElementById('bv-op').value;const existOrgs=new Set(leads.map(l=>normOrg(l.orgnr)));let n=0;bvResults.forEach(r=>{const cb=document.getElementById('bv-cb-'+r._idx);if(!cb||!cb.checked||cb.disabled) return;if(existOrgs.has(normOrg(r.orgnr))) return;leads.push({id:nextId(),company:r.company,contact:'',phone:'',orgnr:r.orgnr,operator:op,email:'',plan:'',priceOrig:'',priceDiscount:'',priceFinal:'',bindingDate:null,industry:r.industry||detectIndustry(r.company),portingDate:null,nextCallDate:null,status:op==='Okänd'?'prospekt':'ny',note:'',vdName:'',vdPhone:'',vdEmail:'',website:'',offerSent:false,offerOpened:false,history:[],lockedBy:null,lockedAt:null,seller:null,subs:[]});n++;});saveData();updateBadges();renderBV();if(n)showNotif(n+' leads importerade → Prospektpool','🏛️');else alert('Inga nya leads.');}
-
-// PTS
-async function ptsLookup(){const num=document.getElementById('pts-num').value.trim();if(!num) return;const area=document.getElementById('pts-result');area.innerHTML='<div><span class="spinner"></span></div>';try{const r=await fetch('/api/pts?number='+encodeURIComponent(num));const d=await r.json();if(!r.ok) throw new Error(d.error||r.status);const opColors={Telia:'#5b21b6',Telenor:'#1e40af',Tre:'#5B0FA0',Tele2:'#1e3a8a'};const op=d.operatör||'?',clr=opColors[op]||'#374151';area.innerHTML=`<div class="pts-card"><div style="font-size:22px;font-weight:800">${fmtPhone(d.nummer||'')}</div><div class="pts-op-badge" style="background:${clr}22;color:${clr}">📡 ${esc(op)}</div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:16px"><div><div style="font-size:10px;color:var(--MUTED);font-weight:700">Operatör</div><div style="font-size:15px;font-weight:700">${esc(op)}</div></div><div><div style="font-size:10px;color:var(--MUTED);font-weight:700">Port.</div><div style="font-size:15px;font-weight:700">${esc(d.portningsdatum||'—')}</div></div><div><div style="font-size:10px;color:var(--MUTED);font-weight:700">Typ</div><div style="font-size:15px;font-weight:700">${esc(d.nummertyp||'—')}</div></div></div>${d.nix?'<div style="margin-top:10px;background:#fee2e2;color:#991b1b;padding:6px 12px;border-radius:6px;font-size:12px">⛔ NIX</div>':''}<button class="btn btn-g btn-sm" style="margin-top:14px" onclick="addFromPts('${esc(normPhone(d.nummer||''))}')">➕ Lägg till som lead</button></div>`;}catch(e){area.innerHTML=`<div style="color:var(--MUTED);font-size:12px">Fel: ${esc(e.message)} — <a href="https://nummer.pts.se/NbrSearch" target="_blank">Sök manuellt</a></div>`;}}
-async function ptsBatch(){const lines=document.getElementById('pts-batch').value.split('\n').map(l=>l.trim()).filter(l=>l);if(!lines.length) return;const cont=document.getElementById('pts-batch-res');cont.innerHTML='<span class="spinner"></span>';const results=[];for(const line of lines){try{const r=await fetch('/api/pts?number='+encodeURIComponent(line));const d=await r.json();results.push({num:line,op:d.operatör||'?',port:d.portningsdatum||'—',nix:d.nix,ok:r.ok});}catch{results.push({num:line,op:'Fel',port:'—',ok:false});}}cont.innerHTML='<table><thead><tr><th>Nummer</th><th>Operatör</th><th>Port.</th><th>NIX</th><th></th></tr></thead><tbody>'+results.map(r=>`<tr><td>${fmtPhone(r.num)}</td><td>${r.ok?`<strong>${esc(r.op)}</strong>`:`<span style="color:var(--MUTED)">${esc(r.op)}</span>`}</td><td>${esc(r.port)}</td><td>${r.nix?'⛔':'—'}</td><td><button class="btn btn-g btn-sm" onclick="addFromPts('${esc(normPhone(r.num))}')">➕</button></td></tr>`).join('')+'</tbody></table>';}
+function importSelectedBV(){const op=document.getElementById('bv-op').value;const existOrgs=new Set(leads.map(l=>normOrg(l.orgnr)));let n=0;bvResults.forEach(r=>{const cb=document.getElementById('bv-cb-'+r._idx);if(!cb||!cb.checked||cb.disabled)return;if(existOrgs.has(normOrg(r.orgnr)))return;leads.push({id:nextId(),company:r.company,contact:'',phone:'',orgnr:r.orgnr,operator:op,email:'',plan:'',priceOrig:'',priceDiscount:'',priceFinal:'',bindingDate:null,industry:r.industry||detectIndustry(r.company),portingDate:null,nextCallDate:null,status:op==='Okänd'?'prospekt':'ny',note:'',vdName:'',vdPhone:'',vdEmail:'',website:'',offerSent:false,offerOpened:false,history:[],lockedBy:null,lockedAt:null,seller:null,subs:[]});n++;});saveData();updateBadges();renderBV();if(n)showNotif(n+' leads importerade → Prospektpool','🏛️');else alert('Inga nya leads.');}
+async function ptsLookup(){const num=document.getElementById('pts-num')?.value.trim();if(!num)return;const area=document.getElementById('pts-result');area.innerHTML='<div><span class="spinner"></span></div>';try{const r=await fetch('/api/pts?number='+encodeURIComponent(num));const d=await r.json();if(!r.ok)throw new Error(d.error||r.status);const opColors={Telia:'#5b21b6',Telenor:'#1e40af',Tre:'#5B0FA0',Tele2:'#1e3a8a'};const op=d.operatör||'?',clr=opColors[op]||'#374151';area.innerHTML='<div class="pts-card"><div style="font-size:22px;font-weight:800">'+fmtPhone(d.nummer||'')+'</div><div class="pts-op-badge" style="background:'+clr+'22;color:'+clr+'">📡 '+esc(op)+'</div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:16px"><div><div style="font-size:10px;color:var(--MUTED);font-weight:700">Operatör</div><div style="font-size:15px;font-weight:700">'+esc(op)+'</div></div><div><div style="font-size:10px;color:var(--MUTED);font-weight:700">Port.</div><div style="font-size:15px;font-weight:700">'+esc(d.portningsdatum||'—')+'</div></div><div><div style="font-size:10px;color:var(--MUTED);font-weight:700">Typ</div><div style="font-size:15px;font-weight:700">'+esc(d.nummertyp||'—')+'</div></div></div>'+(d.nix?'<div style="margin-top:10px;background:#fee2e2;color:#991b1b;padding:6px 12px;border-radius:6px;font-size:12px">⛔ NIX</div>':'')+'<button class="btn btn-g btn-sm" style="margin-top:14px" onclick="addFromPts(\''+esc(normPhone(d.nummer||''))+'\')">➕ Lägg till som lead</button></div>';}catch(e){area.innerHTML='<div style="color:var(--MUTED);font-size:12px">Fel: '+esc(e.message)+' — <a href="https://nummer.pts.se/NbrSearch" target="_blank">Sök manuellt</a></div>';}}
 function addFromPts(ph){document.getElementById('al-ph').value=ph;openAddModal();}
-
-// LOCK
-function lockLead(id){const l=leads.find(l=>l.id===id);if(!l) return false;if(l.lockedBy&&l.lockedBy!==currentSeller&&!lockExp(l)) return false;l.lockedBy=currentSeller;l.lockedAt=new Date().toISOString();saveLocal();return true;}
+function lockLead(id){const l=leads.find(l=>l.id===id);if(!l)return false;if(l.lockedBy&&l.lockedBy!==currentSeller&&!lockExp(l))return false;l.lockedBy=currentSeller;l.lockedAt=new Date().toISOString();saveLocal();return true;}
 function unlockLead(id){const l=leads.find(l=>l.id===id);if(l&&l.lockedBy===currentSeller){l.lockedBy=null;l.lockedAt=null;saveLocal();}}
 function lockExp(l){return !l.lockedAt||(Date.now()-new Date(l.lockedAt).getTime())/60000>LOCK_MIN;}
-function lockStatus(l){if(!l.lockedBy) return 'free';if(lockExp(l)) return 'exp';if(l.lockedBy===currentSeller) return 'mine';return 'other';}
+function lockStatus(l){if(!l.lockedBy)return 'free';if(lockExp(l))return 'exp';if(l.lockedBy===currentSeller)return 'mine';return 'other';}
 function lockCleanup(){let ch=false;leads.forEach(l=>{if(l.lockedBy&&lockExp(l)){l.lockedBy=null;l.lockedAt=null;ch=true;}});if(ch)saveLocal();}
-
-// SCORING
 function scoreLead(l){
- if(l.status==='prospekt') return -1;
- if(!l.phone||l.phone.trim()==='') return -1;
+ if(l.status==='prospekt')return -1;
+ if(!l.phone||l.phone.trim()==='')return -1;
  let s=0,today=new Date();
  if(l.bindingDate){const d=Math.ceil((new Date(l.bindingDate)-today)/864e5);if(d<0)s+=100;else if(d<14)s+=80;else if(d<30)s+=60;else if(d<60)s+=40;else if(d<90)s+=20;}
  if(TARGET.includes(l.industry))s+=50;
  if(l.nextCallDate&&(today-new Date(l.nextCallDate))/864e5>0)s+=Math.min(Math.ceil((today-new Date(l.nextCallDate))/864e5)*5,30);
  if(l.status==='ny')s+=10;if(l.status==='ej_svar')s+=5;if(l.status==='ring_senare')s+=15;
  if(l.subs)s+=l.subs.length*2;
- const ls=lockStatus(l);if(ls==='other') return -1000;if(ls==='mine')s+=25;
+ const ls=lockStatus(l);if(ls==='other')return -1000;if(ls==='mine')s+=25;
  return s;
 }
 function scoredLeads(){return leads.filter(l=>!['blacklist','order','prospekt'].includes(l.status)).map(l=>({...l,score:scoreLead(l)})).filter(l=>l.score>0).sort((a,b)=>b.score-a.score);}
 function targetLeads(){return scoredLeads().filter(l=>TARGET.includes(l.industry));}
-
-// DIALER
 function renderDialer(){
- if(dialerOn) return;
+ if(dialerOn)return;
  const tg=targetLeads().slice(0,5),ot=scoredLeads().filter(l=>!TARGET.includes(l.industry)).slice(0,5);
  document.getElementById('target-count').textContent=targetLeads().length;
  document.getElementById('total-ready-count').textContent=scoredLeads().length;
@@ -854,98 +572,99 @@ function renderDialer(){
  if(!tg.length&&!ot.length)html='<div class="empty">Inga leads redo att ringa.<br><button class="btn btn-p btn-sm" style="margin-top:12px" onclick="go(\'leads\');setTimeout(()=>switchLeadsTab(\'prospekt\'),100)">🎯 Hämta från Prospektpool</button></div>';
  document.getElementById('q-list').innerHTML=html;
 }
-function qItem(l){return `<div class="q-item" onclick="openFromQueue(${l.id})"><div><div class="co">${esc(l.company)}${l.subs&&l.subs.length>1?'<span class="sub-count">'+l.subs.length+' st</span>':''}</div><div style="font-size:11px;color:var(--MUTED);margin-top:2px">${fmtPhone(l.phone)} · ${getIndLabel(l.industry)}</div></div><div class="meta"><span class="op op-${(l.operator||'okänd').toLowerCase()}">${esc(l.operator||'Okänd')}</span><span class="${bindCls(l.bindingDate)}" style="font-size:11px">${bindLbl(l.bindingDate)}</span><span class="sc">${l.score}</span></div></div>`;}
+function qItem(l){return '<div class="q-item" onclick="openFromQueue('+l.id+')"><div><div class="co">'+esc(l.company)+(l.subs&&l.subs.length>1?'<span class="sub-count">'+l.subs.length+' st</span>':'')+'</div><div style="font-size:11px;color:var(--MUTED);margin-top:2px">'+fmtPhone(l.phone)+' · '+getIndLabel(l.industry)+'</div></div><div class="meta"><span class="op op-'+(l.operator||'okänd').toLowerCase()+'">'+esc(l.operator||'Okänd')+'</span><span class="'+bindCls(l.bindingDate)+'" style="font-size:11px">'+bindLbl(l.bindingDate)+'</span><span class="sc">'+l.score+'</span></div></div>';}
 function claimNextTarget(){const t=targetLeads();if(!t.length){showNotif('Inga prioriterade leads!','');return;}if(lockLead(t[0].id))openKK(t[0].id);else{showNotif('Försök igen!','');renderDialer();}}
-function openFromQueue(id){const l=leads.find(l=>l.id===id);if(!l) return;const ls=lockStatus(l);if(ls==='other'){showNotif('Låst av '+l.lockedBy+'!','');return;}if(ls==='free'||ls==='exp')lockLead(id);openKK(id);}
+function openFromQueue(id){const l=leads.find(l=>l.id===id);if(!l)return;const ls=lockStatus(l);if(ls==='other'){showNotif('Låst av '+l.lockedBy+'!','');return;}if(ls==='free'||ls==='exp')lockLead(id);openKK(id);}
 function startDialer(){dialerQ=scoredLeads();if(!dialerQ.length){showNotif('Inga leads! Aktivera från Prospektpool.','');return;}dialerIdx=0;dialerOn=true;document.getElementById('d-idle').style.display='none';document.getElementById('d-active').classList.add('on');document.getElementById('fab-area').style.display='block';document.getElementById('bcb').style.display='flex';nextDialerLead();}
 function stopDialer(){dialerOn=false;dialerIdx=-1;document.getElementById('d-active').classList.remove('on');document.getElementById('d-idle').style.display='';document.getElementById('fab-area').style.display='none';document.getElementById('bcb').style.display='none';closeOutcomePanel();renderDialer();updateBadges();}
 function nextDialerLead(){if(dialerIdx>=dialerQ.length){stopDialer();return;}const l=leads.find(l=>l.id===dialerQ[dialerIdx].id);if(!l){dialerIdx++;nextDialerLead();return;}lockLead(l.id);renderKK(l);document.getElementById('note-ta').value=l.note||'';renderHistory(l);renderOutcomes(l);document.getElementById('calling-lbl').textContent='';callingPhone='';}
 function skipLead(){const l=getCurLead();if(l)unlockLead(l.id);dialerIdx++;if(dialerIdx<dialerQ.length)nextDialerLead();else stopDialer();updateBadges();}
-
-// KUNDKORT
 function renderKK(lead){
- document.getElementById('kk-area').innerHTML=`
-  <div style="margin-bottom:20px;display:flex;justify-content:space-between;align-items:start">
-   <div><h2 style="font-size:22px;font-weight:800;letter-spacing:-.03em;margin-bottom:2px">${esc(lead.company)}</h2><div style="color:var(--MUTED);font-size:12px">${esc(fmtOrg(lead.orgnr)||'—')} · ${getIndLabel(lead.industry)}</div></div>
-   <button class="btn btn-o btn-sm" onclick="stopDialer()">← Tillbaka</button>
-  </div>
-  <div style="display:grid;grid-template-columns:310px 1fr;gap:22px;align-items:start">
-   <div style="background:var(--W);border:1px solid var(--BORDER);border-radius:10px;padding:24px">
-    <div style="display:flex;gap:6px;margin-bottom:16px">
-     <button class="btn btn-p btn-sm" style="flex:1" onclick="window.open('https://crm.upsales.com/','_blank')">Upsales</button>
-     <button class="btn btn-g btn-sm" style="flex:1" onclick="window.open('https://app.getaccept.com/','_blank')">GetAccept</button>
-    </div>
-    <div style="display:flex;flex-direction:column;gap:12px">
-     <div><label style="font-size:10px;color:var(--MUTED);font-weight:600;display:block;margin-bottom:3px">Beslutsfattare</label><input value="${esc(lead.vdName||'')}" oninput="saveField(${lead.id},'vdName',this.value)"></div>
-     <div><label style="font-size:10px;color:var(--MUTED);font-weight:600;display:block;margin-bottom:3px">Direktnummer</label><input value="${esc(lead.vdPhone||'')}" oninput="saveField(${lead.id},'vdPhone',this.value)"></div>
-     <div><label style="font-size:10px;color:var(--MUTED);font-weight:600;display:block;margin-bottom:3px">E-post</label><input value="${esc(lead.vdEmail||lead.email||'')}" oninput="saveField(${lead.id},'vdEmail',this.value)"></div>
-     <div><label style="font-size:10px;color:var(--MUTED);font-weight:600;display:block;margin-bottom:3px">Webbplats</label><div style="display:flex;gap:6px"><input value="${esc(lead.website||'')}" oninput="saveField(${lead.id},'website',this.value)"><button class="btn btn-o btn-sm" onclick="openSite(${lead.id})">🌐</button></div></div>
-    </div>
-    <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--BORDER);display:flex;flex-wrap:wrap;gap:5px">
-     <a href="https://www.allabolag.se/${normOrg(lead.orgnr)}" target="_blank" class="link-btn">Allabolag</a>
-     <a href="https://www.merinfo.se/search?q=${encodeURIComponent(fmtOrg(lead.orgnr))}" target="_blank" class="link-btn">Merinfo</a>
-     <a href="https://www.linkedin.com/search/results/companies/?keywords=${encodeURIComponent(lead.company||'')}" target="_blank" class="link-btn">LinkedIn</a>
-     <a href="https://www.google.com/search?q=${encodeURIComponent(lead.company||'')}" target="_blank" class="link-btn">Google</a>
-     <a href="https://nummer.pts.se/NbrSearch" target="_blank" class="link-btn">📡 PTS</a>
-    </div>
-   </div>
-   <div>
-    <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">Abonnemang · ${lead.subs?lead.subs.length:0} st</div>
-    ${renderSubs(lead)}
-   </div>
-  </div>`;
+ document.getElementById('kk-area').innerHTML=
+  '<div style="margin-bottom:20px;display:flex;justify-content:space-between;align-items:start"><div><h2 style="font-size:22px;font-weight:800;letter-spacing:-.03em;margin-bottom:2px">'+esc(lead.company)+'</h2><div style="color:var(--MUTED);font-size:12px">'+esc(fmtOrg(lead.orgnr)||'—')+' · '+getIndLabel(lead.industry)+'</div></div><button class="btn btn-o btn-sm" onclick="stopDialer()">← Tillbaka</button></div>'+
+  '<div style="display:grid;grid-template-columns:310px 1fr;gap:22px;align-items:start">'+
+  '<div style="background:var(--W);border:1px solid var(--BORDER);border-radius:10px;padding:24px">'+
+  '<div style="display:flex;gap:6px;margin-bottom:16px"><button class="btn btn-p btn-sm" style="flex:1" onclick="window.open(\'https://crm.upsales.com/\',\'_blank\')">Upsales</button><button class="btn btn-g btn-sm" style="flex:1" onclick="window.open(\'https://app.getaccept.com/\',\'_blank\')">GetAccept</button></div>'+
+  '<div style="display:flex;flex-direction:column;gap:12px">'+
+  '<div><label style="font-size:10px;color:var(--MUTED);font-weight:600;display:block;margin-bottom:3px">Beslutsfattare</label><input value="'+esc(lead.vdName||'')+'" oninput="saveField('+lead.id+',\'vdName\',this.value)"></div>'+
+  '<div><label style="font-size:10px;color:var(--MUTED);font-weight:600;display:block;margin-bottom:3px">Direktnummer</label><input value="'+esc(lead.vdPhone||'')+'" oninput="saveField('+lead.id+',\'vdPhone\',this.value)"></div>'+
+  '<div><label style="font-size:10px;color:var(--MUTED);font-weight:600;display:block;margin-bottom:3px">E-post</label><input value="'+esc(lead.vdEmail||lead.email||'')+'" oninput="saveField('+lead.id+',\'vdEmail\',this.value)"></div>'+
+  '<div><label style="font-size:10px;color:var(--MUTED);font-weight:600;display:block;margin-bottom:3px">Webbplats</label><div style="display:flex;gap:6px"><input value="'+esc(lead.website||'')+'" oninput="saveField('+lead.id+',\'website\',this.value)"><button class="btn btn-o btn-sm" onclick="openSite('+lead.id+')">🌐</button></div></div>'+
+  '</div>'+
+  '<div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--BORDER);display:flex;flex-wrap:wrap;gap:5px">'+
+  '<a href="https://www.allabolag.se/'+normOrg(lead.orgnr)+'" target="_blank" class="link-btn">Allabolag</a>'+
+  '<a href="https://www.merinfo.se/search?q='+encodeURIComponent(fmtOrg(lead.orgnr))+'" target="_blank" class="link-btn">Merinfo</a>'+
+  '<a href="https://www.linkedin.com/search/results/companies/?keywords='+encodeURIComponent(lead.company||'')+'" target="_blank" class="link-btn">LinkedIn</a>'+
+  '<a href="https://www.google.com/search?q='+encodeURIComponent(lead.company||'')+'" target="_blank" class="link-btn">Google</a>'+
+  '<a href="https://nummer.pts.se/NbrSearch" target="_blank" class="link-btn">📡 PTS</a>'+
+  '</div></div>'+
+  '<div><div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">Abonnemang · '+(lead.subs?lead.subs.length:0)+' st</div>'+renderSubs(lead)+'</div>'+
+  '</div>';
 }
-function renderSubs(lead){if(!lead.subs||!lead.subs.length) return '<div style="color:var(--MUTED)">Inga abonnemang</div>';return '<div style="display:flex;flex-direction:column;gap:4px">'+lead.subs.map((s,i)=>`<div style="border:1px solid var(--BORDER);border-radius:8px;overflow:hidden"><div onclick="toggleSub(${i})" style="display:flex;align-items:center;justify-content:space-between;padding:11px 15px;cursor:pointer;background:${i%2?'var(--W)':'#fafafc'}"><div style="display:flex;align-items:center;gap:12px"><strong>${esc(s.user||'—')}</strong><a href="${toTel(s.phone)}" class="sub-phone" onclick="event.stopPropagation()">${fmtPhone(s.phone)}</a></div><div style="display:flex;align-items:center;gap:8px"><span class="op op-${(lead.operator||'okänd').toLowerCase()}">${esc(lead.operator||'Okänd')}</span><span class="${bindCls(s.end)}" style="font-size:11px">${bindLbl(s.end)}</span><button class="btn btn-g btn-sm" onclick="event.stopPropagation();setCallingPhone('${esc(s.phone)}','${esc(s.user)}');makeCall()">Ring</button></div></div><div id="sub-d-${i}" style="display:none;grid-template-columns:1fr 1fr 1fr;gap:12px;padding:11px 15px;background:#f8f8fb;border-top:1px solid var(--BORDER)"><div><div style="font-size:10px;color:var(--MUTED);font-weight:600;margin-bottom:2px">Porterad</div><strong style="font-size:12px">${esc(s.portDate||'—')}</strong></div><div><div style="font-size:10px;color:var(--MUTED);font-weight:600;margin-bottom:2px">Bindning slutar</div><strong style="font-size:12px" class="${bindCls(s.end)}">${esc(s.end||'—')}</strong></div><div><div style="font-size:10px;color:var(--MUTED);font-weight:600;margin-bottom:2px">Plan</div><span style="font-size:12px">${esc(s.plan||'—')}</span></div></div></div>`).join('')+'</div>';}
+function renderSubs(lead){
+ if(!lead.subs||!lead.subs.length)return '<div style="color:var(--MUTED)">Inga abonnemang</div>';
+ return '<div style="display:flex;flex-direction:column;gap:4px">'+lead.subs.map(function(s,i){
+  return '<div style="border:1px solid var(--BORDER);border-radius:8px;overflow:hidden">'+
+   '<div onclick="toggleSub('+i+')" style="display:flex;align-items:center;justify-content:space-between;padding:11px 15px;cursor:pointer;background:'+(i%2?'var(--W)':'#fafafc')+'">'+
+   '<div style="display:flex;align-items:center;gap:12px"><strong>'+esc(s.user||'—')+'</strong><a href="'+toTel(s.phone)+'" class="sub-phone" onclick="event.stopPropagation()">'+fmtPhone(s.phone)+'</a></div>'+
+   '<div style="display:flex;align-items:center;gap:8px">'+
+   '<span class="op op-'+(lead.operator||'okänd').toLowerCase()+'">'+esc(lead.operator||'Okänd')+'</span>'+
+   '<span class="'+bindCls(s.end)+'" style="font-size:11px">'+bindLbl(s.end)+'</span>'+
+   '<button class="btn btn-g btn-sm" onclick="event.stopPropagation();setCallingPhone(\''+esc(s.phone)+'\',\''+esc(s.user)+'\');makeCall()">Ring</button>'+
+   '</div></div>'+
+   '<div id="sub-d-'+i+'" style="display:none;grid-template-columns:1fr 1fr 1fr;gap:12px;padding:11px 15px;background:#f8f8fb;border-top:1px solid var(--BORDER)">'+
+   '<div><div style="font-size:10px;color:var(--MUTED);font-weight:600;margin-bottom:2px">Porterad</div><strong style="font-size:12px">'+esc(s.portDate||'—')+'</strong></div>'+
+   '<div><div style="font-size:10px;color:var(--MUTED);font-weight:600;margin-bottom:2px">Bindning slutar</div><strong style="font-size:12px" class="'+bindCls(s.end)+'">'+esc(s.end||'—')+'</strong></div>'+
+   '<div><div style="font-size:10px;color:var(--MUTED);font-weight:600;margin-bottom:2px">Plan</div><span style="font-size:12px">'+esc(s.plan||'—')+'</span></div>'+
+   '</div></div>';
+ }).join('')+'</div>';
+}
 function toggleSub(i){const el=document.getElementById('sub-d-'+i);el.style.display=el.style.display==='none'?'grid':'none';}
-
-
-// OUTCOMES
 function openOutcomePanel(){const p=document.getElementById('panel-outcome'),ov=document.getElementById('outcome-overlay');panelOpen=true;p.style.display='flex';ov.style.display='block';}
 function closeOutcomePanel(){const p=document.getElementById('panel-outcome'),ov=document.getElementById('outcome-overlay');panelOpen=false;p.style.display='none';ov.style.display='none';}
 function toggleOutcomePanel(){if(panelOpen)closeOutcomePanel();else openOutcomePanel();}
-function renderOutcomes(lead){let html='';for(let g in OUTCOMES){html+=`<div class="oc-group"><div class="oc-title">${g}</div><div>`;OUTCOMES[g].forEach(o=>{html+=`<button class="oc-btn ${o.cls||''}" onclick="logOutcome('${esc(o.t)}',${o.h},'${o.u}',${o.ret})">${esc(o.t)}</button>`;});html+='</div></div>';}html+=`<button class="next-btn" onclick="skipLead()">Nästa lead →</button>`;document.getElementById('outcome-btns').innerHTML=html;}
+function renderOutcomes(lead){let html='';for(let g in OUTCOMES){html+='<div class="oc-group"><div class="oc-title">'+g+'</div><div>';OUTCOMES[g].forEach(o=>{html+='<button class="oc-btn '+(o.cls||'')+'" onclick="logOutcome(\''+esc(o.t)+'\','+o.h+',\''+o.u+'\','+o.ret+')">'+esc(o.t)+'</button>';});html+='</div></div>';}html+='<button class="next-btn" onclick="skipLead()">Nästa lead →</button>';document.getElementById('outcome-btns').innerHTML=html;}
 function logOutcome(text,hours,unit,ret){
- const lead=getCurLead();if(!lead) return;
+ const lead=getCurLead();if(!lead)return;
  lead.history.push({date:new Date().toISOString().slice(0,10),outcome:text,note:lead.note||'',seller:currentSeller});
- if(unit==='bl'){lead.status='blacklist';lead.nextCallDate=null;}else if(unit==='x'){lead.status='avslutad';lead.nextCallDate=null;}else if(unit==='offert'){lead.status='offert';lead.offerSent=true;lead.seller=currentSeller;lead.nextCallDate=null;}else if(unit==='order'){lead.status='order';lead.seller=currentSeller;lead.nextCallDate=null;}else if(unit==='apg'){lead.status='apg';lead.nextCallDate=null;}else if(unit==='lost'){lead.status='avslutad';lead.nextCallDate=null;}else if(unit==='cb'){const d=prompt('Ringdatum (YYYY-MM-DD):');if(d){lead.status='ring_senare';lead.nextCallDate=d;}}else if(unit==='h'){lead.status='ej_svar';const d=new Date();d.setHours(d.getHours()+hours);lead.nextCallDate=d.toISOString();}else if(unit==='d'){lead.status=hours>=90?'inte_intresserad':'ej_svar';const d=new Date();d.setDate(d.getDate()+hours);lead.nextCallDate=d.toISOString().slice(0,10);}else if(unit==='m'){lead.status='inte_intresserad';const d=new Date();d.setMonth(d.getMonth()+hours);lead.nextCallDate=d.toISOString().slice(0,10);}
+ if(unit==='bl'){lead.status='blacklist';lead.nextCallDate=null;}
+ else if(unit==='x'){lead.status='avslutad';lead.nextCallDate=null;}
+ else if(unit==='offert'){lead.status='offert';lead.offerSent=true;lead.seller=currentSeller;lead.nextCallDate=null;}
+ else if(unit==='order'){lead.status='order';lead.seller=currentSeller;lead.nextCallDate=null;}
+ else if(unit==='apg'){lead.status='apg';lead.nextCallDate=null;}
+ else if(unit==='lost'){lead.status='avslutad';lead.nextCallDate=null;}
+ else if(unit==='cb'){const d=prompt('Ringdatum (YYYY-MM-DD):');if(d){lead.status='ring_senare';lead.nextCallDate=d;}}
+ else if(unit==='h'){lead.status='ej_svar';const d=new Date();d.setHours(d.getHours()+hours);lead.nextCallDate=d.toISOString();}
+ else if(unit==='d'){lead.status=hours>=90?'inte_intresserad':'ej_svar';const d=new Date();d.setDate(d.getDate()+hours);lead.nextCallDate=d.toISOString().slice(0,10);}
+ else if(unit==='m'){lead.status='inte_intresserad';const d=new Date();d.setMonth(d.getMonth()+hours);lead.nextCallDate=d.toISOString().slice(0,10);}
  if(!ret)unlockLead(lead.id);
  saveData();closeOutcomePanel();callingPhone='';
  dialerIdx++;if(dialerIdx<dialerQ.length)nextDialerLead();else stopDialer();
  updateBadges();
 }
-
-// LEADS TABS
 function switchLeadsTab(tab){
  activeLeadsTab=tab;
  document.getElementById('tab-aktiva').classList.toggle('active',tab==='aktiva');
  document.getElementById('tab-prospekt').classList.toggle('active',tab==='prospekt');
  document.getElementById('leads-aktiva').style.display=tab==='aktiva'?'block':'none';
  document.getElementById('leads-prospekt').style.display=tab==='prospekt'?'block':'none';
- if(tab==='prospekt') renderProspekt();
- else renderLeads();
+ if(tab==='prospekt')renderProspekt();else renderLeads();
 }
-
-// PROSPEKTPOOL
 function renderProspekt(){
  const q=(document.getElementById('prospekt-search')?.value||'').toLowerCase();
  const ind=document.getElementById('prospekt-ind')?.value||'';
  let filtered=leads.filter(l=>l.status==='prospekt').filter(l=>{
-  if(ind&&l.industry!==ind) return false;
-  if(q){const s=`${l.company} ${l.orgnr} ${getIndLabel(l.industry)}`.toLowerCase();if(!s.includes(q)) return false;}
+  if(ind&&l.industry!==ind)return false;
+  if(q){const s=(l.company+' '+l.orgnr+' '+getIndLabel(l.industry)).toLowerCase();if(!s.includes(q))return false;}
   return true;
  });
- const tb=document.getElementById('prospekt-tb');
- if(!tb) return;
- tb.innerHTML=filtered.map(l=>`<tr style="cursor:pointer" onclick="openQuickView(${l.id})"><td onclick="event.stopPropagation()"><input type="checkbox" class="prospekt-cb" data-id="${l.id}" style="width:auto"></td><td><strong>${esc(l.company)}</strong>${TARGET.includes(l.industry)?' <span class="priority-target">⭐</span>':''}</td><td style="font-size:11px;font-family:monospace">${esc(fmtOrg(l.orgnr)||'—')}</td><td><span class="industry-badge">${getIndLabel(l.industry)}</span></td><td style="font-size:12px">${l.history[0]?.date||'—'}</td><td onclick="event.stopPropagation()"><button class="btn btn-g btn-sm" onclick="aktiveraLead(${l.id})">Aktivera →</button></td></tr>`).join('')||'<tr><td colspan="6" class="empty">Inga prospekt</td></tr>';
- const pc=document.getElementById('prospekt-count');
- if(pc) pc.textContent=filtered.length+' visas · '+leads.filter(l=>l.status==='prospekt').length+' totalt';
- const pb=document.getElementById('prospekt-badge');
- if(pb) pb.textContent=leads.filter(l=>l.status==='prospekt').length;
+ const tb=document.getElementById('prospekt-tb');if(!tb)return;
+ tb.innerHTML=filtered.map(l=>'<tr style="cursor:pointer" onclick="openQuickView('+l.id+')"><td onclick="event.stopPropagation()"><input type="checkbox" class="prospekt-cb" data-id="'+l.id+'" style="width:auto"></td><td><strong>'+esc(l.company)+'</strong>'+(TARGET.includes(l.industry)?' <span class="priority-target">⭐</span>':'')+'</td><td style="font-size:11px;font-family:monospace">'+esc(fmtOrg(l.orgnr)||'—')+'</td><td><span class="industry-badge">'+getIndLabel(l.industry)+'</span></td><td style="font-size:12px">'+(l.history[0]?.date||'—')+'</td><td onclick="event.stopPropagation()"><button class="btn btn-g btn-sm" onclick="aktiveraLead('+l.id+')">Aktivera →</button></td></tr>').join('')||'<tr><td colspan="6" class="empty">Inga prospekt</td></tr>';
+ const pc=document.getElementById('prospekt-count');if(pc)pc.textContent=filtered.length+' visas · '+leads.filter(l=>l.status==='prospekt').length+' totalt';
+ const pb=document.getElementById('prospekt-badge');if(pb)pb.textContent=leads.filter(l=>l.status==='prospekt').length;
 }
-
-// QUICK VIEW
 function openQuickView(id){
- const l=leads.find(l=>l.id===id);if(!l) return;
+ const l=leads.find(l=>l.id===id);if(!l)return;
  qvLeadId=id;
  document.getElementById('qv-name').textContent=l.company;
  document.getElementById('qv-org').textContent=fmtOrg(l.orgnr)||'—';
@@ -953,24 +672,18 @@ function openQuickView(id){
  document.getElementById('qv-phone').textContent=l.phone?fmtPhone(l.phone):'Saknas';
  document.getElementById('qv-phone-input').value=l.phone?fmtPhone(l.phone):'';
  const org=normOrg(l.orgnr);
- document.getElementById('qv-links').innerHTML=`<a href="https://www.merinfo.se/search?q=${encodeURIComponent(fmtOrg(l.orgnr))}" target="_blank" class="link-btn">Merinfo</a><a href="https://www.allabolag.se/${org}" target="_blank" class="link-btn">Allabolag</a><a href="https://www.google.com/search?q=${encodeURIComponent(l.company)}" target="_blank" class="link-btn">Google</a><a href="https://www.linkedin.com/search/results/companies/?keywords=${encodeURIComponent(l.company)}" target="_blank" class="link-btn">LinkedIn</a>`;
+ document.getElementById('qv-links').innerHTML='<a href="https://www.merinfo.se/search?q='+encodeURIComponent(fmtOrg(l.orgnr))+'" target="_blank" class="link-btn">Merinfo</a><a href="https://www.allabolag.se/'+org+'" target="_blank" class="link-btn">Allabolag</a><a href="https://www.google.com/search?q='+encodeURIComponent(l.company)+'" target="_blank" class="link-btn">Google</a><a href="https://www.linkedin.com/search/results/companies/?keywords='+encodeURIComponent(l.company)+'" target="_blank" class="link-btn">LinkedIn</a>';
  document.getElementById('quick-view').classList.add('on');
  document.getElementById('qv-overlay').style.display='block';
 }
-function closeQuickView(){
- document.getElementById('quick-view').classList.remove('on');
- document.getElementById('qv-overlay').style.display='none';
- qvLeadId=null;
-}
-function saveQVPhone(){if(!qvLeadId) return;const ph=normPhone(document.getElementById('qv-phone-input').value);const l=leads.find(l=>l.id===qvLeadId);if(l){l.phone=ph;if(!l.subs.some(s=>normPhone(s.phone)===ph))l.subs.push({phone:ph,user:'',portDate:'',end:'',plan:''});saveData();document.getElementById('qv-phone').textContent=fmtPhone(ph);showNotif('Telefon sparad!','');}}
-function aktiveraFromQV(){if(!qvLeadId) return;aktiveraLead(qvLeadId);closeQuickView();}
-function removeProspekt(){if(!qvLeadId) return;if(!confirm('Ta bort detta prospekt?')) return;leads=leads.filter(l=>l.id!==qvLeadId);saveData();closeQuickView();renderProspekt();updateBadges();}
+function closeQuickView(){document.getElementById('quick-view').classList.remove('on');document.getElementById('qv-overlay').style.display='none';qvLeadId=null;}
+function saveQVPhone(){if(!qvLeadId)return;const ph=normPhone(document.getElementById('qv-phone-input').value);const l=leads.find(l=>l.id===qvLeadId);if(l){l.phone=ph;if(!l.subs.some(s=>normPhone(s.phone)===ph))l.subs.push({phone:ph,user:'',portDate:'',end:'',plan:''});saveData();document.getElementById('qv-phone').textContent=fmtPhone(ph);showNotif('Telefon sparad!','');}}
+function aktiveraFromQV(){if(!qvLeadId)return;aktiveraLead(qvLeadId);closeQuickView();}
+function removeProspekt(){if(!qvLeadId)return;if(!confirm('Ta bort detta prospekt?'))return;leads=leads.filter(l=>l.id!==qvLeadId);saveData();closeQuickView();renderProspekt();updateBadges();}
 function aktiveraLead(id){const l=leads.find(l=>l.id===id);if(l){l.status='ny';saveData();renderProspekt();updateBadges();showNotif(l.company+' aktiverat → Dialer','✅');}}
 function aktiveraValda(){const ids=[...document.querySelectorAll('.prospekt-cb:checked')].map(cb=>parseInt(cb.dataset.id));if(!ids.length){showNotif('Välj minst ett','');return;}ids.forEach(id=>{const l=leads.find(l=>l.id===id);if(l)l.status='ny';});saveData();renderProspekt();updateBadges();showNotif(ids.length+' leads aktiverade → Dialer','⚡');}
 function aktivera20(){const p=leads.filter(l=>l.status==='prospekt').slice(0,20);if(!p.length){showNotif('Inga prospekt kvar','');return;}p.forEach(l=>l.status='ny');saveData();renderProspekt();updateBadges();showNotif(p.length+' aktiverade → Dialer','⚡');}
 function prospektCheckAll(val){document.querySelectorAll('.prospekt-cb').forEach(cb=>cb.checked=val);}
-
-// PIPELINE
 function renderPipeline(){
  const myCB=leads.filter(l=>l.nextCallDate&&new Date(l.nextCallDate)<=new Date()&&!['blacklist','order','prospekt'].includes(l.status)&&l.seller===currentSeller);
  document.getElementById('my-callbacks').innerHTML=myCB.length?myCB.map(pCard).join(''):'<div style="color:var(--MUTED);padding:20px">Inga återkomster idag.</div>';
@@ -980,37 +693,33 @@ function renderPipeline(){
  document.getElementById('my-locked-leads').innerHTML=myActive.length?myActive.map(pCard).join(''):'<div style="color:var(--MUTED);padding:20px">Inga aktiva leads.</div>';
  document.getElementById('b-pipeline').textContent=myCB.length+myOff.length+myActive.length;
 }
-function pCard(l){const note=l.history.length?l.history[l.history.length-1].note:'';return `<div class="pipeline-card" onclick="openKK(${l.id})"><div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:10px"><div><div style="font-weight:700;font-size:14px">${esc(l.company)}</div><div style="font-size:11px;color:var(--MUTED);margin-top:2px">${getIndLabel(l.industry)} · ${fmtPhone(l.phone)}</div></div><span class="st-badge st-${l.status}">${SN[l.status]}</span></div>${note?`<div style="font-size:11px;color:#666;font-style:italic;margin-bottom:8px">"${esc(note.substring(0,55))}${note.length>55?'...':''}"</div>`:''}${l.nextCallDate?`<div style="font-size:10px;color:var(--MUTED);margin-bottom:8px">📅 ${l.nextCallDate}</div>`:''}<div style="display:flex;gap:6px"><button class="btn btn-p btn-sm" onclick="event.stopPropagation();openKK(${l.id})">Öppna</button><button class="btn btn-o btn-sm" onclick="event.stopPropagation();unlockLead(${l.id});renderPipeline()">🔓</button></div></div>`;}
-
-// LEADS TABLE
+function pCard(l){const note=l.history.length?l.history[l.history.length-1].note:'';return '<div class="pipeline-card" onclick="openKK('+l.id+')"><div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:10px"><div><div style="font-weight:700;font-size:14px">'+esc(l.company)+'</div><div style="font-size:11px;color:var(--MUTED);margin-top:2px">'+getIndLabel(l.industry)+' · '+fmtPhone(l.phone)+'</div></div><span class="st-badge st-'+l.status+'">'+SN[l.status]+'</span></div>'+(note?'<div style="font-size:11px;color:#666;font-style:italic;margin-bottom:8px">"'+esc(note.substring(0,55))+(note.length>55?'...':'')+'"</div>':'')+(l.nextCallDate?'<div style="font-size:10px;color:var(--MUTED);margin-bottom:8px">📅 '+l.nextCallDate+'</div>':'')+'<div style="display:flex;gap:6px"><button class="btn btn-p btn-sm" onclick="event.stopPropagation();openKK('+l.id+')">Öppna</button><button class="btn btn-o btn-sm" onclick="event.stopPropagation();unlockLead('+l.id+');renderPipeline()">🔓</button></div></div>';}
 function filterLeads(){curPage=0;renderLeads();}
 function renderLeads(){
  const sts=['alla','ny','ring_senare','offert','order','avslutad','inte_intresserad','ej_svar'];
- document.getElementById('status-filters').innerHTML=sts.map(s=>`<button class="ftab ${stFilter===s?'active':''}" onclick="stFilter='${s}';renderLeads()">${s==='alla'?'Alla':(SN[s]||s)}</button>`).join('');
+ document.getElementById('status-filters').innerHTML=sts.map(s=>'<button class="ftab '+(stFilter===s?'active':'')+'" onclick="stFilter=\''+s+'\';renderLeads()">'+(s==='alla'?'Alla':(SN[s]||s))+'</button>').join('');
  const ops=['alla','Okänd','Telenor','Tre','Telia','Tele2'];
- document.getElementById('op-filters').innerHTML=ops.map(o=>`<button class="ftab ${opFilter===o?'active':''}" onclick="opFilter='${o}';renderLeads()">${o==='alla'?'Alla op':o}</button>`).join('');
+ document.getElementById('op-filters').innerHTML=ops.map(o=>'<button class="ftab '+(opFilter===o?'active':'')+'" onclick="opFilter=\''+o+'\';renderLeads()">'+(o==='alla'?'Alla op':o)+'</button>').join('');
  const q=(document.getElementById('search-inp').value||'').toLowerCase();
  const fromD=document.getElementById('reg-from')?.value||'',toD=document.getElementById('reg-to')?.value||'';
  let filtered=leads.filter(l=>{
-  if(l.status==='blacklist'||l.status==='prospekt') return false;
-  if(stFilter!=='alla'&&l.status!==stFilter) return false;
-  if(opFilter!=='alla'&&l.operator!==opFilter) return false;
-  if(showTarget&&!TARGET.includes(l.industry)) return false;
-  if(fromD&&l.bindingDate&&l.bindingDate<fromD) return false;
-  if(toD&&l.bindingDate&&l.bindingDate>toD) return false;
-  if(q){const s=`${l.company} ${l.orgnr} ${l.phone} ${l.contact} ${(l.subs||[]).map(s=>s.phone+' '+s.user).join(' ')}`.toLowerCase();if(!s.includes(q)) return false;}
+  if(l.status==='blacklist'||l.status==='prospekt')return false;
+  if(stFilter!=='alla'&&l.status!==stFilter)return false;
+  if(opFilter!=='alla'&&l.operator!==opFilter)return false;
+  if(showTarget&&!TARGET.includes(l.industry))return false;
+  if(fromD&&l.bindingDate&&l.bindingDate<fromD)return false;
+  if(toD&&l.bindingDate&&l.bindingDate>toD)return false;
+  if(q){const s=(l.company+' '+l.orgnr+' '+l.phone+' '+l.contact+' '+(l.subs||[]).map(s=>s.phone+' '+s.user).join(' ')).toLowerCase();if(!s.includes(q))return false;}
   return true;
  }).map(l=>({...l,score:scoreLead(l)})).sort((a,b)=>b.score-a.score);
  const pages=Math.ceil(filtered.length/PAGE);
  if(curPage>=pages)curPage=Math.max(0,pages-1);
  const paged=filtered.slice(curPage*PAGE,(curPage+1)*PAGE);
- document.getElementById('leads-tb').innerHTML=paged.map(l=>{const sc=l.subs?l.subs.length:1;return `<tr class="clickable" onclick="openKK(${l.id})"><td><strong>${esc(l.company)}</strong>${TARGET.includes(l.industry)?' <span class="priority-target">⭐</span>':''}<div style="font-size:11px;color:var(--MUTED)">${esc(l.contact||'')}</div></td><td style="font-size:11px;font-family:monospace">${esc(fmtOrg(l.orgnr)||'—')}</td><td>${fmtPhone(l.phone)}</td><td><span class="op op-${(l.operator||'okänd').toLowerCase()}">${esc(l.operator||'Okänd')}</span></td><td>${sc}${sc>1?'<span class="sub-count">'+sc+' st</span>':''}</td><td><span class="${bindCls(l.bindingDate)}">${bindLbl(l.bindingDate)}</span></td><td><span class="st-badge st-${l.status}">${SN[l.status]||l.status}</span></td><td><strong style="color:var(--ACC)">${l.score>0?l.score:'—'}</strong></td></tr>`;}).join('')||'<tr><td colspan="8" class="empty">Inga leads</td></tr>';
- let ph='';if(pages>1){ph=`<button class="btn btn-o btn-sm" onclick="curPage--;renderLeads()" ${curPage===0?'disabled':''}>← Föregående</button><span style="padding:8px 16px;font-size:12px;color:var(--MUTED)">Sida ${curPage+1} av ${pages}</span><button class="btn btn-o btn-sm" onclick="curPage++;renderLeads()" ${curPage>=pages-1?'disabled':''}>Nästa →</button>`;}
+ document.getElementById('leads-tb').innerHTML=paged.map(l=>{const sc=l.subs?l.subs.length:1;return '<tr class="clickable" onclick="openKK('+l.id+')"><td><strong>'+esc(l.company)+'</strong>'+(TARGET.includes(l.industry)?' <span class="priority-target">⭐</span>':'')+'<div style="font-size:11px;color:var(--MUTED)">'+esc(l.contact||'')+'</div></td><td style="font-size:11px;font-family:monospace">'+esc(fmtOrg(l.orgnr)||'—')+'</td><td>'+fmtPhone(l.phone)+'</td><td><span class="op op-'+(l.operator||'okänd').toLowerCase()+'">'+esc(l.operator||'Okänd')+'</span></td><td>'+sc+(sc>1?'<span class="sub-count">'+sc+' st</span>':'')+'</td><td><span class="'+bindCls(l.bindingDate)+'">'+bindLbl(l.bindingDate)+'</span></td><td><span class="st-badge st-'+l.status+'">'+(SN[l.status]||l.status)+'</span></td><td><strong style="color:var(--ACC)">'+(l.score>0?l.score:'—')+'</strong></td></tr>';}).join('')||'<tr><td colspan="8" class="empty">Inga leads</td></tr>';
+ let ph='';if(pages>1){ph='<button class="btn btn-o btn-sm" onclick="curPage--;renderLeads()" '+(curPage===0?'disabled':'')+'>← Föregående</button><span style="padding:8px 16px;font-size:12px;color:var(--MUTED)">Sida '+(curPage+1)+' av '+pages+'</span><button class="btn btn-o btn-sm" onclick="curPage++;renderLeads()" '+(curPage>=pages-1?'disabled':'')+'>Nästa →</button>';}
  document.getElementById('pag-row').innerHTML=ph;
 }
 function toggleTarget(){showTarget=!showTarget;renderLeads();}
-
-// DASHBOARD — ADHD-anpassad
 function renderDash(){
  const today=new Date().toISOString().slice(0,10);
  const allH=leads.flatMap(l=>(l.history||[]).map(e=>({...e,company:l.company})));
@@ -1022,64 +731,40 @@ function renderDash(){
  const offerter=leads.filter(l=>l.status==='offert'&&l.seller===currentSeller).length;
  const aterkoms=leads.filter(l=>l.nextCallDate&&new Date(l.nextCallDate)<=new Date()&&l.seller===currentSeller).length;
  const prio=targetLeads().length;
-
- document.getElementById('dash-kpis').innerHTML=`
-  <div class="dash-kpi blue"><div class="big">${todayCalls}</div><div class="label">Samtal idag</div><div class="sub" style="color:${todayCalls>=goal?'var(--G)':'var(--OR)'}">${todayCalls>=goal?'✅ Mål nått!':'Mål: '+goal}</div></div>
-  <div class="dash-kpi green"><div class="big">${orders}</div><div class="label">Ordrar</div><div class="sub" style="color:var(--MUTED)">Totalt stängda</div></div>
-  <div class="dash-kpi orange"><div class="big">${offerter}</div><div class="label">Offerter ute</div><div class="sub" style="color:var(--MUTED)">Väntar på svar</div></div>
-  <div class="dash-kpi red"><div class="big">${aterkoms}</div><div class="label">Återkomster</div><div class="sub" style="color:${aterkoms>0?'var(--RD)':'var(--MUTED)'}">${aterkoms>0?'Ringa nu!':'Tomt'}</div></div>
-  <div class="dash-kpi purple"><div class="big">${prio}</div><div class="label">Prio-leads</div><div class="sub" style="color:var(--MUTED)">Redo att ringa</div></div>
-  <div class="dash-kpi teal"><div class="big">${weekCalls}</div><div class="label">Samtal denna vecka</div><div class="sub" style="color:var(--MUTED)">${Math.round(weekCalls/5||0)}/dag snitt</div></div>`;
-
- // Mål-progress
+ document.getElementById('dash-kpis').innerHTML=
+  '<div class="dash-kpi blue"><div class="big">'+todayCalls+'</div><div class="label">Samtal idag</div><div class="sub" style="color:'+(todayCalls>=goal?'var(--G)':'var(--OR)')+'">'+((todayCalls>=goal)?'✅ Mål nått!':'Mål: '+goal)+'</div></div>'+
+  '<div class="dash-kpi green"><div class="big">'+orders+'</div><div class="label">Ordrar</div><div class="sub" style="color:var(--MUTED)">Totalt stängda</div></div>'+
+  '<div class="dash-kpi orange"><div class="big">'+offerter+'</div><div class="label">Offerter ute</div><div class="sub" style="color:var(--MUTED)">Väntar på svar</div></div>'+
+  '<div class="dash-kpi red"><div class="big">'+aterkoms+'</div><div class="label">Återkomster</div><div class="sub" style="color:'+(aterkoms>0?'var(--RD)':'var(--MUTED)')+'">'+((aterkoms>0)?'Ringa nu!':'Tomt')+'</div></div>'+
+  '<div class="dash-kpi purple"><div class="big">'+prio+'</div><div class="label">Prio-leads</div><div class="sub" style="color:var(--MUTED)">Redo att ringa</div></div>'+
+  '<div class="dash-kpi teal"><div class="big">'+weekCalls+'</div><div class="label">Samtal denna vecka</div><div class="sub" style="color:var(--MUTED)">'+Math.round(weekCalls/5||0)+'/dag snitt</div></div>';
  const pct=Math.min(Math.round(todayCalls/goal*100),100);
- document.getElementById('dash-maal').innerHTML=`
-  <div class="maal-row">
-   <span class="maal-label">Samtal idag</span>
-   <div class="maal-bar-bg"><div class="maal-bar-fill" style="width:${pct}%;background:${pct>=100?'var(--G)':pct>=60?'var(--OR)':'var(--ACC)'}"></div></div>
-   <span class="maal-val" style="color:${pct>=100?'var(--G)':'var(--TEXT)'}">${todayCalls}/${goal}</span>
-  </div>
-  <div class="maal-row">
-   <span class="maal-label">Offerter → Ordrar</span>
-   <div class="maal-bar-bg"><div class="maal-bar-fill" style="width:${Math.min(orders/(offerter+orders||1)*100,100)}%;background:var(--G)"></div></div>
-   <span class="maal-val">${orders}/${offerter+orders}</span>
-  </div>`;
-
- // Aktivitetsdiagram
+ document.getElementById('dash-maal').innerHTML=
+  '<div class="maal-row"><span class="maal-label">Samtal idag</span><div class="maal-bar-bg"><div class="maal-bar-fill" style="width:'+pct+'%;background:'+(pct>=100?'var(--G)':pct>=60?'var(--OR)':'var(--ACC)')+'"></div></div><span class="maal-val" style="color:'+(pct>=100?'var(--G)':'var(--TEXT)')+'">'+todayCalls+'/'+goal+'</span></div>'+
+  '<div class="maal-row"><span class="maal-label">Offerter → Ordrar</span><div class="maal-bar-bg"><div class="maal-bar-fill" style="width:'+Math.min(orders/(offerter+orders||1)*100,100)+'%;background:var(--G)"></div></div><span class="maal-val">'+orders+'/'+(offerter+orders)+'</span></div>';
  const days=Array.from({length:14},(_,i)=>{const d=new Date();d.setDate(d.getDate()-13+i);return d.toISOString().slice(0,10);});
  const max=Math.max(1,...days.map(d=>allH.filter(e=>e.date===d).length));
- document.getElementById('dash-chart').innerHTML=days.map(d=>{const c=allH.filter(e=>e.date===d).length,isTd=d===today;return`<div class="bar-row"><span class="bar-label" style="${isTd?'color:var(--ACC);font-weight:700':''}">${d.slice(5)}</span><div class="bar" style="width:${Math.max(c/max*100,2)}%;background:${isTd?'var(--ACC)':c>0?'#93c5fd':'#e2e8f0'}"></div><span class="bar-val">${c}</span></div>`;}).join('');
+ document.getElementById('dash-chart').innerHTML=days.map(d=>{const c=allH.filter(e=>e.date===d).length,isTd=d===today;return'<div class="bar-row"><span class="bar-label" style="'+(isTd?'color:var(--ACC);font-weight:700':'')+'">'+d.slice(5)+'</span><div class="bar" style="width:'+Math.max(c/max*100,2)+'%;background:'+(isTd?'var(--ACC)':c>0?'#93c5fd':'#e2e8f0')+'"></div><span class="bar-val">'+c+'</span></div>';}).join('');
 }
-
-// SEARCH
 function doSearch(q){
  if(!q||q.length<2){document.getElementById('sok-res').innerHTML='';return;}
  const nq=normPhone(q).toLowerCase(),ql=q.toLowerCase();
  const res=leads.filter(l=>l.company.toLowerCase().includes(ql)||(l.orgnr||'').toLowerCase().includes(ql)||normPhone(l.phone).toLowerCase().includes(nq)||(l.subs||[]).some(s=>normPhone(s.phone).toLowerCase().includes(nq)));
- document.getElementById('sok-res').innerHTML=res.length?res.map(l=>`<div class="card" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center" onclick="openKK(${l.id})"><div><strong>${esc(l.company)}</strong><div style="font-size:12px;color:var(--MUTED)">${esc(fmtOrg(l.orgnr)||'')} · ${fmtPhone(l.phone)}</div></div><div style="display:flex;gap:8px;align-items:center"><span class="op op-${(l.operator||'okänd').toLowerCase()}">${esc(l.operator||'Okänd')}</span><span class="st-badge st-${l.status}">${SN[l.status]||l.status}</span></div></div>`).join(''):'<div class="card" style="text-align:center;padding:28px;color:var(--MUTED)">Inga resultat</div>';
-}
-
-// NAVIGATION
+ document.getElementById('sok-res').innerHTML=res.length?res.map(l=>'<div class="card" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center" onclick="openKK('+l.id+')"><div><strong>'+esc(l.company)+'</strong><div style="font-size:12px;color:var(--MUTED)">'+esc(fmtOrg(l.orgnr)||'')+' · '+fmtPhone(l.phone)+'</div></div><div style="display:flex;gap:8px;align-items:center"><span class="op op-'+(l.operator||'okänd').toLowerCase()+'">'+esc(l.operator||'Okänd')+'</span><span class="st-badge st-'+l.status+'">'+(SN[l.status]||l.status)+'</span></div></div>').join(''):'<div class="card" style="text-align:center;padding:28px;color:var(--MUTED)">Inga resultat</div>';}
 function go(v){
  document.querySelectorAll('.view').forEach(e=>e.classList.remove('on'));
  document.getElementById('v-'+v)?.classList.add('on');
  document.querySelectorAll('#sb .ni').forEach(e=>e.classList.remove('active'));
  document.getElementById('nav-'+v)?.classList.add('active');
- if(v==='dialer') renderDialer();
- if(v==='pipeline') renderPipeline();
+ if(v==='dialer')renderDialer();
+ if(v==='pipeline')renderPipeline();
  if(v==='leads'){if(activeLeadsTab==='aktiva')renderLeads();else renderProspekt();}
- if(v==='dash') renderDash();
+ if(v==='dash')renderDash();
  if(v==='bolagsverket'){initSNI();setBVDates();}
- // Dölj call bar om dialern inte är aktiv
- if(v!=='dialer'){
-  document.getElementById('bcb').style.display='none';
-  document.getElementById('fab-area').style.display='none';
-  if(dialerOn) stopDialer();
- }
+ if(v!=='dialer'){document.getElementById('bcb').style.display='none';document.getElementById('fab-area').style.display='none';if(dialerOn)stopDialer();}
  document.getElementById('sb').classList.remove('open');
  closeQuickView();
 }
-
 function updateBadges(){
  document.getElementById('b-dialer').textContent=scoredLeads().length;
  document.getElementById('b-leads').textContent=leads.filter(l=>!['blacklist','prospekt'].includes(l.status)).length;
@@ -1090,23 +775,17 @@ function updateBadges(){
  const pb=document.getElementById('prospekt-badge');if(pb)pb.textContent=prospektCount;
  renderPipeline();
 }
-
-// CALL
-function makeCall(){const l=getCurLead();if(!l) return;const ph=callingPhone||l.phone;document.getElementById('calling-lbl').textContent=fmtPhone(ph);window.open(toTel(ph),'_self');}
+function makeCall(){const l=getCurLead();if(!l)return;const ph=callingPhone||l.phone;document.getElementById('calling-lbl').textContent=fmtPhone(ph);window.open(toTel(ph),'_self');}
 function hangUp(){}
 function toggleMute(){muted=!muted;document.getElementById('mute-btn').classList.toggle('active',muted);}
 function setCallingPhone(ph,user){callingPhone=ph;document.getElementById('calling-lbl').textContent=fmtPhone(ph)+(user?' — '+user:'');}
-
-// DATA
-function saveField(id,field,val){const l=leads.find(l=>l.id===id);if(!l) return;l[field]=val;saveLocal();}
+function saveField(id,field,val){const l=leads.find(l=>l.id===id);if(!l)return;l[field]=val;saveLocal();}
 function openSite(id){const l=leads.find(l=>l.id===id);if(l&&l.website){let u=l.website;if(!u.startsWith('http'))u='https://'+u;window.open(u,'_blank');}}
-function renderHistory(lead){document.getElementById('hist-list').innerHTML=lead.history&&lead.history.length?lead.history.slice().reverse().map(e=>`<div class="hist-item"><span class="hd">${e.date}</span> — <strong>${esc(e.outcome)}</strong>${e.note?' — '+esc(e.note):''}</div>`).join(''):'<div style="color:var(--MUTED);font-size:12px">Ingen historik.</div>';}
-function saveNote(){const l=getCurLead();if(!l) return;l.note=document.getElementById('note-ta').value;saveLocal();}
-function getCurLead(){if(!dialerOn||dialerIdx<0||dialerIdx>=dialerQ.length) return null;return leads.find(l=>l.id===dialerQ[dialerIdx].id);}
-function openKK(id){const lead=leads.find(l=>l.id===id);if(!lead) return;dialerQ=[lead];dialerIdx=0;dialerOn=true;callingPhone='';go('dialer');document.getElementById('d-idle').style.display='none';document.getElementById('d-active').classList.add('on');document.getElementById('fab-area').style.display='block';document.getElementById('bcb').style.display='flex';nextDialerLead();}
-function showNotif(title,sub){const el=document.createElement('div');el.className='notif';el.innerHTML=`<strong style="font-size:12px">${esc(title)}</strong>${sub?'<div style="font-size:11px;color:var(--MUTED);margin-top:2px">'+esc(sub)+'</div>':''}`;el.onclick=()=>el.remove();document.getElementById('notif-area').appendChild(el);setTimeout(()=>el.remove(),4000);}
-
-// IMPORT/EXPORT
+function renderHistory(lead){document.getElementById('hist-list').innerHTML=lead.history&&lead.history.length?lead.history.slice().reverse().map(e=>'<div class="hist-item"><span class="hd">'+e.date+'</span> — <strong>'+esc(e.outcome)+'</strong>'+(e.note?' — '+esc(e.note):'')+'</div>').join(''):'<div style="color:var(--MUTED);font-size:12px">Ingen historik.</div>';}
+function saveNote(){const l=getCurLead();if(!l)return;l.note=document.getElementById('note-ta').value;saveLocal();}
+function getCurLead(){if(!dialerOn||dialerIdx<0||dialerIdx>=dialerQ.length)return null;return leads.find(l=>l.id===dialerQ[dialerIdx].id);}
+function openKK(id){const lead=leads.find(l=>l.id===id);if(!lead)return;dialerQ=[lead];dialerIdx=0;dialerOn=true;callingPhone='';go('dialer');document.getElementById('d-idle').style.display='none';document.getElementById('d-active').classList.add('on');document.getElementById('fab-area').style.display='block';document.getElementById('bcb').style.display='flex';nextDialerLead();}
+function showNotif(title,sub){const el=document.createElement('div');el.className='notif';el.innerHTML='<strong style="font-size:12px">'+esc(title)+'</strong>'+(sub?'<div style="font-size:11px;color:var(--MUTED);margin-top:2px">'+esc(sub)+'</div>':'');el.onclick=()=>el.remove();document.getElementById('notif-area').appendChild(el);setTimeout(()=>el.remove(),4000);}
 function openAddModal(){document.getElementById('add-modal').style.display='flex';}
 function closeAddModal(){document.getElementById('add-modal').style.display='none';}
 function addLead(){
@@ -1126,21 +805,19 @@ function doImport(){
  paste.split('\n').map(l=>l.trim()).filter(l=>l).forEach(line=>{
   let p=line.split('\t');if(p.length<2)p=line.split(';');if(p.length<2)p=line.split(',');if(p.length<2)return;
   const [org,ph,user,,endDate,plan]=[...p.map(x=>x?.trim()||''),...Array(6).fill('')];
-  if(!org&&!ph) return;
+  if(!org&&!ph)return;
   const ex=leads.find(l=>l.orgnr===org);
   if(ex){if(!(ex.subs||[]).some(s=>normPhone(s.phone)===normPhone(ph))){ex.subs=ex.subs||[];ex.subs.push({phone:ph,user,portDate:'',end:endDate,plan});m++;}}
   else{leads.push({id:nextId(),company:user||org,contact:'',phone:ph,orgnr:org,operator:op,email:'',plan,priceOrig:'',priceDiscount:'',priceFinal:'',bindingDate:endDate||null,industry:detectIndustry(user||org),portingDate:null,nextCallDate:null,status:op==='Okänd'?'prospekt':'ny',note:'',vdName:'',vdPhone:'',vdEmail:'',website:'',offerSent:false,offerOpened:false,history:[],lockedBy:null,lockedAt:null,seller:null,subs:ph?[{phone:ph,user,portDate:'',end:endDate,plan}]:[]});n++;}
  });
  saveData();closeImport();updateBadges();
- alert(`Import klar! ${n} nya · ${m} nummer tillagda`);
- op==='Okänd'?go('leads'):go('leads');
+ alert('Import klar! '+n+' nya · '+m+' nummer tillagda');
+ go('leads');
 }
 function exportData(){const b=new Blob([JSON.stringify({leads,exportDate:new Date().toISOString()},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='saljos_backup_'+new Date().toISOString().slice(0,10)+'.json';a.click();}
-function importDataFile(){const i=document.createElement('input');i.type='file';i.accept='.json';i.onchange=e=>{const f=e.target.files[0];if(!f) return;const r=new FileReader();r.onload=e=>{try{const d=JSON.parse(e.target.result);if(d.leads){leads=d.leads;saveData();updateBadges();alert('Återställt! '+leads.length+' leads.');go('leads');}else alert('Ogiltig fil.');}catch{alert('Kunde inte läsa.');}};r.readAsText(f);};i.click();}
-function clearAllData(){if(!confirm('Rensa ALL lokal data?')) return;localStorage.removeItem('saljos_leads_v2');leads=getSampleData();saveLocal();updateBadges();go('dialer');}
+function importDataFile(){const i=document.createElement('input');i.type='file';i.accept='.json';i.onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=e=>{try{const d=JSON.parse(e.target.result);if(d.leads){leads=d.leads;saveData();updateBadges();alert('Återställt! '+leads.length+' leads.');go('leads');}else alert('Ogiltig fil.');}catch{alert('Kunde inte läsa.');}};r.readAsText(f);};i.click();}
+function clearAllData(){if(!confirm('Rensa ALL lokal data?'))return;localStorage.removeItem('saljos_leads_v2');leads=getSampleData();saveLocal();updateBadges();go('dialer');}
 function changePw(){const old=document.getElementById('s-pw-old').value,nw=document.getElementById('s-pw-new').value;const stored=localStorage.getItem('saljos_pw')||DEFAULT_PW;const el=document.getElementById('pw-status');if(old!==stored){el.innerHTML='<span style="color:var(--RD)">Fel lösenord.</span>';return;}if(!nw||nw.length<6){el.innerHTML='<span style="color:var(--RD)">Minst 6 tecken.</span>';return;}localStorage.setItem('saljos_pw',nw);el.innerHTML='<span style="color:var(--G)">✅ Ändrat!</span>';document.getElementById('s-pw-old').value='';document.getElementById('s-pw-new').value='';}
-
-// UTILS
 function normPhone(p){return p?String(p).replace(/[\s\-\(\)\.]/g,''):'';}
 function normOrg(o){return(o||'').replace(/[\s\-]/g,'');}
 function fmtOrg(o){const n=normOrg(o);if(n.length===10)return n.slice(0,6)+'-'+n.slice(6);return o||'';}
@@ -1152,7 +829,6 @@ function bindCls(d){if(!d)return 'bind-ok';const days=Math.ceil((new Date(d)-new
 function bindLbl(d){if(!d)return '—';const days=Math.ceil((new Date(d)-new Date())/864e5);if(days<0)return 'Utgången ('+Math.abs(days)+'d)';return days+' dagar';}
 function getIndLabel(ind){return{åkeri:'🚛 Åkeri',måleri:'🎨 Måleri',bygg:'🏗️ Bygg',logistik:'📦 Logistik',cykel:'🚲 Cykel',vvs:'🔧 VVS',el:'⚡ El',annat:'🏢 Övrigt'}[ind]||ind||'—';}
 function detectIndustry(n){if(!n)return 'annat';const x=n.toLowerCase();if(x.match(/åkeri|transport|frakt|lastbil|budtjänst/))return 'åkeri';if(x.match(/måleri|målare|färg|puts/))return 'måleri';if(x.match(/bygg|byggn|snickare|betong|schakt|mark/))return 'bygg';if(x.match(/logistik|lager|distribution|spedition/))return 'logistik';if(x.match(/cykel|bike|moped/))return 'cykel';if(x.match(/vvs|rör|plåt|kyl|värme/))return 'vvs';if(x.match(/el |elektriker|elinstallation/))return 'el';return 'annat';}
-
 function getSampleData(){
  const add=d=>{const r=new Date();r.setDate(r.getDate()+d);return r.toISOString().slice(0,10);};
  return [
@@ -1161,11 +837,7 @@ function getSampleData(){
   {id:3,company:'Bygg & Betong AB',contact:'Johan Byggare',phone:'46703456789',orgnr:'556345-6789',operator:'Telia',email:'',plan:'',priceOrig:'',priceDiscount:'',priceFinal:'',bindingDate:add(45),industry:'bygg',portingDate:null,nextCallDate:null,status:'ny',note:'',vdName:'',vdPhone:'',vdEmail:'',website:'',offerSent:false,offerOpened:false,history:[],lockedBy:null,lockedAt:null,seller:null,subs:[{phone:'46703456789',user:'Johan Byggare',portDate:'',end:add(45),plan:''},{phone:'46703456790',user:'Anna Byggare',portDate:'',end:add(45),plan:''}]},
  ];
 }
-
 document.addEventListener('DOMContentLoaded',init);
 </script>
 </body>
 </html>
-
-
-
