@@ -555,6 +555,25 @@ tr.clickable:hover{background:#fafafc;cursor:pointer}
  </div>
 </div>
 
+<!-- TB MODAL -->
+<div id="tb-modal" class="overlay" style="display:none">
+ <div class="modal" style="max-width:400px">
+  <h3>🎉 Order! Fyll i TB</h3>
+  <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:20px">
+   <div><label style="font-size:11px;color:var(--MUTED);font-weight:600;display:block;margin-bottom:4px">TB (kr/mån)</label><input type="number" id="tb-amount" placeholder="ex: 450"></div>
+   <div><label style="font-size:11px;color:var(--MUTED);font-weight:600;display:block;margin-bottom:4px">Typ</label>
+    <div style="display:flex;gap:8px">
+     <button id="tb-ny" onclick="setTBType('ny')" class="btn btn-o" style="flex:1">🆕 Nyteckning</button>
+     <button id="tb-forl" onclick="setTBType('forlangning')" class="btn btn-o" style="flex:1">🔄 Förlängning</button>
+    </div>
+   </div>
+  </div>
+  <div style="display:flex;gap:10px;justify-content:flex-end">
+   <button class="btn btn-o" onclick="closeTBModal()">Hoppa över</button>
+   <button class="btn btn-g" onclick="saveTB()">💾 Spara</button>
+  </div>
+ </div>
+</div>
 <!-- ADD MODAL -->
 <div id="add-modal" class="overlay" style="display:none">
  <div class="modal">
@@ -903,7 +922,7 @@ function renderOutcomes(lead){let html='';for(let g in OUTCOMES){html+=`<div cla
 function logOutcome(text,hours,unit,ret){
  const lead=getCurLead();if(!lead) return;
  lead.history.push({date:new Date().toISOString().slice(0,10),outcome:text,note:lead.note||'',seller:currentSeller});
- if(unit==='bl'){lead.status='blacklist';lead.nextCallDate=null;}else if(unit==='x'){lead.status='avslutad';lead.nextCallDate=null;}else if(unit==='offert'){lead.status='offert';lead.offerSent=true;lead.seller=currentSeller;lead.nextCallDate=null;}else if(unit==='order'){lead.status='order';lead.seller=currentSeller;lead.nextCallDate=null;}else if(unit==='apg'){lead.status='apg';lead.nextCallDate=null;}else if(unit==='lost'){lead.status='avslutad';lead.nextCallDate=null;}else if(unit==='cb'){const d=prompt('Ringdatum (YYYY-MM-DD):');if(d){lead.status='ring_senare';lead.nextCallDate=d;}}else if(unit==='h'){lead.status='ej_svar';const d=new Date();d.setHours(d.getHours()+hours);lead.nextCallDate=d.toISOString();}else if(unit==='d'){lead.status=hours>=90?'inte_intresserad':'ej_svar';const d=new Date();d.setDate(d.getDate()+hours);lead.nextCallDate=d.toISOString().slice(0,10);}else if(unit==='m'){lead.status='inte_intresserad';const d=new Date();d.setMonth(d.getMonth()+hours);lead.nextCallDate=d.toISOString().slice(0,10);}
+ if(unit==='bl'){lead.status='blacklist';lead.nextCallDate=null;}else if(unit==='x'){lead.status='avslutad';lead.nextCallDate=null;}else if(unit==='offert'){lead.status='offert';lead.offerSent=true;lead.seller=currentSeller;lead.nextCallDate=null;}else if(unit==='order'){lead.status='order';lead.seller=currentSeller;lead.nextCallDate=null;setTimeout(()=>openTBModal(lead.id),300);}else if(unit==='apg'){lead.status='apg';lead.nextCallDate=null;}else if(unit==='lost'){lead.status='avslutad';lead.nextCallDate=null;}else if(unit==='cb'){const d=prompt('Ringdatum (YYYY-MM-DD):');if(d){lead.status='ring_senare';lead.nextCallDate=d;}}else if(unit==='h'){lead.status='ej_svar';const d=new Date();d.setHours(d.getHours()+hours);lead.nextCallDate=d.toISOString();}else if(unit==='d'){lead.status=hours>=90?'inte_intresserad':'ej_svar';const d=new Date();d.setDate(d.getDate()+hours);lead.nextCallDate=d.toISOString().slice(0,10);}else if(unit==='m'){lead.status='inte_intresserad';const d=new Date();d.setMonth(d.getMonth()+hours);lead.nextCallDate=d.toISOString().slice(0,10);}
  if(!ret)unlockLead(lead.id);
  saveData();closeOutcomePanel();callingPhone='';
  dialerIdx++;if(dialerIdx<dialerQ.length)nextDialerLead();else stopDialer();
@@ -1018,6 +1037,9 @@ function renderDash(){
  const offerter=leads.filter(l=>l.status==='offert'&&l.seller===currentSeller).length;
  const aterkoms=leads.filter(l=>l.nextCallDate&&new Date(l.nextCallDate)<=new Date()&&l.seller===currentSeller).length;
  const prio=targetLeads().length;
+ const tbTotal=leads.filter(l=>l.tb&&l.seller===currentSeller).reduce((s,l)=>s+(l.tb||0),0);
+ const tbNy=leads.filter(l=>l.tb&&l.tbType==='ny'&&l.seller===currentSeller).reduce((s,l)=>s+(l.tb||0),0);
+ const tbForl=leads.filter(l=>l.tb&&l.tbType==='forlangning'&&l.seller===currentSeller).reduce((s,l)=>s+(l.tb||0),0);
 
  document.getElementById('dash-kpis').innerHTML=`
   <div class="dash-kpi blue"><div class="big">${todayCalls}</div><div class="label">Samtal idag</div><div class="sub" style="color:${todayCalls>=goal?'var(--G)':'var(--OR)'}">${todayCalls>=goal?'✅ Mål nått!':'Mål: '+goal}</div></div>
@@ -1025,7 +1047,8 @@ function renderDash(){
   <div class="dash-kpi orange"><div class="big">${offerter}</div><div class="label">Offerter ute</div><div class="sub" style="color:var(--MUTED)">Väntar på svar</div></div>
   <div class="dash-kpi red"><div class="big">${aterkoms}</div><div class="label">Återkomster</div><div class="sub" style="color:${aterkoms>0?'var(--RD)':'var(--MUTED)'}">${aterkoms>0?'Ringa nu!':'Tomt'}</div></div>
   <div class="dash-kpi purple"><div class="big">${prio}</div><div class="label">Prio-leads</div><div class="sub" style="color:var(--MUTED)">Redo att ringa</div></div>
-  <div class="dash-kpi teal"><div class="big">${weekCalls}</div><div class="label">Samtal denna vecka</div><div class="sub" style="color:var(--MUTED)">${Math.round(weekCalls/5||0)}/dag snitt</div></div>`;
+  <div class="dash-kpi teal"><div class="big">${weekCalls}</div><div class="label">Samtal denna vecka</div><div class="sub" style="color:var(--MUTED)">${Math.round(weekCalls/5||0)}/dag snitt</div></div>
+  <div class="dash-kpi green"><div class="big">${tbTotal}</div><div class="label">TB totalt kr/mån</div><div class="sub" style="color:var(--MUTED)">Ny: ${tbNy} · Förl: ${tbForl}</div></div>`;
 
  // Mål-progress
  const pct=Math.min(Math.round(todayCalls/goal*100),100);
@@ -1102,6 +1125,22 @@ function getCurLead(){if(!dialerOn||dialerIdx<0||dialerIdx>=dialerQ.length) retu
 function openKK(id){const lead=leads.find(l=>l.id===id);if(!lead) return;dialerQ=[lead];dialerIdx=0;dialerOn=true;callingPhone='';go('dialer');document.getElementById('d-idle').style.display='none';document.getElementById('d-active').classList.add('on');document.getElementById('fab-area').style.display='block';document.getElementById('bcb').style.display='flex';nextDialerLead();}
 function showNotif(title,sub){const el=document.createElement('div');el.className='notif';el.innerHTML=`<strong style="font-size:12px">${esc(title)}</strong>${sub?'<div style="font-size:11px;color:var(--MUTED);margin-top:2px">'+esc(sub)+'</div>':''}`;el.onclick=()=>el.remove();document.getElementById('notif-area').appendChild(el);setTimeout(()=>el.remove(),4000);}
 
+
+// TB MODAL
+let tbLeadId = null, tbType = 'ny';
+function openTBModal(id){tbLeadId=id;tbType='ny';document.getElementById('tb-modal').style.display='flex';document.getElementById('tb-amount').value='';setTBType('ny');}
+function closeTBModal(){document.getElementById('tb-modal').style.display='none';tbLeadId=null;}
+function setTBType(t){tbType=t;document.getElementById('tb-ny').className='btn '+(t==='ny'?'btn-p':'btn-o');document.getElementById('tb-forl').className='btn '+(t==='forlangning'?'btn-p':'btn-o');}
+function saveTB(){
+ const l=leads.find(l=>l.id===tbLeadId);
+ if(!l) return closeTBModal();
+ l.tb=parseInt(document.getElementById('tb-amount').value)||0;
+ l.tbType=tbType;
+ l.tbDatum=new Date().toISOString().slice(0,10);
+ saveData();closeTBModal();
+ showNotif('TB sparat! '+l.tb+' kr/mån · '+(tbType==='ny'?'Nyteckning':'Förlängning'),'💰');
+ renderDash();
+}
 // IMPORT/EXPORT
 function openAddModal(){document.getElementById('add-modal').style.display='flex';}
 function closeAddModal(){document.getElementById('add-modal').style.display='none';}
@@ -1162,6 +1201,10 @@ document.addEventListener('DOMContentLoaded',init);
 </script>
 </body>
 </html>
+
+
+
+
 
 
 
