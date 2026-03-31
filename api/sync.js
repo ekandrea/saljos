@@ -1,6 +1,5 @@
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_KEY = process.env.SUPABASE_SERVICE_KEY;
-const ROW_ID = 1;
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -19,10 +18,14 @@ export default async function handler(req, res) {
     'Prefer': 'return=representation'
   };
 
-  // GET — hämta leads
+  const seller = (req.query.seller || 'andy').toLowerCase().trim();
+
   if (req.method === 'GET') {
     try {
-      const r = await fetch(`${SUPABASE_URL}/rest/v1/leads?id=eq.${ROW_ID}&select=data`, { headers });
+      const r = await fetch(
+        `${SUPABASE_URL}/rest/v1/leads?seller=eq.${encodeURIComponent(seller)}&select=data`,
+        { headers }
+      );
       const rows = await r.json();
       if (!rows.length) return res.status(200).json({ record: { leads: [] } });
       return res.status(200).json({ record: rows[0].data });
@@ -31,14 +34,18 @@ export default async function handler(req, res) {
     }
   }
 
-  // PUT — spara leads
   if (req.method === 'PUT') {
     try {
       const body = req.body;
+      const sellerName = (body.seller || seller).toLowerCase().trim();
       const r = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
         method: 'POST',
         headers: { ...headers, 'Prefer': 'resolution=merge-duplicates,return=representation' },
-        body: JSON.stringify({ id: ROW_ID, data: body, updated_at: new Date().toISOString() })
+        body: JSON.stringify({
+          seller: sellerName,
+          data: body,
+          updated_at: new Date().toISOString()
+        })
       });
       const result = await r.json();
       if (!r.ok) throw new Error(JSON.stringify(result));
