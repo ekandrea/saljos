@@ -874,6 +874,13 @@ function toggleSidebar(){
  if(sbVisible){sb.classList.remove('hidden');main.classList.remove('expanded');bcb.classList.remove('expanded');hb.style.left='calc(var(--SBW) - 20px)';}
  else{sb.classList.add('hidden');main.classList.add('expanded');bcb.classList.add('expanded');hb.style.left='0px';}
 }
+function migrateOldData(){
+ const oldKey='saljos_leads_v2';
+ const newKey=localKey();
+ const oldData=localStorage.getItem(oldKey);
+ const newData=localStorage.getItem(newKey);
+ if(oldData && !newData){localStorage.setItem(newKey,oldData);console.log('Migrerade '+JSON.parse(oldData).length+' leads till '+newKey);}
+}
 function updateSellerUI(){
  const n=currentSeller||'Andy';
  const av=n.charAt(0).toUpperCase();
@@ -907,7 +914,7 @@ function doLogin(){
 }
 function logout(){cloudPush().catch(()=>{});sessionStorage.clear();location.reload();}
 async function startApp(){
- loadLocal();updateBadges();renderDialer();initSNI();setBVDates();
+ migrateOldData();loadLocal();updateBadges();renderDialer();initSNI();setBVDates();
  const savedGoal=localStorage.getItem('saljos_goal');
  if(savedGoal)document.getElementById('daily-goal').value=savedGoal;
  setInterval(lockCleanup,60000);
