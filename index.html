@@ -10,7 +10,9 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Inter',sans-serif;background:var(--BG);color:var(--TEXT);min-height:100vh;font-size:13px;letter-spacing:-.01em;-webkit-font-smoothing:antialiased}
 #login-screen{position:fixed;inset:0;background:linear-gradient(165deg,#0c0c14 0%,#151530 50%,#1e1450 100%);z-index:9999;display:flex;align-items:center;justify-content:center}
-.login-box{background:var(--W);border-radius:20px;padding:48px 44px;width:380px;text-align:center;box-shadow:0 24px 80px rgba(0,0,0,.4)}
+#login-screen::before{content:'';position:absolute;top:-20%;right:-10%;width:600px;height:600px;background:radial-gradient(circle,rgba(91,95,199,.15),transparent 70%);border-radius:50%}
+#login-screen::after{content:'';position:absolute;bottom:-10%;left:-10%;width:400px;height:400px;background:radial-gradient(circle,rgba(124,127,242,.1),transparent 70%);border-radius:50%}
+.login-box{background:var(--W);border-radius:24px;padding:52px 48px;width:400px;text-align:center;box-shadow:0 24px 80px rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.08)}
 .login-logo{font-size:48px;margin-bottom:6px}
 .login-box h2{font-size:26px;font-weight:800;letter-spacing:-.04em;margin-bottom:4px}
 .login-box .sub{font-size:12px;color:var(--MUTED);margin-bottom:32px}
@@ -60,9 +62,10 @@ body{font-family:'Inter',sans-serif;background:var(--BG);color:var(--TEXT);min-h
 .priority-target{background:linear-gradient(135deg,#10b981,#059669);color:#fff;padding:1px 7px;border-radius:5px;font-size:9px;font-weight:700}
 .industry-badge{background:#e0e7ff;color:#3730a3;padding:2px 8px;border-radius:6px;font-size:9px;font-weight:600}
 .sub-count{display:inline-block;background:#dbeafe;color:#1e40af;padding:1px 7px;border-radius:6px;font-size:10px;margin-left:6px;font-weight:700}
-.card{background:var(--W);border-radius:var(--R);border:1px solid var(--BORDER);padding:20px;margin-bottom:14px}
+.card{background:var(--W);border-radius:14px;border:1px solid var(--BORDER);padding:20px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
 .btn{border:none;border-radius:8px;cursor:pointer;font-weight:600;font-family:inherit;padding:9px 18px;font-size:12px;transition:all .15s}
-.btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.1)}
+.btn:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,0,0,.12)}
+.btn:active{transform:translateY(0);box-shadow:none}
 .btn-p{background:var(--ACC);color:#fff}.btn-g{background:var(--G);color:#fff}.btn-r{background:var(--RD);color:#fff}
 .btn-o{background:var(--W);border:1px solid var(--BORDER);color:var(--TEXT)}
 .btn-bv{background:linear-gradient(135deg,#1d4ed8,#2563eb);color:#fff}
@@ -149,8 +152,8 @@ tr.clickable:hover{background:#fafafc;cursor:pointer}
 .pipeline-section h4{font-size:12px;font-weight:700;color:var(--MUTED);text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px;display:flex;align-items:center;gap:8px}
 .pipeline-section h4::before{content:'';display:inline-block;width:3px;height:14px;background:var(--ACC);border-radius:2px}
 .pipeline-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
-.pipeline-card{background:var(--W);border-radius:var(--R);border:1px solid var(--BORDER);padding:16px;cursor:pointer;transition:all .15s}
-.pipeline-card:hover{box-shadow:0 4px 12px rgba(0,0,0,.08);transform:translateY(-2px)}
+.pipeline-card{background:var(--W);border-radius:14px;border:1px solid var(--BORDER);padding:18px;cursor:pointer;transition:all .2s;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.pipeline-card:hover{box-shadow:0 8px 24px rgba(0,0,0,.1);transform:translateY(-3px);border-color:var(--ACC)}
 .leads-tabs{display:flex;gap:2px;margin-bottom:16px;background:#f1f5f9;border-radius:10px;padding:3px}
 .leads-tab{flex:1;padding:8px;text-align:center;border-radius:8px;cursor:pointer;font-size:12px;font-weight:600;color:var(--MUTED);transition:all .15px;border:none;background:none;font-family:inherit}
 .leads-tab.active{background:var(--W);color:var(--TEXT);box-shadow:0 1px 4px rgba(0,0,0,.08)}
@@ -525,8 +528,8 @@ tr.clickable:hover{background:#fafafc;cursor:pointer}
  <div class="login-box">
   <div class="login-logo">⚡</div>
   <h2>Säljös</h2>
-  <div class="sub">Sales OS — din personliga säljmaskin</div>
-  <input type="text" id="login-name" placeholder="Ditt namn (ex. Andy)" onkeydown="if(event.key==='Enter')doLogin()" autocomplete="name">
+  <div class="sub">Sales OS — unified B2B sales dashboard</div>
+  <input type="text" id="login-name" placeholder="Ditt namn" onkeydown="if(event.key==='Enter')document.getElementById('login-pw').focus()" autocomplete="name">
   <input type="password" id="login-pw" placeholder="Lösenord" onkeydown="if(event.key==='Enter')doLogin()" autocomplete="current-password">
   <button class="login-btn" onclick="doLogin()">Logga in</button>
   <div class="login-err" id="login-err">Fel lösenord eller namn saknas</div>
@@ -535,7 +538,7 @@ tr.clickable:hover{background:#fafafc;cursor:pointer}
 <button id="hamburger" onclick="toggleSidebar()">☰</button>
 <div id="sb">
  <div class="logo"><span style="font-size:22px">⚡</span><div class="t">Säljös</div></div>
- <div class="seller-pill"><div class="av">A</div><div><div class="nm">Andy</div><div class="rl">Sales rep</div></div></div>
+ <div class="seller-pill"><div class="av" id="sb-av">A</div><div><div class="nm" id="sb-nm">Andy</div><div class="rl">Sales rep</div></div></div>
  <div class="sync-bar"><div class="sync-dot" id="sync-dot"></div><span class="sync-text" id="sync-text">Laddar...</span><button class="sync-btn" onclick="cloudSync()">Synka ↑↓</button></div>
  <div class="sec">Huvudmeny</div>
  <div class="ni active" onclick="go('dialer')" id="nav-dialer">⚡ Dialer <span class="badge" id="b-dialer">0</span></div>
@@ -874,10 +877,11 @@ function toggleSidebar(){
 function updateSellerUI(){
  const n=currentSeller||'Andy';
  const av=n.charAt(0).toUpperCase();
- const nm=document.querySelector('#sb .seller-pill .nm');
- const avEl=document.querySelector('#sb .seller-pill .av');
+ const nm=document.getElementById('sb-nm');
+ const avEl=document.getElementById('sb-av');
  if(nm)nm.textContent=n;
  if(avEl)avEl.textContent=av;
+ document.title='Säljös ⚡ — '+n;
 }
 function init(){
  if(sessionStorage.getItem('saljos_auth')==='1'){
@@ -901,7 +905,7 @@ function doLogin(){
   startApp();
  }else{document.getElementById('login-err').style.display='block';document.getElementById('login-pw').value='';}
 }
-function logout(){sessionStorage.clear();location.reload();}
+function logout(){cloudPush().catch(()=>{});sessionStorage.clear();location.reload();}
 async function startApp(){
  loadLocal();updateBadges();renderDialer();initSNI();setBVDates();
  const savedGoal=localStorage.getItem('saljos_goal');
@@ -913,20 +917,20 @@ async function startApp(){
 }
 async function cloudPull(){
  setSyncState('busy','Hämtar...');
- const localRaw=localStorage.getItem('saljos_leads_v2');
+ const localRaw=localStorage.getItem(localKey());
  const localLeads=localRaw?JSON.parse(localRaw):[];
  try{
   const res=await fetch('/api/sync?seller='+encodeURIComponent(currentSeller));if(!res.ok)throw new Error(res.status);
   const data=await res.json();
   if(data.record&&data.record.leads&&data.record.leads.length>0){
-   if(data.record.leads.length>=localLeads.length){leads=data.record.leads;migrateLeads();saveLocal();setSyncState('ok','Synkad '+new Date().toLocaleTimeString('sv-SE'));}
-   else{leads=localLeads;migrateLeads();setSyncState('ok','Lokal data ('+leads.length+' leads)');cloudPush();}
+   leads=data.record.leads;migrateLeads();saveLocal();setSyncState('ok','Synkad '+new Date().toLocaleTimeString('sv-SE'));
    return;
   }
-  throw new Error('Inget data');
+  if(localLeads.length){leads=localLeads;migrateLeads();setSyncState('ok','Lokal data ('+leads.length+')');cloudPush();return;}
+  leads=[];saveLocal();setSyncState('ok','Inga leads ännu');
  }catch(e){
   if(localLeads.length){leads=localLeads;migrateLeads();setSyncState('ok','Lokal data ('+leads.length+')');}
-  else{leads=getSampleData();saveLocal();setSyncState('err','Ej konfigurerad');}
+  else{leads=[];saveLocal();setSyncState('err','Kunde inte ansluta');}
  }
 }
 async function cloudPush(){
@@ -936,8 +940,9 @@ async function cloudPush(){
 }
 async function cloudSync(){await cloudPull();await cloudPush();}
 function setSyncState(s,t){const d=document.getElementById('sync-dot'),tx=document.getElementById('sync-text');if(!d)return;d.className='sync-dot '+s;if(tx)tx.textContent=t;}
-function loadLocal(){try{const d=localStorage.getItem('saljos_leads_v2');if(d){leads=JSON.parse(d);migrateLeads();}}catch(e){}}
-function saveLocal(){try{localStorage.setItem('saljos_leads_v2',JSON.stringify(leads));}catch(e){}}
+function localKey(){return 'saljos_leads_'+currentSeller.toLowerCase().trim();}
+function loadLocal(){try{const d=localStorage.getItem(localKey());if(d){leads=JSON.parse(d);migrateLeads();}}catch(e){}}
+function saveLocal(){try{localStorage.setItem(localKey(),JSON.stringify(leads));}catch(e){}}
 function saveData(){saveLocal();cloudPush();}
 function migrateLeads(){leads.forEach(l=>{if(!l.lockedBy)l.lockedBy=null;if(!l.lockedAt)l.lockedAt=null;if(!l.industry)l.industry=detectIndustry(l.company);if(!l.history)l.history=[];if(!l.subs)l.subs=[];if(!l.seller)l.seller=null;if(!l.status)l.status='ny';if(!l.tb_amount)l.tb_amount=0;if(!l.nyteck_count)l.nyteck_count=0;if(!l.forlang_count)l.forlang_count=0;if(!l.deal_type)l.deal_type=null;});}
 async function checkAllApis(){
