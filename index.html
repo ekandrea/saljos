@@ -49,8 +49,8 @@ body{font-family:'Inter',sans-serif;background:var(--BG);color:var(--TEXT);min-h
 #sb .ni .badge{background:var(--ACC);color:#fff;font-size:9px;padding:2px 7px;border-radius:8px;margin-left:auto;font-weight:700}
 #sb .ni .badge.warn{background:var(--OR)}
 #sb .bottom{margin-top:auto;padding:12px;border-top:1px solid #111827}
-#hamburger{position:fixed;top:14px;left:calc(var(--SBW) - 20px);z-index:200;background:var(--P);color:#fff;border:none;border-radius:0 8px 8px 0;padding:8px 10px;font-size:18px;cursor:pointer;transition:all .25s;line-height:1}
-#hamburger:hover{background:#1a1a2e}
+#hamburger{position:fixed;top:16px;left:var(--SBW);z-index:200;background:var(--W);color:var(--TEXT);border:1px solid var(--BORDER);border-radius:10px;padding:8px 10px;font-size:16px;cursor:pointer;transition:all .25s;line-height:1;box-shadow:0 2px 8px rgba(0,0,0,.08);opacity:.7}
+#hamburger:hover{opacity:1;box-shadow:0 4px 12px rgba(0,0,0,.12)}
 .main{margin-left:var(--SBW);min-height:100vh;padding:32px 40px;transition:margin-left .25s}
 .main.expanded{margin-left:0}
 .view{display:none;animation:fi .3s ease}.view.on{display:block}
@@ -95,7 +95,7 @@ tr.clickable:hover{background:linear-gradient(135deg,#f5f3ff,#fafafc);cursor:poi
 .q-item .co{font-weight:700;font-size:13px}.q-item .meta{display:flex;gap:8px;align-items:center}
 .q-item .sc{background:linear-gradient(135deg,var(--ACC),var(--ACC2));color:#fff;padding:2px 9px;border-radius:7px;font-size:10px;font-weight:700}
 #d-active{display:none}#d-active.on{display:block}
-#bcb{position:fixed;bottom:0;left:var(--SBW);right:0;background:var(--W);border-top:1px solid var(--BORDER);padding:14px 0;display:flex;align-items:center;justify-content:center;gap:18px;z-index:50;transition:left .25s}
+#bcb{position:fixed;bottom:0;left:var(--SBW);right:0;background:linear-gradient(180deg,rgba(255,255,255,.95),#fff);backdrop-filter:blur(12px);border-top:none;box-shadow:0 -4px 20px rgba(0,0,0,.08);padding:16px 0;display:flex;align-items:center;justify-content:center;gap:18px;z-index:50;transition:left .25s}
 #bcb.expanded{left:0}
 #d-active.on{padding-bottom:76px}
 .call-btn{width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;font-size:18px;transition:all .15s;display:flex;align-items:center;justify-content:center}
@@ -106,22 +106,25 @@ tr.clickable:hover{background:linear-gradient(135deg,#f5f3ff,#fafafc);cursor:poi
 #bcb .divider{width:1px;height:24px;background:var(--BORDER)}
 #bcb .calling-lbl{color:var(--MUTED);font-size:12px;font-weight:500}
 .fab-container{position:fixed;bottom:26px;right:36px;z-index:80;display:flex;gap:10px}
-.fab-outcome{border:none;border-radius:10px;padding:13px 26px;font-size:13px;font-weight:700;font-family:inherit;background:#4b5563;color:#fff;box-shadow:0 2px 10px rgba(0,0,0,.15);cursor:pointer;transition:all .2s}
-.fab-outcome:hover{background:#374151;transform:translateY(-1px)}
-.fab-skip{background:var(--W);border:1px solid var(--BORDER);color:var(--MUTED);border-radius:10px;padding:13px 18px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
-.fab-skip:hover{border-color:var(--RD);color:var(--RD)}
+.fab-outcome{border:none;border-radius:12px;padding:14px 28px;font-size:13px;font-weight:700;font-family:inherit;background:linear-gradient(135deg,var(--ACC),var(--ACC2));color:#fff;box-shadow:0 4px 16px rgba(91,95,199,.3);cursor:pointer;transition:all .2s}
+.fab-outcome:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(91,95,199,.4)}
+.fab-skip{background:var(--W);border:1px solid var(--BORDER);color:var(--MUTED);border-radius:12px;padding:14px 20px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.fab-skip:hover{border-color:var(--RD);color:var(--RD);background:#fef2f2;box-shadow:0 4px 12px rgba(239,68,68,.15)}
 #outcome-overlay{position:fixed;inset:0;z-index:84;display:none}
-.float-panel{position:fixed;bottom:78px;right:36px;width:420px;max-height:70vh;background:var(--W);border-radius:14px;border:1px solid var(--BORDER);box-shadow:0 8px 40px rgba(0,0,0,.12);z-index:85;overflow:hidden;display:flex;flex-direction:column}
-.fp-header{padding:16px 20px;border-bottom:1px solid var(--BORDER);display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:14px}
-.fp-header button{background:none;border:none;font-size:18px;cursor:pointer;color:var(--MUTED)}
-.fp-body{padding:16px 20px;overflow-y:auto;flex:1}
-.oc-group{margin-bottom:10px}
-.oc-title{font-size:9px;font-weight:700;color:var(--MUTED);text-transform:uppercase;letter-spacing:.7px;margin-bottom:4px}
-.oc-btn{display:inline-block;padding:5px 10px;margin:2px;border-radius:6px;border:1px solid var(--BORDER);background:var(--W);cursor:pointer;font-size:11px;font-family:inherit;transition:all .1s;font-weight:500}
-.oc-btn:hover{border-color:var(--ACC);background:#f5f3ff;color:var(--ACC)}
-.oc-btn.green:hover{border-color:var(--G);background:#ecfdf5;color:#065f46}
-.oc-btn.red:hover{border-color:var(--RD);background:#fef2f2;color:#991b1b}
-.next-btn{width:100%;margin-top:12px;background:linear-gradient(135deg,var(--ACC),var(--ACC2));color:#fff;border:none;border-radius:10px;padding:13px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit}
+.float-panel{position:fixed;bottom:78px;right:36px;width:440px;max-height:72vh;background:var(--W);border-radius:16px;border:none;box-shadow:0 12px 48px rgba(0,0,0,.18),0 0 0 1px rgba(0,0,0,.05);z-index:85;overflow:hidden;display:flex;flex-direction:column;animation:panelUp .25s cubic-bezier(.34,1.56,.64,1)}
+@keyframes panelUp{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+.fp-header{padding:18px 24px;border-bottom:1px solid #eeeef4;display:flex;justify-content:space-between;align-items:center;font-weight:800;font-size:15px;background:linear-gradient(135deg,#f8f7ff,#fff)}
+.fp-header button{background:#f4f4f8;border:none;width:28px;height:28px;border-radius:8px;font-size:14px;cursor:pointer;color:var(--MUTED);transition:all .15s;display:flex;align-items:center;justify-content:center}
+.fp-header button:hover{background:#eee;color:var(--TEXT)}
+.fp-body{padding:20px 24px;overflow-y:auto;flex:1}
+.oc-group{margin-bottom:14px}
+.oc-title{font-size:9px;font-weight:800;color:var(--ACC);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #f0eef8}
+.oc-btn{display:inline-block;padding:7px 12px;margin:3px;border-radius:8px;border:1px solid var(--BORDER);background:var(--W);cursor:pointer;font-size:11px;font-family:inherit;transition:all .15s;font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.oc-btn:hover{border-color:var(--ACC);background:linear-gradient(135deg,#f5f3ff,#ede9fe);color:var(--ACC);transform:translateY(-1px);box-shadow:0 3px 8px rgba(91,95,199,.15)}
+.oc-btn.green{border-color:#bbf7d0}.oc-btn.green:hover{border-color:var(--G);background:linear-gradient(135deg,#ecfdf5,#d1fae5);color:#065f46;box-shadow:0 3px 8px rgba(34,197,94,.15)}
+.oc-btn.red{border-color:#fecaca}.oc-btn.red:hover{border-color:var(--RD);background:linear-gradient(135deg,#fef2f2,#fee2e2);color:#991b1b;box-shadow:0 3px 8px rgba(239,68,68,.15)}
+.next-btn{width:100%;margin-top:14px;background:linear-gradient(135deg,var(--ACC),var(--ACC2));color:#fff;border:none;border-radius:12px;padding:14px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 4px 12px rgba(91,95,199,.25);transition:all .2s}
+.next-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(91,95,199,.35)}
 .filter-row{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;align-items:center}
 .ftab{padding:6px 14px;border-radius:8px;border:1px solid var(--BORDER);background:var(--W);cursor:pointer;font-size:11px;font-weight:600;font-family:inherit;transition:all .2s;color:var(--MUTED)}
 .ftab.active{background:linear-gradient(135deg,var(--ACC),var(--ACC2));color:#fff;border-color:var(--ACC);box-shadow:0 2px 8px rgba(91,95,199,.25)}.ftab:hover:not(.active){border-color:var(--ACC);color:var(--ACC);background:#f5f3ff}
@@ -892,8 +895,8 @@ function clearDialerFilter(){document.getElementById('df-op').value='';document.
 function toggleSidebar(){
  sbVisible=!sbVisible;
  const sb=document.getElementById('sb'),main=document.getElementById('main'),bcb=document.getElementById('bcb'),hb=document.getElementById('hamburger');
- if(sbVisible){sb.classList.remove('hidden');main.classList.remove('expanded');bcb.classList.remove('expanded');hb.style.left='calc(var(--SBW) - 20px)';}
- else{sb.classList.add('hidden');main.classList.add('expanded');bcb.classList.add('expanded');hb.style.left='0px';}
+ if(sbVisible){sb.classList.remove('hidden');main.classList.remove('expanded');bcb.classList.remove('expanded');hb.style.left='var(--SBW)';}
+ else{sb.classList.add('hidden');main.classList.add('expanded');bcb.classList.add('expanded');hb.style.left='12px';}
 }
 function migrateOldData(){
  const oldKey='saljos_leads_v2';
@@ -1092,26 +1095,41 @@ function stopDialer(){dialerOn=false;dialerIdx=-1;document.getElementById('d-act
 function nextDialerLead(){if(dialerIdx>=dialerQ.length){stopDialer();return;}const l=leads.find(l=>l.id===dialerQ[dialerIdx].id);if(!l){dialerIdx++;nextDialerLead();return;}lockLead(l.id);renderKK(l);document.getElementById('note-ta').value=l.note||'';renderHistory(l);renderOutcomes(l);document.getElementById('calling-lbl').textContent='';callingPhone='';}
 function skipLead(){const l=getCurLead();if(l)unlockLead(l.id);dialerIdx++;if(dialerIdx<dialerQ.length)nextDialerLead();else stopDialer();updateBadges();}
 function renderKK(lead){
+ const bindInfo=lead.bindingDate?'<span class="'+bindCls(lead.bindingDate)+'">'+bindLbl(lead.bindingDate)+'</span>':'<span style="color:var(--MUTED)">Okänd</span>';
  document.getElementById('kk-area').innerHTML=
-  '<div style="margin-bottom:20px;display:flex;justify-content:space-between;align-items:start"><div><h2 style="font-size:22px;font-weight:800;letter-spacing:-.03em;margin-bottom:2px">'+esc(lead.company)+'</h2><div style="color:var(--MUTED);font-size:12px">'+esc(fmtOrg(lead.orgnr)||'—')+' · '+getIndLabel(lead.industry)+'</div></div><button class="btn btn-o btn-sm" onclick="stopDialer()">← Tillbaka</button></div>'+
-  '<div style="display:grid;grid-template-columns:310px 1fr;gap:22px;align-items:start">'+
-  '<div style="background:var(--W);border:1px solid var(--BORDER);border-radius:10px;padding:24px">'+
-  '<div style="display:flex;gap:6px;margin-bottom:16px"><button class="btn btn-p btn-sm" style="flex:1" onclick="window.open(\'https://crm.upsales.com/\',\'_blank\')">Upsales</button><button class="btn btn-g btn-sm" style="flex:1" onclick="window.open(\'https://app.getaccept.com/\',\'_blank\')">GetAccept</button></div>'+
-  '<div style="display:flex;flex-direction:column;gap:12px">'+
-  '<div><label style="font-size:10px;color:var(--MUTED);font-weight:600;display:block;margin-bottom:3px">Beslutsfattare</label><input value="'+esc(lead.vdName||'')+'" oninput="saveField('+lead.id+',\'vdName\',this.value)"></div>'+
-  '<div><label style="font-size:10px;color:var(--MUTED);font-weight:600;display:block;margin-bottom:3px">Direktnummer</label><input value="'+esc(lead.vdPhone||'')+'" oninput="saveField('+lead.id+',\'vdPhone\',this.value)"></div>'+
-  '<div><label style="font-size:10px;color:var(--MUTED);font-weight:600;display:block;margin-bottom:3px">E-post</label><input value="'+esc(lead.vdEmail||lead.email||'')+'" oninput="saveField('+lead.id+',\'vdEmail\',this.value)"></div>'+
-  '<div><label style="font-size:10px;color:var(--MUTED);font-weight:600;display:block;margin-bottom:3px">Webbplats</label><div style="display:flex;gap:6px"><input value="'+esc(lead.website||'')+'" oninput="saveField('+lead.id+',\'website\',this.value)"><button class="btn btn-o btn-sm" onclick="openSite('+lead.id+')">🌐</button></div></div>'+
-  '</div>'+
-  '<div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--BORDER);display:flex;flex-wrap:wrap;gap:5px">'+
+  '<div style="background:linear-gradient(135deg,#f8f7ff,#fff);border:1px solid #e8e6f0;border-radius:16px;padding:28px 32px;margin-bottom:20px;box-shadow:0 2px 12px rgba(91,95,199,.06)">'+
+  '<div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:20px">'+
+  '<div><h2 style="font-size:24px;font-weight:800;letter-spacing:-.03em;margin-bottom:4px;color:var(--TEXT)">'+esc(lead.company)+'</h2>'+
+  '<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:6px">'+
+  '<span style="font-size:12px;color:var(--MUTED);font-family:monospace">'+esc(fmtOrg(lead.orgnr)||'—')+'</span>'+
+  '<span class="industry-badge">'+getIndLabel(lead.industry)+'</span>'+
+  '<span class="op op-'+(lead.operator||'okänd').toLowerCase()+'">'+esc(lead.operator||'Okänd')+'</span>'+
+  '<span style="font-size:11px">'+bindInfo+'</span>'+
+  '</div></div>'+
+  '<button class="btn btn-o" onclick="stopDialer()" style="white-space:nowrap"><i data-lucide="arrow-left" style="width:14px;height:14px;vertical-align:-2px"></i> Tillbaka</button></div>'+
+  '<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:4px">'+
   '<a href="https://www.allabolag.se/'+normOrg(lead.orgnr)+'" target="_blank" class="link-btn">Allabolag</a>'+
   '<a href="https://www.merinfo.se/search?q='+encodeURIComponent(fmtOrg(lead.orgnr))+'" target="_blank" class="link-btn">Merinfo</a>'+
   '<a href="https://www.linkedin.com/search/results/companies/?keywords='+encodeURIComponent(lead.company||'')+'" target="_blank" class="link-btn">LinkedIn</a>'+
   '<a href="https://www.google.com/search?q='+encodeURIComponent(lead.company||'')+'" target="_blank" class="link-btn">Google</a>'+
-  '<a href="https://nummer.pts.se/NbrSearch" target="_blank" class="link-btn">📡 PTS</a>'+
+  '<a href="https://nummer.pts.se/NbrSearch" target="_blank" class="link-btn">PTS</a>'+
+  '<button class="link-btn" onclick="window.open(\'https://crm.upsales.com/\',\'_blank\')">Upsales</button>'+
+  '<button class="link-btn" onclick="window.open(\'https://app.getaccept.com/\',\'_blank\')">GetAccept</button>'+
   '</div></div>'+
-  '<div><div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">Abonnemang · '+(lead.subs?lead.subs.length:0)+' st</div>'+renderSubs(lead)+'</div>'+
+  '<div style="display:grid;grid-template-columns:340px 1fr;gap:20px;align-items:start">'+
+  '<div style="background:var(--W);border:1px solid var(--BORDER);border-radius:14px;padding:24px;box-shadow:0 2px 8px rgba(0,0,0,.04)">'+
+  '<div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--MUTED);margin-bottom:14px">Kontaktuppgifter</div>'+
+  '<div style="display:flex;flex-direction:column;gap:14px">'+
+  '<div><label style="font-size:10px;color:var(--ACC);font-weight:700;display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em">Beslutsfattare</label><input value="'+esc(lead.vdName||'')+'" oninput="saveField('+lead.id+',\'vdName\',this.value)" placeholder="Namn..."></div>'+
+  '<div><label style="font-size:10px;color:var(--ACC);font-weight:700;display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em">Direktnummer</label><input value="'+esc(lead.vdPhone||'')+'" oninput="saveField('+lead.id+',\'vdPhone\',this.value)" placeholder="07X-XXX XX XX"></div>'+
+  '<div><label style="font-size:10px;color:var(--ACC);font-weight:700;display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em">E-post</label><input value="'+esc(lead.vdEmail||lead.email||'')+'" oninput="saveField('+lead.id+',\'vdEmail\',this.value)" placeholder="namn@foretag.se"></div>'+
+  '<div><label style="font-size:10px;color:var(--ACC);font-weight:700;display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em">Webbplats</label><div style="display:flex;gap:6px"><input value="'+esc(lead.website||'')+'" oninput="saveField('+lead.id+',\'website\',this.value)" placeholder="www..."><button class="btn btn-o btn-sm" onclick="openSite('+lead.id+')"><i data-lucide="external-link" style="width:13px;height:13px"></i></button></div></div>'+
+  '</div></div>'+
+  '<div>'+
+  '<div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--MUTED);margin-bottom:14px">Abonnemang <span style="background:var(--ACC);color:#fff;padding:2px 8px;border-radius:10px;font-size:10px;margin-left:6px">'+(lead.subs?lead.subs.length:0)+'</span></div>'+
+  renderSubs(lead)+'</div>'+
   '</div>';
+ if(window.lucide)lucide.createIcons();
 }
 function renderSubs(lead){
  if(!lead.subs||!lead.subs.length)return '<div style="color:var(--MUTED)">Inga abonnemang</div>';
