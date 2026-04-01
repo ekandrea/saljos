@@ -895,8 +895,8 @@ function clearDialerFilter(){document.getElementById('df-op').value='';document.
 function toggleSidebar(){
  sbVisible=!sbVisible;
  const sb=document.getElementById('sb'),main=document.getElementById('main'),bcb=document.getElementById('bcb'),hb=document.getElementById('hamburger');
- if(sbVisible){sb.classList.remove('hidden');main.classList.remove('expanded');bcb.classList.remove('expanded');hb.style.left='var(--SBW)';}
- else{sb.classList.add('hidden');main.classList.add('expanded');bcb.classList.add('expanded');hb.style.left='12px';}
+ if(sbVisible){sb.classList.remove('hidden');main.classList.remove('expanded');bcb.classList.remove('expanded');hb.style.display='none';}
+ else{sb.classList.add('hidden');main.classList.add('expanded');bcb.classList.add('expanded');hb.style.display='';hb.style.left='12px';}
 }
 function migrateOldData(){
  const oldKey='saljos_leads_v2';
@@ -906,8 +906,9 @@ function migrateOldData(){
  if(oldData && !newData){localStorage.setItem(newKey,oldData);console.log('Migrerade '+JSON.parse(oldData).length+' leads till '+newKey);}
 }
 function updateSellerUI(){
- const n=currentSeller||'Andy';
- const av=n.charAt(0).toUpperCase();
+ const raw=currentSeller||'andy';
+ const n=raw.charAt(0).toUpperCase()+raw.slice(1);
+ const av=n.charAt(0);
  const nm=document.getElementById('sb-nm');
  const avEl=document.getElementById('sb-av');
  if(nm)nm.textContent=n;
@@ -930,8 +931,8 @@ function doLogin(){
  if(!name){document.getElementById('login-err').style.display='block';return;}
  if(pw===stored){
   sessionStorage.setItem('saljos_auth','1');
-  sessionStorage.setItem('saljos_seller',name);
-  currentSeller=name;
+  sessionStorage.setItem('saljos_seller',name.toLowerCase().trim());
+  currentSeller=name.toLowerCase().trim();
   document.getElementById('login-screen').style.display='none';
   updateSellerUI();
   startApp();
@@ -1132,20 +1133,19 @@ function renderKK(lead){
  if(window.lucide)lucide.createIcons();
 }
 function renderSubs(lead){
- if(!lead.subs||!lead.subs.length)return '<div style="color:var(--MUTED)">Inga abonnemang</div>';
- return '<div style="display:flex;flex-direction:column;gap:4px">'+lead.subs.map(function(s,i){
-  return '<div style="border:1px solid var(--BORDER);border-radius:8px;overflow:hidden">'+
-   '<div onclick="toggleSub('+i+')" style="display:flex;align-items:center;justify-content:space-between;padding:11px 15px;cursor:pointer;background:'+(i%2?'var(--W)':'#fafafc')+'">'+
-   '<div style="display:flex;align-items:center;gap:12px"><strong>'+esc(s.user||'—')+'</strong><a href="'+toTel(s.phone)+'" class="sub-phone" onclick="event.stopPropagation()">'+fmtPhone(s.phone)+'</a></div>'+
+ if(!lead.subs||!lead.subs.length)return '<div style="text-align:center;padding:32px;color:var(--MUTED);background:#fafafc;border-radius:10px;font-size:13px"><i data-lucide="phone-off" style="width:24px;height:24px;margin-bottom:8px;opacity:.4"></i><div>Inga abonnemang registrerade</div></div>';
+ return '<div style="display:flex;flex-direction:column;gap:6px">'+lead.subs.map(function(s,i){
+  return '<div style="border:1px solid var(--BORDER);border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.04);transition:all .15s" onmouseenter="this.style.boxShadow=\'0 4px 12px rgba(0,0,0,.08)\'" onmouseleave="this.style.boxShadow=\'0 1px 3px rgba(0,0,0,.04)\'">'+
+   '<div onclick="toggleSub('+i+')" style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer;background:var(--W)">'+
+   '<div style="display:flex;align-items:center;gap:12px"><div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#f5f3ff,#ede9fe);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--ACC)">'+(i+1)+'</div><div><strong style="font-size:13px">'+esc(s.user||'Okänd')+'</strong><div><a href="'+toTel(s.phone)+'" class="sub-phone" onclick="event.stopPropagation()" style="font-size:12px">'+fmtPhone(s.phone)+'</a></div></div></div>'+
    '<div style="display:flex;align-items:center;gap:8px">'+
-   '<span class="op op-'+(lead.operator||'okänd').toLowerCase()+'">'+esc(lead.operator||'Okänd')+'</span>'+
    '<span class="'+bindCls(s.end)+'" style="font-size:11px">'+bindLbl(s.end)+'</span>'+
-   '<button class="btn btn-g btn-sm" onclick="event.stopPropagation();setCallingPhone(\''+esc(s.phone)+'\',\''+esc(s.user)+'\');makeCall()">Ring</button>'+
+   '<button class="btn btn-g btn-sm" onclick="event.stopPropagation();setCallingPhone(\''+esc(s.phone)+'\',\''+esc(s.user)+'\');makeCall()" style="border-radius:20px;padding:6px 14px"><i data-lucide="phone" style="width:12px;height:12px;vertical-align:-1px"></i> Ring</button>'+
    '</div></div>'+
-   '<div id="sub-d-'+i+'" style="display:none;grid-template-columns:1fr 1fr 1fr;gap:12px;padding:11px 15px;background:#f8f8fb;border-top:1px solid var(--BORDER)">'+
-   '<div><div style="font-size:10px;color:var(--MUTED);font-weight:600;margin-bottom:2px">Porterad</div><strong style="font-size:12px">'+esc(s.portDate||'—')+'</strong></div>'+
-   '<div><div style="font-size:10px;color:var(--MUTED);font-weight:600;margin-bottom:2px">Bindning slutar</div><strong style="font-size:12px" class="'+bindCls(s.end)+'">'+esc(s.end||'—')+'</strong></div>'+
-   '<div><div style="font-size:10px;color:var(--MUTED);font-weight:600;margin-bottom:2px">Plan</div><span style="font-size:12px">'+esc(s.plan||'—')+'</span></div>'+
+   '<div id="sub-d-'+i+'" style="display:none;grid-template-columns:1fr 1fr 1fr;gap:12px;padding:14px 16px;background:linear-gradient(135deg,#fafafc,#f5f3ff);border-top:1px solid #eeeef4">'+
+   '<div><div style="font-size:10px;color:var(--ACC);font-weight:700;margin-bottom:3px;text-transform:uppercase;letter-spacing:.04em">Porterad</div><strong style="font-size:12px">'+esc(s.portDate||'—')+'</strong></div>'+
+   '<div><div style="font-size:10px;color:var(--ACC);font-weight:700;margin-bottom:3px;text-transform:uppercase;letter-spacing:.04em">Bindning</div><strong style="font-size:12px" class="'+bindCls(s.end)+'">'+esc(s.end||'—')+'</strong></div>'+
+   '<div><div style="font-size:10px;color:var(--ACC);font-weight:700;margin-bottom:3px;text-transform:uppercase;letter-spacing:.04em">Plan</div><span style="font-size:12px;font-weight:600">'+esc(s.plan||'—')+'</span></div>'+
    '</div></div>';
  }).join('')+'</div>';
 }
@@ -1284,8 +1284,10 @@ function renderPipeline(){
  const myActive=leads.filter(l=>l.lockedBy===currentSeller&&!['blacklist','order','prospekt'].includes(l.status));
  document.getElementById('my-locked-leads').innerHTML=myActive.length?myActive.map(pCard).join(''):'<div style="color:var(--MUTED);padding:20px">Inga aktiva leads.</div>';
  document.getElementById('b-pipeline').textContent=myCB.length+myOff.length+myActive.length;
+ if(window.lucide)lucide.createIcons();
 }
-function pCard(l){const note=l.history.length?l.history[l.history.length-1].note:'';return '<div class="pipeline-card" onclick="openKK('+l.id+')"><div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:10px"><div><div style="font-weight:700;font-size:14px">'+esc(l.company)+'</div><div style="font-size:11px;color:var(--MUTED);margin-top:2px">'+getIndLabel(l.industry)+' · '+fmtPhone(l.phone)+'</div></div><span class="st-badge st-'+l.status+'">'+SN[l.status]+'</span></div>'+(note?'<div style="font-size:11px;color:#666;font-style:italic;margin-bottom:8px">"'+esc(note.substring(0,55))+(note.length>55?'...':'')+'"</div>':'')+(l.nextCallDate?'<div style="font-size:10px;color:var(--MUTED);margin-bottom:8px">📅 '+l.nextCallDate+'</div>':'')+'<div style="display:flex;gap:6px"><button class="btn btn-p btn-sm" onclick="event.stopPropagation();openKK('+l.id+')">Öppna</button><button class="btn btn-o btn-sm" onclick="event.stopPropagation();unlockLead('+l.id+');renderPipeline()">🔓</button></div></div>';}
+function fmtDate(d){if(!d)return'';try{const dt=new Date(d);if(isNaN(dt))return d;return dt.toLocaleDateString('sv-SE',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});}catch{return d;}}
+function pCard(l){const note=l.history.length?l.history[l.history.length-1].note:'';return '<div class="pipeline-card" onclick="openKK('+l.id+')"><div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:10px"><div><div style="font-weight:700;font-size:14px">'+esc(l.company)+'</div><div style="display:flex;gap:8px;align-items:center;margin-top:4px"><span class="industry-badge">'+getIndLabel(l.industry)+'</span><span style="font-size:11px;color:var(--MUTED)">'+fmtPhone(l.phone)+'</span></div></div><span class="st-badge st-'+l.status+'">'+SN[l.status]+'</span></div>'+(note?'<div style="font-size:11px;color:#666;font-style:italic;margin-bottom:8px;padding:8px 10px;background:#fafafc;border-radius:6px">"'+esc(note.substring(0,55))+(note.length>55?'...':'')+'"</div>':'')+(l.nextCallDate?'<div style="font-size:11px;color:var(--ACC);margin-bottom:10px;font-weight:600"><i data-lucide="calendar" style="width:12px;height:12px;vertical-align:-2px"></i> '+fmtDate(l.nextCallDate)+'</div>':'')+'<div style="display:flex;gap:8px"><button class="btn btn-p btn-sm" onclick="event.stopPropagation();openKK('+l.id+')" style="flex:1">Öppna</button><button class="btn btn-o btn-sm" onclick="event.stopPropagation();unlockLead('+l.id+');renderPipeline()"><i data-lucide="unlock" style="width:13px;height:13px"></i></button></div></div>';}
 function filterLeads(){curPage=0;renderLeads();}
 function renderLeads(){
  const sts=['alla','ny','ring_senare','offert','order','avslutad','inte_intresserad','ej_svar'];
