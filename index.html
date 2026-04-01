@@ -575,8 +575,6 @@ th,td{padding:8px 10px}
  <div class="ni" onclick="go('sok')" id="nav-sok"><i data-lucide="search" style="width:16px;height:16px"></i> Sök</div>
  <div class="bottom">
   <div class="ni" onclick="openAddModal()"><i data-lucide="plus-circle" style="width:16px;height:16px"></i> Nytt lead</div>
-  <div class="ni" onclick="openImport()"><i data-lucide="download" style="width:16px;height:16px"></i> Importera</div>
-  <div class="ni" onclick="exportData()"><i data-lucide="hard-drive-download" style="width:16px;height:16px"></i> Exportera</div>
   <div class="ni" onclick="go('settings')" id="nav-settings"><i data-lucide="settings" style="width:16px;height:16px"></i> Inställningar</div>
   <div class="ni" onclick="logout()" style="color:#ef4444"><i data-lucide="log-out" style="width:16px;height:16px"></i> Logga ut</div>
  </div>
@@ -598,7 +596,7 @@ th,td{padding:8px 10px}
    <div id="q-preview" style="margin-top:20px"></div>
   </div>
   <div id="q-list" style="display:none;"></div>
-  <div id="d-active"><div id="kk-area"></div></div>
+  <div id="d-active"><div id="kk-area"></div><div id="inline-outcome" style="margin-top:16px"></div></div>
  </div>
  <div class="view" id="v-pipeline">
   <div class="page-title">🤝 Pipeline</div>
@@ -827,10 +825,10 @@ th,td{padding:8px 10px}
 <div id="progress-bar-area" style="display:none;position:fixed;bottom:60px;left:var(--SBW);right:0;background:linear-gradient(135deg,#0c0c14,#151530);padding:10px 24px;z-index:49;align-items:center;gap:16px;transition:left .25s">
  <div style="flex:1;height:6px;background:#1e293b;border-radius:3px;overflow:hidden"><div id="progress-fill" style="height:100%;background:linear-gradient(90deg,var(--ACC),var(--G));border-radius:3px;transition:width .4s;width:0%"></div></div>
  <div style="display:flex;gap:16px;font-size:12px;font-weight:700;color:#fff;white-space:nowrap">
-  <span>📞 <span id="p-calls">0</span></span>
-  <span>📄 <span id="p-offers">0</span></span>
-  <span style="color:var(--G)">✅ <span id="p-orders">0</span></span>
-  <span style="color:var(--MUTED);font-weight:500"><span id="p-pos">0</span>/<span id="p-total">0</span></span>
+  <span>Samtal: <span id="p-calls">0</span></span>
+  <span style="color:#f59e0b">Offerter: <span id="p-offers">0</span></span>
+  <span style="color:var(--G)">Ordrar: <span id="p-orders">0</span></span>
+  <span style="color:var(--MUTED);font-weight:500"><span id="p-pos">0</span> av <span id="p-total">0</span></span>
  </div>
 </div>
 <div id="bcb" style="display:none">
@@ -1097,7 +1095,6 @@ function startAutopilot(){
  dialerIdx=0;dialerOn=true;
  document.getElementById('d-idle').style.display='none';
  document.getElementById('d-active').classList.add('on');
- document.getElementById('fab-area').style.display='block';
  document.getElementById('bcb').style.display='flex';
  document.getElementById('progress-bar-area').style.display='flex';
  sessionCalls=0;sessionOffers=0;sessionOrders=0;
@@ -1116,8 +1113,8 @@ function updateProgress(){
  const pct=dialerQ.length?Math.round(((dialerIdx+1)/dialerQ.length)*100):0;
  document.getElementById('progress-fill').style.width=pct+'%';
 }
-function stopDialer(){dialerOn=false;dialerIdx=-1;document.getElementById('d-active').classList.remove('on');document.getElementById('d-idle').style.display='';document.getElementById('fab-area').style.display='none';document.getElementById('bcb').style.display='none';document.getElementById('progress-bar-area').style.display='none';closeOutcomePanel();renderDialer();updateBadges();}
-function nextDialerLead(){if(dialerIdx>=dialerQ.length){stopDialer();return;}const l=leads.find(l=>l.id===dialerQ[dialerIdx].id);if(!l){dialerIdx++;nextDialerLead();return;}lockLead(l.id);renderKK(l);document.getElementById('note-ta').value=l.note||'';renderHistory(l);renderOutcomes(l);document.getElementById('calling-lbl').textContent='';callingPhone='';}
+function stopDialer(){dialerOn=false;dialerIdx=-1;document.getElementById('d-active').classList.remove('on');document.getElementById('d-idle').style.display='';document.getElementById('bcb').style.display='none';document.getElementById('progress-bar-area').style.display='none';const io=document.getElementById('inline-outcome');if(io)io.innerHTML='';renderDialer();updateBadges();}
+function nextDialerLead(){if(dialerIdx>=dialerQ.length){stopDialer();return;}const l=leads.find(l=>l.id===dialerQ[dialerIdx].id);if(!l){dialerIdx++;nextDialerLead();return;}lockLead(l.id);renderKK(l);renderInlineOutcome(l);document.getElementById('calling-lbl').textContent='';callingPhone='';}
 function skipLead(){const l=getCurLead();if(l)unlockLead(l.id);dialerIdx++;if(dialerIdx<dialerQ.length)nextDialerLead();else stopDialer();updateBadges();}
 function renderKK(lead){
  const bindInfo=lead.bindingDate?'<span class="'+bindCls(lead.bindingDate)+'">'+bindLbl(lead.bindingDate)+'</span>':'<span style="color:var(--MUTED)">Okänd</span>';
@@ -1190,6 +1187,30 @@ function renderOutcomes(lead){
  html+='<div style="margin-top:4px"><div style="font-size:10px;font-weight:700;color:var(--MUTED);text-transform:uppercase;margin-bottom:5px">Anteckning</div><textarea id="note-ta" style="height:60px;resize:vertical;font-size:12px" oninput="saveNote()"></textarea></div>';
  html+='<div style="margin-top:8px"><div style="font-size:10px;font-weight:700;color:var(--MUTED);text-transform:uppercase;margin-bottom:5px">Historik</div><div id="hist-list"></div></div>';
  document.getElementById('outcome-btns').innerHTML=html;
+}
+function renderInlineOutcome(lead){
+ const el=document.getElementById('inline-outcome');if(!el)return;
+ el.innerHTML=
+  '<div style="background:var(--W);border:1px solid var(--BORDER);border-radius:14px;padding:24px;box-shadow:0 2px 8px rgba(0,0,0,.04)">'+
+  '<div style="font-size:13px;font-weight:800;margin-bottom:16px;color:var(--TEXT)">Hur gick samtalet?</div>'+
+  '<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-bottom:14px">'+
+  '<button class="oc-btn" onclick="quickOutcome(\'nosvar\')" style="padding:18px 10px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px"><i data-lucide="phone-missed" style="width:22px;height:22px;color:var(--MUTED)"></i><span style="font-weight:700;font-size:12px">Inget svar</span><span style="font-size:10px;color:var(--MUTED)">Åter om 2h</span></button>'+
+  '<button class="oc-btn" onclick="quickOutcome(\'ringsenare\')" style="padding:18px 10px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px"><i data-lucide="calendar-clock" style="width:22px;height:22px;color:var(--ACC)"></i><span style="font-weight:700;font-size:12px">Ring senare</span><span style="font-size:10px;color:var(--MUTED)">Välj datum</span></button>'+
+  '<button class="oc-btn" onclick="quickOutcome(\'offert\')" style="padding:18px 10px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px"><i data-lucide="file-text" style="width:22px;height:22px;color:#f59e0b"></i><span style="font-weight:700;font-size:12px">Offert</span><span style="font-size:10px;color:var(--MUTED)">Skicka offert</span></button>'+
+  '<button class="oc-btn green" onclick="quickOutcome(\'order\')" style="padding:18px 10px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px;border-color:var(--G);background:linear-gradient(135deg,#f0fdf4,#dcfce7)"><i data-lucide="trophy" style="width:22px;height:22px;color:#059669"></i><span style="font-weight:700;font-size:12px;color:#065f46">AFFÄR!</span><span style="font-size:10px;color:#059669">Registrera</span></button>'+
+  '</div>'+
+  '<div style="display:flex;gap:10px;align-items:start">'+
+  '<div style="flex:1"><textarea id="note-ta" placeholder="Anteckning..." style="height:50px;resize:vertical;font-size:12px;border-radius:10px" oninput="saveNote()"></textarea></div>'+
+  '<button class="btn btn-o btn-sm" onclick="skipLead()" style="white-space:nowrap;padding:14px 16px"><i data-lucide="skip-forward" style="width:14px;height:14px;vertical-align:-2px"></i> Hoppa</button>'+
+  '</div>'+
+  '<details style="margin-top:10px"><summary style="font-size:11px;color:var(--MUTED);cursor:pointer;font-weight:600">Fler alternativ + historik</summary>'+
+  '<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:8px">';
+ let extra='';
+ for(let g in OUTCOMES){OUTCOMES[g].forEach(o=>{extra+='<button class="oc-btn '+(o.cls||'')+'" onclick="handleOutcome(\''+esc(o.t)+'\','+o.h+',\''+o.u+'\','+o.ret+')" style="font-size:10px;padding:4px 8px">'+esc(o.t)+'</button>';});}
+ el.innerHTML=el.innerHTML+extra+'</div><div style="margin-top:10px" id="hist-list"></div></details></div>';
+ if(lead.note)document.getElementById('note-ta').value=lead.note;
+ renderHistory(lead);
+ if(window.lucide)lucide.createIcons();
 }
 function quickOutcome(type){
  sessionCalls++;
