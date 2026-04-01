@@ -200,6 +200,8 @@ tr.clickable:hover{background:linear-gradient(135deg,#f5f3ff,#fafafc);cursor:poi
 .empty{text-align:center;padding:56px 32px;color:var(--MUTED);font-size:14px;background:linear-gradient(135deg,#fafafc,#f5f3ff);border-radius:12px;margin:12px 0}
 .spinner{display:inline-block;width:18px;height:18px;border:2px solid var(--BORDER);border-top-color:var(--ACC);border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle}
 @keyframes spin{to{transform:rotate(360deg)}}
+@keyframes celebPop{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:scale(1)}}
+@keyframes confettiFall{0%{transform:translateY(0) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
 .notif{position:fixed;bottom:80px;left:calc(var(--SBW)+20px);z-index:90;background:var(--W);border:1px solid var(--BORDER);border-left:4px solid var(--G);border-radius:12px;padding:14px 20px;box-shadow:0 8px 24px rgba(0,0,0,.12);animation:npop .35s cubic-bezier(.34,1.56,.64,1);max-width:320px}
 @keyframes npop{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:999;display:flex;align-items:center;justify-content:center}
@@ -571,7 +573,6 @@ th,td{padding:8px 10px}
  <div class="ni" onclick="go('dash')" id="nav-dash"><i data-lucide="bar-chart-3" style="width:16px;height:16px"></i> Dashboard</div>
  <div class="sec">Verktyg</div>
  <div class="ni" onclick="go('sok')" id="nav-sok"><i data-lucide="search" style="width:16px;height:16px"></i> Sök</div>
- <div class="ni" onclick="go('bolagsverket')" id="nav-bolagsverket"><i data-lucide="building-2" style="width:16px;height:16px"></i> Bolagsverket</div>
  <div class="bottom">
   <div class="ni" onclick="openAddModal()"><i data-lucide="plus-circle" style="width:16px;height:16px"></i> Nytt lead</div>
   <div class="ni" onclick="openImport()"><i data-lucide="download" style="width:16px;height:16px"></i> Importera</div>
@@ -582,32 +583,19 @@ th,td{padding:8px 10px}
 </div>
 <div class="main" id="main">
  <div class="view on" id="v-dialer">
-  <div id="d-idle" style="display:grid;grid-template-columns:1fr;min-height:calc(100vh - 56px);border-radius:16px;overflow:hidden">
-   <div class="left" style="padding:64px 52px">
-    <div class="pre">⚡ Dialer redo</div>
-    <h1>Dags att <span>stänga affärer.</span></h1>
-    <p>Prioriterade leads baserat på bindningstid.<br>Åkerier, bygg, måleri och logistik visas alltid först.</p>
-    <div style="display:flex;gap:12px;flex-wrap:wrap">
-     <button class="start-btn start-btn-g" onclick="startDialer()">▶ Starta Dialer</button>
-     <button class="start-btn start-btn-b" onclick="claimNextTarget()">⭐ Nästa prio-kund</button>
-     <button class="start-btn" style="background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.15)" onclick="toggleDialerFilter()">⚙️ Filter</button>
-    </div>
-    <div style="margin-top:20px;display:flex;gap:14px">
-     <div style="background:rgba(255,255,255,.05);padding:12px 16px;border-radius:8px"><div style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.04em">Prio-leads</div><div style="font-size:24px;font-weight:800;color:#fff" id="target-count">0</div></div>
-     <div style="background:rgba(255,255,255,.05);padding:12px 16px;border-radius:8px"><div style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.04em">Totalt redo</div><div style="font-size:24px;font-weight:800;color:#fff" id="total-ready-count">0</div></div>
-    </div>
-    <div id="dialer-filter" style="display:none;margin-top:20px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:16px">
-     <div style="font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);font-weight:700;margin-bottom:12px">Filter</div>
-     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
-      <div><label style="font-size:10px;color:rgba(255,255,255,.5);font-weight:600;display:block;margin-bottom:4px">Operatör</label><select id="df-op" style="background:#1a1a2e;border:1px solid rgba(255,255,255,.2);color:#fff;font-size:12px;padding:7px 10px;border-radius:8px;width:100%" onchange="renderDialer()"><option value="">Alla</option><option>Telenor</option><option>Tre</option><option>Telia</option><option>Tele2</option><option>Okänd</option></select></div>
-      <div><label style="font-size:10px;color:rgba(255,255,255,.5);font-weight:600;display:block;margin-bottom:4px">Bransch</label><select id="df-ind" style="background:#1a1a2e;border:1px solid rgba(255,255,255,.2);color:#fff;font-size:12px;padding:7px 10px;border-radius:8px;width:100%" onchange="renderDialer()"><option value="">Alla</option><option value="åkeri">🚛 Åkeri</option><option value="bygg">🏗️ Bygg</option><option value="måleri">🎨 Måleri</option><option value="logistik">📦 Logistik</option><option value="vvs">🔧 VVS</option><option value="el">⚡ El</option><option value="annat">🏢 Övrigt</option></select></div>
-      <div><label style="font-size:10px;color:rgba(255,255,255,.5);font-weight:600;display:block;margin-bottom:4px">Bindning från (dagar)</label><input type="number" id="df-bind-min" placeholder="-999" style="background:#1a1a2e;border:1px solid rgba(255,255,255,.2);color:#fff;font-size:12px;padding:7px 10px;border-radius:8px" onchange="renderDialer()"></div>
-      <div><label style="font-size:10px;color:rgba(255,255,255,.5);font-weight:600;display:block;margin-bottom:4px">Bindning till (dagar)</label><input type="number" id="df-bind-max" placeholder="t.ex. 90" style="background:#1a1a2e;border:1px solid rgba(255,255,255,.2);color:#fff;font-size:12px;padding:7px 10px;border-radius:8px" onchange="renderDialer()"></div>
-      <div><label style="font-size:10px;color:rgba(255,255,255,.5);font-weight:600;display:block;margin-bottom:4px">Status</label><select id="df-status" style="background:#1a1a2e;border:1px solid rgba(255,255,255,.2);color:#fff;font-size:12px;padding:7px 10px;border-radius:8px;width:100%" onchange="renderDialer()"><option value="">Alla</option><option value="ny">Ny</option><option value="ej_svar">Ej svar</option><option value="ring_senare">Ring senare</option></select></div>
-      <div style="display:flex;align-items:flex-end"><button onclick="clearDialerFilter()" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.6);border-radius:8px;padding:7px 12px;font-size:11px;cursor:pointer;font-family:inherit;width:100%">Rensa filter</button></div>
-     </div>
+  <div id="d-idle" style="min-height:calc(100vh - 56px);display:flex;flex-direction:column">
+   <div style="background:linear-gradient(165deg,#0c0c14 0%,#151530 50%,#1e1450 100%);border-radius:16px;padding:48px 52px;position:relative;overflow:hidden">
+    <div style="position:absolute;top:-20%;right:-10%;width:400px;height:400px;background:radial-gradient(circle,rgba(91,95,199,.12),transparent 70%);border-radius:50%"></div>
+    <div style="position:relative;z-index:1">
+     <div style="font-size:13px;color:rgba(255,255,255,.5);margin-bottom:6px" id="greeting-text">God morgon</div>
+     <h1 style="font-size:32px;font-weight:800;color:#fff;letter-spacing:-.03em;margin-bottom:20px" id="seller-greeting">Andy 👋</h1>
+     <div id="today-summary" style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:28px"></div>
+     <button class="start-btn start-btn-g" onclick="startAutopilot()" style="font-size:16px;padding:18px 48px;border-radius:14px">
+      ▶ BÖRJA DAGEN
+     </button>
     </div>
    </div>
+   <div id="q-preview" style="margin-top:20px"></div>
   </div>
   <div id="q-list" style="display:none;"></div>
   <div id="d-active"><div id="kk-area"></div></div>
@@ -829,11 +817,20 @@ th,td{padding:8px 10px}
 </div>
 <div id="outcome-overlay" onclick="closeOutcomePanel()"></div>
 <div id="panel-outcome" class="float-panel" style="display:none">
- <div class="fp-header">Välj utfall <button onclick="closeOutcomePanel()">✕</button></div>
+ <div class="fp-header">Hur gick samtalet? <button onclick="closeOutcomePanel()">✕</button></div>
  <div class="fp-body">
   <div id="outcome-btns"></div>
   <div style="margin-top:12px"><div style="font-size:10px;font-weight:700;color:var(--MUTED);text-transform:uppercase;margin-bottom:5px">Anteckningar</div><textarea id="note-ta" style="height:75px;resize:vertical;font-size:12px" oninput="saveNote()"></textarea></div>
   <div style="margin-top:12px"><div style="font-size:10px;font-weight:700;color:var(--MUTED);text-transform:uppercase;margin-bottom:5px">Historik</div><div id="hist-list"></div></div>
+ </div>
+</div>
+<div id="progress-bar-area" style="display:none;position:fixed;bottom:60px;left:var(--SBW);right:0;background:linear-gradient(135deg,#0c0c14,#151530);padding:10px 24px;z-index:49;align-items:center;gap:16px;transition:left .25s">
+ <div style="flex:1;height:6px;background:#1e293b;border-radius:3px;overflow:hidden"><div id="progress-fill" style="height:100%;background:linear-gradient(90deg,var(--ACC),var(--G));border-radius:3px;transition:width .4s;width:0%"></div></div>
+ <div style="display:flex;gap:16px;font-size:12px;font-weight:700;color:#fff;white-space:nowrap">
+  <span>📞 <span id="p-calls">0</span></span>
+  <span>📄 <span id="p-offers">0</span></span>
+  <span style="color:var(--G)">✅ <span id="p-orders">0</span></span>
+  <span style="color:var(--MUTED);font-weight:500"><span id="p-pos">0</span>/<span id="p-total">0</span></span>
  </div>
 </div>
 <div id="bcb" style="display:none">
@@ -880,6 +877,7 @@ const OUTCOMES={
 const SN={ny:'Ny',prospekt:'Prospekt',ring_senare:'Ring senare',offert:'Offert skickad',order:'Order',inte_intresserad:'Inte intresserad',avslutad:'Avslutad',ej_svar:'Ej svar',blacklist:'Spärrad',apg:'APG'};
 
 let leads=[],dialerQ=[],dialerIdx=-1,dialerOn=false;
+let sessionCalls=0,sessionOffers=0,sessionOrders=0;
 let callTimer=null,muted=false,callingPhone='';
 let panelOpen=false,curPage=0;
 const PAGE=50;
@@ -1060,19 +1058,31 @@ function applyDialerFilters(arr){
  });
 }
 
+function getAutopilotQueue(){
+ const now=new Date();
+ const callbacks=leads.filter(l=>l.nextCallDate&&new Date(l.nextCallDate)<=now&&!['blacklist','order','prospekt','avslutad','inte_intresserad'].includes(l.status));
+ const offers=leads.filter(l=>['offert','apg'].includes(l.status)&&l.seller===currentSeller);
+ const scored=scoredLeads().filter(l=>!callbacks.find(c=>c.id===l.id)&&!offers.find(o=>o.id===l.id));
+ return {callbacks,offers,scored,total:callbacks.length+offers.length+scored.length};
+}
 function renderDialer(){
  if(dialerOn)return;
- const all=scoredLeads();
- const filtered=applyDialerFilters(all);
- const tg=filtered.filter(l=>TARGET.includes(l.industry)).slice(0,5);
- const ot=filtered.filter(l=>!TARGET.includes(l.industry)).slice(0,5);
- document.getElementById('target-count').textContent=filtered.filter(l=>TARGET.includes(l.industry)).length;
- document.getElementById('total-ready-count').textContent=filtered.length;
- let html='';
- if(tg.length){html+='<div style="font-size:10px;color:var(--MUTED);margin-bottom:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em">⭐ Prioriterade branscher</div>';tg.forEach(l=>html+=qItem(l));}
- if(ot.length){html+='<div style="font-size:10px;color:var(--MUTED);margin:14px 0 10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em">Övriga leads</div>';ot.forEach(l=>html+=qItem(l));}
- if(!tg.length&&!ot.length)html='<div class="empty">Inga leads matchar filtret.<br><button class="btn btn-p btn-sm" style="margin-top:12px" onclick="clearDialerFilter()">Rensa filter</button></div>';
- document.getElementById('q-list').innerHTML=html;
+ const q=getAutopilotQueue();
+ const hour=new Date().getHours();
+ const greet=hour<10?'God morgon':hour<17?'Hej':'God kväll';
+ const el=document.getElementById('greeting-text');if(el)el.textContent=greet;
+ const sg=document.getElementById('seller-greeting');
+ if(sg){const raw=currentSeller||'andy';sg.textContent=raw.charAt(0).toUpperCase()+raw.slice(1)+' 👋';}
+ const sum=document.getElementById('today-summary');
+ if(sum)sum.innerHTML=
+  '<div style="background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.25);border-radius:12px;padding:14px 20px;min-width:140px"><div style="font-size:28px;font-weight:800;color:#ef4444">'+q.callbacks.length+'</div><div style="font-size:11px;color:rgba(255,255,255,.6);margin-top:2px">Återkomster</div></div>'+
+  '<div style="background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.25);border-radius:12px;padding:14px 20px;min-width:140px"><div style="font-size:28px;font-weight:800;color:#f59e0b">'+q.offers.length+'</div><div style="font-size:11px;color:rgba(255,255,255,.6);margin-top:2px">Offerter att följa upp</div></div>'+
+  '<div style="background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.25);border-radius:12px;padding:14px 20px;min-width:140px"><div style="font-size:28px;font-weight:800;color:#22c55e">'+q.scored.length+'</div><div style="font-size:11px;color:rgba(255,255,255,.6);margin-top:2px">Leads redo</div></div>';
+ const preview=document.getElementById('q-preview');
+ if(preview&&q.callbacks.length){
+  preview.innerHTML='<div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--MUTED);margin-bottom:10px">Först ut — återkomster</div>'+q.callbacks.slice(0,3).map(l=>qItem({...l,score:scoreLead(l)})).join('');
+ } else if(preview){preview.innerHTML='';}
+ document.getElementById('b-dialer').textContent=q.total;
 }
 // =============================================
 
@@ -1080,19 +1090,33 @@ function qItem(l){return '<div class="q-item" onclick="openFromQueue('+l.id+')">
 function claimNextTarget(){const t=targetLeads();if(!t.length){showNotif('Inga prioriterade leads!','');return;}if(lockLead(t[0].id))openKK(t[0].id);else{showNotif('Försök igen!','');renderDialer();}}
 function openFromQueue(id){const l=leads.find(l=>l.id===id);if(!l)return;const ls=lockStatus(l);if(ls==='other'){showNotif('Låst av '+l.lockedBy+'!','');return;}if(ls==='free'||ls==='exp')lockLead(id);openKK(id);}
 
-function startDialer(){
- // FIXAD: Respekterar filter när dialern startas
- dialerQ=applyDialerFilters(scoredLeads());
- if(!dialerQ.length){showNotif('Inga leads matchar filtret!','');return;}
+function startAutopilot(){
+ const q=getAutopilotQueue();
+ dialerQ=[...q.callbacks,...q.offers,...q.scored].map(l=>({...l,score:scoreLead(l)}));
+ if(!dialerQ.length){showNotif('Inga leads att ringa!','');return;}
  dialerIdx=0;dialerOn=true;
  document.getElementById('d-idle').style.display='none';
  document.getElementById('d-active').classList.add('on');
  document.getElementById('fab-area').style.display='block';
  document.getElementById('bcb').style.display='flex';
+ document.getElementById('progress-bar-area').style.display='flex';
+ sessionCalls=0;sessionOffers=0;sessionOrders=0;
+ updateProgress();
  nextDialerLead();
 }
+function startDialer(){startAutopilot();}
 
-function stopDialer(){dialerOn=false;dialerIdx=-1;document.getElementById('d-active').classList.remove('on');document.getElementById('d-idle').style.display='';document.getElementById('fab-area').style.display='none';document.getElementById('bcb').style.display='none';closeOutcomePanel();renderDialer();updateBadges();}
+function updateProgress(){
+ const el=document.getElementById('p-calls');if(!el)return;
+ el.textContent=sessionCalls;
+ document.getElementById('p-offers').textContent=sessionOffers;
+ document.getElementById('p-orders').textContent=sessionOrders;
+ document.getElementById('p-pos').textContent=dialerIdx+1;
+ document.getElementById('p-total').textContent=dialerQ.length;
+ const pct=dialerQ.length?Math.round(((dialerIdx+1)/dialerQ.length)*100):0;
+ document.getElementById('progress-fill').style.width=pct+'%';
+}
+function stopDialer(){dialerOn=false;dialerIdx=-1;document.getElementById('d-active').classList.remove('on');document.getElementById('d-idle').style.display='';document.getElementById('fab-area').style.display='none';document.getElementById('bcb').style.display='none';document.getElementById('progress-bar-area').style.display='none';closeOutcomePanel();renderDialer();updateBadges();}
 function nextDialerLead(){if(dialerIdx>=dialerQ.length){stopDialer();return;}const l=leads.find(l=>l.id===dialerQ[dialerIdx].id);if(!l){dialerIdx++;nextDialerLead();return;}lockLead(l.id);renderKK(l);document.getElementById('note-ta').value=l.note||'';renderHistory(l);renderOutcomes(l);document.getElementById('calling-lbl').textContent='';callingPhone='';}
 function skipLead(){const l=getCurLead();if(l)unlockLead(l.id);dialerIdx++;if(dialerIdx<dialerQ.length)nextDialerLead();else stopDialer();updateBadges();}
 function renderKK(lead){
@@ -1153,7 +1177,27 @@ function toggleSub(i){const el=document.getElementById('sub-d-'+i);el.style.disp
 function openOutcomePanel(){const p=document.getElementById('panel-outcome'),ov=document.getElementById('outcome-overlay');panelOpen=true;p.style.display='flex';ov.style.display='block';}
 function closeOutcomePanel(){const p=document.getElementById('panel-outcome'),ov=document.getElementById('outcome-overlay');panelOpen=false;p.style.display='none';ov.style.display='none';}
 function toggleOutcomePanel(){if(panelOpen)closeOutcomePanel();else openOutcomePanel();}
-function renderOutcomes(lead){let html='';for(let g in OUTCOMES){html+='<div class="oc-group"><div class="oc-title">'+g+'</div><div>';OUTCOMES[g].forEach(o=>{html+='<button class="oc-btn '+(o.cls||'')+'" onclick="handleOutcome(\''+esc(o.t)+'\','+o.h+',\''+o.u+'\','+o.ret+')">'+esc(o.t)+'</button>';});html+='</div></div>';}html+='<button class="next-btn" onclick="skipLead()">Nästa lead →</button>';document.getElementById('outcome-btns').innerHTML=html;}
+function renderOutcomes(lead){
+ let html='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">'+
+  '<button class="oc-btn" onclick="quickOutcome(\'nosvar\')" style="padding:16px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px"><span style="font-size:20px">📵</span><span style="font-weight:700">Inget svar</span><span style="font-size:10px;color:var(--MUTED)">Ringer igen om 2h</span></button>'+
+  '<button class="oc-btn" onclick="quickOutcome(\'ringsenare\')" style="padding:16px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px"><span style="font-size:20px">📅</span><span style="font-weight:700">Ring senare</span><span style="font-size:10px;color:var(--MUTED)">Välj datum</span></button>'+
+  '<button class="oc-btn green" onclick="quickOutcome(\'offert\')" style="padding:16px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px"><span style="font-size:20px">📄</span><span style="font-weight:700">Offert skickad</span><span style="font-size:10px;color:var(--MUTED)">Följ upp senare</span></button>'+
+  '<button class="oc-btn green" onclick="quickOutcome(\'order\')" style="padding:16px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px;border-color:var(--G);background:linear-gradient(135deg,#f0fdf4,#dcfce7)"><span style="font-size:20px">🎉</span><span style="font-weight:700;color:#065f46">AFFÄR!</span><span style="font-size:10px;color:#059669">Registrera order</span></button>'+
+  '</div>';
+ html+='<details style="margin-bottom:12px"><summary style="font-size:11px;color:var(--MUTED);cursor:pointer;font-weight:600;padding:8px 0">Fler alternativ ▾</summary><div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">';
+ for(let g in OUTCOMES){OUTCOMES[g].forEach(o=>{html+='<button class="oc-btn '+(o.cls||'')+'" onclick="handleOutcome(\''+esc(o.t)+'\','+o.h+',\''+o.u+'\','+o.ret+')" style="font-size:10px;padding:5px 9px">'+esc(o.t)+'</button>';});}
+ html+='</div></details>';
+ html+='<div style="margin-top:4px"><div style="font-size:10px;font-weight:700;color:var(--MUTED);text-transform:uppercase;margin-bottom:5px">Anteckning</div><textarea id="note-ta" style="height:60px;resize:vertical;font-size:12px" oninput="saveNote()"></textarea></div>';
+ html+='<div style="margin-top:8px"><div style="font-size:10px;font-weight:700;color:var(--MUTED);text-transform:uppercase;margin-bottom:5px">Historik</div><div id="hist-list"></div></div>';
+ document.getElementById('outcome-btns').innerHTML=html;
+}
+function quickOutcome(type){
+ sessionCalls++;
+ if(type==='nosvar'){handleOutcome('Ej svar – åter om 2h',2,'h',true);return;}
+ if(type==='ringsenare'){const d=prompt('Ringdatum (YYYY-MM-DD):');if(d){const lead=getCurLead();if(lead){lead.status='ring_senare';lead.nextCallDate=d;lead.history.push({date:new Date().toISOString().slice(0,10),outcome:'Ring senare: '+d,note:lead.note||'',seller:currentSeller});saveData();closeOutcomePanel();dialerIdx++;updateProgress();if(dialerIdx<dialerQ.length)nextDialerLead();else stopDialer();updateBadges();}}return;}
+ if(type==='offert'){sessionOffers++;handleOutcome('Skicka offert',0,'offert',false);return;}
+ if(type==='order'){sessionOrders++;handleOutcome('✅ Order!',0,'order',false);return;}
+}
 function handleOutcome(text,hours,unit,ret){
  if(unit==='order'){showTBModal(getCurLead().id,getCurLead().company);return;}
  logOutcome(text,hours,unit,ret);
@@ -1194,8 +1238,8 @@ function saveTB(){
  tbLeadId=null;
  unlockLead(savedId);
  dialerIdx++;if(dialerIdx<dialerQ.length)nextDialerLead();else stopDialer();
- updateBadges();
- showNotif('✅ Affär sparad!','');
+ updateBadges();updateProgress();
+ celebrate();
 }
 function skipTB(){
  document.getElementById('tb-modal').style.display='none';
@@ -1231,7 +1275,7 @@ function logOutcome(text,hours,unit,ret){
  else if(unit==='m'){lead.status='inte_intresserad';const d=new Date();d.setMonth(d.getMonth()+hours);lead.nextCallDate=d.toISOString().slice(0,10);}
  if(!ret)unlockLead(lead.id);
  saveData();closeOutcomePanel();callingPhone='';
- dialerIdx++;if(dialerIdx<dialerQ.length)nextDialerLead();else stopDialer();
+ dialerIdx++;updateProgress();if(dialerIdx<dialerQ.length)nextDialerLead();else stopDialer();
  updateBadges();
 }
 function switchLeadsTab(tab){
@@ -1389,6 +1433,15 @@ function saveNote(){const l=getCurLead();if(!l)return;l.note=document.getElement
 function getCurLead(){if(!dialerOn||dialerIdx<0||dialerIdx>=dialerQ.length)return null;return leads.find(l=>l.id===dialerQ[dialerIdx].id);}
 function openKK(id){const lead=leads.find(l=>l.id===id);if(!lead)return;dialerQ=[lead];dialerIdx=0;dialerOn=true;callingPhone='';go('dialer');document.getElementById('d-idle').style.display='none';document.getElementById('d-active').classList.add('on');document.getElementById('fab-area').style.display='block';document.getElementById('bcb').style.display='flex';nextDialerLead();}
 function showNotif(title,sub){const el=document.createElement('div');el.className='notif';el.innerHTML='<strong style="font-size:12px">'+esc(title)+'</strong>'+(sub?'<div style="font-size:11px;color:var(--MUTED);margin-top:2px">'+esc(sub)+'</div>':'');el.onclick=()=>el.remove();document.getElementById('notif-area').appendChild(el);setTimeout(()=>el.remove(),4000);}
+function celebrate(){
+ const c=document.createElement('div');
+ c.style.cssText='position:fixed;inset:0;z-index:99999;pointer-events:none;display:flex;align-items:center;justify-content:center';
+ c.innerHTML='<div style="animation:celebPop .6s cubic-bezier(.34,1.56,.64,1);text-align:center"><div style="font-size:80px;margin-bottom:12px">🎉</div><div style="font-size:36px;font-weight:900;color:var(--G);text-shadow:0 4px 20px rgba(34,197,94,.4)">AFFÄR!</div></div>';
+ const confetti=Array.from({length:40},()=>{const d=document.createElement('div');const colors=['#22c55e','#5b5fc7','#f59e0b','#ef4444','#8b5cf6','#ec4899'];d.style.cssText='position:fixed;width:8px;height:8px;border-radius:50%;background:'+colors[Math.floor(Math.random()*colors.length)]+';top:-10px;left:'+Math.random()*100+'%;z-index:99998;animation:confettiFall '+(1.5+Math.random())+'s ease-out forwards;animation-delay:'+Math.random()*0.3+'s';return d;});
+ confetti.forEach(d=>document.body.appendChild(d));
+ document.body.appendChild(c);
+ setTimeout(()=>{c.remove();confetti.forEach(d=>d.remove());},3000);
+}
 function openAddModal(){document.getElementById('add-modal').style.display='flex';}
 function closeAddModal(){document.getElementById('add-modal').style.display='none';}
 function addLead(){
